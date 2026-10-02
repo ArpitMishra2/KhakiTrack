@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'config.dart';
+import 'data/exam_repository.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 
@@ -13,11 +14,15 @@ Future<void> main() async {
     // ignore: deprecated_member_use  (legacy JWT anon key is what we have)
     anonKey: AppConfig.supabaseAnonKey,
   );
-  runApp(const MaidanApp());
+  runApp(
+    MaidanApp(repository: SupabaseExamRepository(Supabase.instance.client)),
+  );
 }
 
 class MaidanApp extends StatelessWidget {
-  const MaidanApp({super.key});
+  const MaidanApp({super.key, required this.repository});
+
+  final ExamRepository repository;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +41,7 @@ class MaidanApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const HomeScreen(),
+      home: HomeScreen(repository: repository),
     );
   }
 }
