@@ -20,4 +20,4 @@ Version `1.0` of both files is sourced from official notices, retrieved 2026-10-
 - UP Police Constable 2025: UPPRPB DV/PST procedure notice (10-08-2026) and PET procedure notice (23-09-2026).
 - SSC GD 2026: SSC notice published 01-12-2025, paras 12.4 and 12.5.
 
-`owner_review.reviewed` is still `false` in both files until Arpit checks them against the PDFs.
+Arpit reviewed both files against the PDFs on 2026-10-02 (`owner_review.reviewed: true`).

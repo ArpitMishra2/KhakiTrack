@@ -3,8 +3,9 @@
   "recruitment": "Constable (GD) in CAPFs and SSF, and Rifleman (GD) in Assam Rifles Examination, 2026 (notice F. No. HQ-C-3007/10/2025-C-3, published 01-12-2025)",
   "data_version": "1.0",
   "owner_review": {
-    "reviewed": false,
-    "note": "Every value below was read from the official SSC notice linked beside it. Arpit to confirm against the PDF, then set reviewed to true."
+    "reviewed": true,
+    "reviewed_on": "2026-10-02",
+    "note": "Every value below was read from the official SSC notice linked beside it. Arpit confirmed these values against the PDFs on 2026-10-02."
   },
   "sources": {
     "notice": {

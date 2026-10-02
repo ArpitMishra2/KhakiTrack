@@ -3,8 +3,9 @@
   "recruitment": "UP Police Constable (Civil Police) and equivalent posts, Direct Recruitment 2025 (advertisement dated 31-12-2025, 32,679 posts)",
   "data_version": "1.0",
   "owner_review": {
-    "reviewed": false,
-    "note": "Every value below was read from the official UPPRPB notices linked beside it. Arpit to confirm against the PDFs, then set reviewed to true."
+    "reviewed": true,
+    "reviewed_on": "2026-10-02",
+    "note": "Every value below was read from the official UPPRPB notices linked beside it. Arpit confirmed these values against the PDFs on 2026-10-02."
   },
   "sources": {
     "pst": {
