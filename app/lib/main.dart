@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'config.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 
-void main() => runApp(const MaidanApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: AppConfig.supabaseUrl,
+    // ignore: deprecated_member_use  (legacy JWT anon key is what we have)
+    anonKey: AppConfig.supabaseAnonKey,
+  );
+  runApp(const MaidanApp());
+}
 
 class MaidanApp extends StatelessWidget {
   const MaidanApp({super.key});
