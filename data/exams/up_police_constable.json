@@ -1,0 +1,19 @@
+{
+  "exam_id": "up_police_constable",
+  "data_version": "0.1-unverified",
+  "status": "UNVERIFIED: no value below has been checked against the official UPPRPB notification (uppbpb.gov.in was unreachable from the build environment). Do not ship to users until each is confirmed.",
+  "official_source_needed": "Latest UPPRPB Constable (Civil Police) recruitment notification PDF",
+  "reported_by": "https://onlineresult.in/article/up-police-constable-physical-test",
+  "standards": [
+    {"gender":"male","category":"general_obc_sc","event":"height_cm","kind":"measure_min","value":168,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"st","event":"height_cm","kind":"measure_min","value":160,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"general_obc_sc","event":"chest_unexpanded_cm","kind":"measure_min","value":79,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"general_obc_sc","event":"chest_expanded_cm","kind":"measure_min","value":84,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"st","event":"chest_unexpanded_cm","kind":"measure_min","value":77,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"st","event":"chest_expanded_cm","kind":"measure_min","value":82,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"female","category":"general_obc_sc","event":"height_cm","kind":"measure_min","value":152,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"female","category":"st","event":"height_cm","kind":"measure_min","value":147,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"all","event":"run_4800m","kind":"time_max_seconds","value":null,"reported_value":1500,"verified":false,"source_url":null,"note":"Sites say 4.8 km in 25 min. Value withheld: this conflicts with other recollection (28 min in earlier notifications). Confirm from the official notification."},
+    {"gender":"female","category":"all","event":"run_2400m","kind":"time_max_seconds","value":null,"reported_value":840,"verified":false,"source_url":null,"note":"Sites say 2.4 km in 14 min. Value withheld pending official confirmation."}
+  ]
+}

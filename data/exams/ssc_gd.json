@@ -1,0 +1,15 @@
+{
+  "exam_id": "ssc_gd",
+  "data_version": "0.1-unverified",
+  "status": "UNVERIFIED: no value below has been checked against the official SSC notice (ssc.gov.in was unreachable from the build environment). Do not ship to users until each is confirmed.",
+  "official_source_needed": "Latest SSC Constable (GD) notice PDF, PST/PET annexure",
+  "reported_by": "https://www.mahendras.org/blogs/ssc-gd-eligibility-criteria",
+  "standards": [
+    {"gender":"male","category":"general","event":"height_cm","kind":"measure_min","value":170,"verified":false,"source_url":null,"note":"reported by secondary sites only; relaxations for ST/hill areas not captured"},
+    {"gender":"male","category":"general","event":"chest_unexpanded_cm","kind":"measure_min","value":80,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"general","event":"chest_expansion_cm","kind":"measure_min","value":5,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"female","category":"general","event":"height_cm","kind":"measure_min","value":157,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
+    {"gender":"male","category":"general","event":"run_5000m","kind":"time_max_seconds","value":1440,"verified":false,"source_url":null,"note":"5 km in 24 min, reported by secondary sites only"},
+    {"gender":"female","category":"general","event":"run_1600m","kind":"time_max_seconds","value":510,"verified":false,"source_url":null,"note":"1.6 km in 8.5 min, reported by secondary sites only"}
+  ]
+}
