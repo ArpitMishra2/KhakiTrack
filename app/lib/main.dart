@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:path_provider/path_provider.dart';
+
 import 'config.dart';
+import 'data/cached_exam_repository.dart';
 import 'data/auth_service.dart';
 import 'data/exam_repository.dart';
 import 'data/leaderboard_repository.dart';
@@ -22,7 +25,10 @@ Future<void> main() async {
   );
   runApp(
     MaidanApp(
-      repository: SupabaseExamRepository(Supabase.instance.client),
+      repository: CachedExamRepository(
+        SupabaseExamRepository(Supabase.instance.client),
+        getApplicationDocumentsDirectory,
+      ),
       auth: SupabaseAuthService(Supabase.instance.client),
       profiles: SupabaseProfileRepository(Supabase.instance.client),
       training: SupabaseTrainingRepository(Supabase.instance.client),
