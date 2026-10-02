@@ -812,4 +812,79 @@ class AppLocalizationsHi extends AppLocalizations {
   String minPerKm(String pace) {
     return '$pace /किमी';
   }
+
+  @override
+  String get tabRanking => 'रैंकिंग';
+
+  @override
+  String get areaTitle => 'आपका क्षेत्र';
+
+  @override
+  String get areaIntro =>
+      'अपने गाँव, ब्लॉक और ज़िले के साथियों से मुकाबला करने के लिए अपना क्षेत्र चुनें।';
+
+  @override
+  String get areaDistrict => 'ज़िला';
+
+  @override
+  String get areaChooseDistrict => 'ज़िला चुनें';
+
+  @override
+  String get areaBlock => 'ब्लॉक / तहसील';
+
+  @override
+  String get areaVillage => 'गाँव / मोहल्ला';
+
+  @override
+  String get areaSpellingHint =>
+      'गाँव और ब्लॉक का नाम वैसे ही लिखें जैसे आपके साथी लिखेंगे, ताकि आप एक ही रैंकिंग में आएं।';
+
+  @override
+  String get areaVisible => 'दूसरों की रैंकिंग में मेरा नाम दिखाएं';
+
+  @override
+  String get areaVisibleNote =>
+      'केवल पहला नाम और उपनाम का पहला अक्षर दिखता है।';
+
+  @override
+  String get editArea => 'क्षेत्र बदलें';
+
+  @override
+  String get scopeVillage => 'गाँव';
+
+  @override
+  String get scopeBlock => 'ब्लॉक';
+
+  @override
+  String get scopeDistrict => 'ज़िला';
+
+  @override
+  String get scopeState => 'राज्य';
+
+  @override
+  String get metricPet => 'PET समय';
+
+  @override
+  String get metricDistance => 'इस हफ्ते की दूरी';
+
+  @override
+  String get thisWeek => 'इस हफ्ते';
+
+  @override
+  String get lastWeek => 'पिछला हफ्ता';
+
+  @override
+  String get rankingRules =>
+      'केवल GPS से जाँची गई दौड़ें गिनी जाती हैं। PET समय के लिए असली दूरी पर मॉक PET दौड़ें। रैंकिंग हर सोमवार नई शुरू होती है।';
+
+  @override
+  String get rankingEmpty =>
+      'इस हफ्ते यहाँ अभी कोई नहीं है। मॉक PET दौड़कर पहले नंबर पर आएं!';
+
+  @override
+  String get rankingNeedsBlock =>
+      'इस रैंकिंग के लिए अपना ब्लॉक और गाँव जोड़ें।';
+
+  @override
+  String get youLabel => 'आप';
 }

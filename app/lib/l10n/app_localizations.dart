@@ -1507,6 +1507,144 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'{pace} /किमी'**
   String minPerKm(String pace);
+
+  /// No description provided for @tabRanking.
+  ///
+  /// In hi, this message translates to:
+  /// **'रैंकिंग'**
+  String get tabRanking;
+
+  /// No description provided for @areaTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'आपका क्षेत्र'**
+  String get areaTitle;
+
+  /// No description provided for @areaIntro.
+  ///
+  /// In hi, this message translates to:
+  /// **'अपने गाँव, ब्लॉक और ज़िले के साथियों से मुकाबला करने के लिए अपना क्षेत्र चुनें।'**
+  String get areaIntro;
+
+  /// No description provided for @areaDistrict.
+  ///
+  /// In hi, this message translates to:
+  /// **'ज़िला'**
+  String get areaDistrict;
+
+  /// No description provided for @areaChooseDistrict.
+  ///
+  /// In hi, this message translates to:
+  /// **'ज़िला चुनें'**
+  String get areaChooseDistrict;
+
+  /// No description provided for @areaBlock.
+  ///
+  /// In hi, this message translates to:
+  /// **'ब्लॉक / तहसील'**
+  String get areaBlock;
+
+  /// No description provided for @areaVillage.
+  ///
+  /// In hi, this message translates to:
+  /// **'गाँव / मोहल्ला'**
+  String get areaVillage;
+
+  /// No description provided for @areaSpellingHint.
+  ///
+  /// In hi, this message translates to:
+  /// **'गाँव और ब्लॉक का नाम वैसे ही लिखें जैसे आपके साथी लिखेंगे, ताकि आप एक ही रैंकिंग में आएं।'**
+  String get areaSpellingHint;
+
+  /// No description provided for @areaVisible.
+  ///
+  /// In hi, this message translates to:
+  /// **'दूसरों की रैंकिंग में मेरा नाम दिखाएं'**
+  String get areaVisible;
+
+  /// No description provided for @areaVisibleNote.
+  ///
+  /// In hi, this message translates to:
+  /// **'केवल पहला नाम और उपनाम का पहला अक्षर दिखता है।'**
+  String get areaVisibleNote;
+
+  /// No description provided for @editArea.
+  ///
+  /// In hi, this message translates to:
+  /// **'क्षेत्र बदलें'**
+  String get editArea;
+
+  /// No description provided for @scopeVillage.
+  ///
+  /// In hi, this message translates to:
+  /// **'गाँव'**
+  String get scopeVillage;
+
+  /// No description provided for @scopeBlock.
+  ///
+  /// In hi, this message translates to:
+  /// **'ब्लॉक'**
+  String get scopeBlock;
+
+  /// No description provided for @scopeDistrict.
+  ///
+  /// In hi, this message translates to:
+  /// **'ज़िला'**
+  String get scopeDistrict;
+
+  /// No description provided for @scopeState.
+  ///
+  /// In hi, this message translates to:
+  /// **'राज्य'**
+  String get scopeState;
+
+  /// No description provided for @metricPet.
+  ///
+  /// In hi, this message translates to:
+  /// **'PET समय'**
+  String get metricPet;
+
+  /// No description provided for @metricDistance.
+  ///
+  /// In hi, this message translates to:
+  /// **'इस हफ्ते की दूरी'**
+  String get metricDistance;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In hi, this message translates to:
+  /// **'इस हफ्ते'**
+  String get thisWeek;
+
+  /// No description provided for @lastWeek.
+  ///
+  /// In hi, this message translates to:
+  /// **'पिछला हफ्ता'**
+  String get lastWeek;
+
+  /// No description provided for @rankingRules.
+  ///
+  /// In hi, this message translates to:
+  /// **'केवल GPS से जाँची गई दौड़ें गिनी जाती हैं। PET समय के लिए असली दूरी पर मॉक PET दौड़ें। रैंकिंग हर सोमवार नई शुरू होती है।'**
+  String get rankingRules;
+
+  /// No description provided for @rankingEmpty.
+  ///
+  /// In hi, this message translates to:
+  /// **'इस हफ्ते यहाँ अभी कोई नहीं है। मॉक PET दौड़कर पहले नंबर पर आएं!'**
+  String get rankingEmpty;
+
+  /// No description provided for @rankingNeedsBlock.
+  ///
+  /// In hi, this message translates to:
+  /// **'इस रैंकिंग के लिए अपना ब्लॉक और गाँव जोड़ें।'**
+  String get rankingNeedsBlock;
+
+  /// No description provided for @youLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'आप'**
+  String get youLabel;
 }
 
 class _AppLocalizationsDelegate

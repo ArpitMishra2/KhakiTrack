@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/auth_service.dart';
 import '../data/exam_repository.dart';
+import '../data/leaderboard_repository.dart';
 import '../data/profile.dart';
 import '../data/training_repository.dart';
 import '../gps/location_source.dart';
@@ -9,6 +10,7 @@ import '../gps/run_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
 import 'progress_tab.dart';
+import 'ranking_tab.dart';
 import 'training_tab.dart';
 
 /// Signed-in app: training (default), standards and progress tabs.
@@ -19,6 +21,7 @@ class HomeShell extends StatefulWidget {
     required this.training,
     required this.runs,
     required this.location,
+    required this.boards,
     required this.auth,
     required this.profile,
     this.today,
@@ -27,6 +30,7 @@ class HomeShell extends StatefulWidget {
   final ExamRepository exams;
   final TrainingRepository training;
   final RunRepository runs;
+  final LeaderboardRepository boards;
   final LocationSource Function(AppLocalizations) location;
   final AuthService auth;
   final Profile profile;
@@ -68,6 +72,7 @@ class _HomeShellState extends State<HomeShell> {
             today: widget.today,
             visible: _tab == 2,
           ),
+          RankingTab(boards: widget.boards),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -85,6 +90,10 @@ class _HomeShellState extends State<HomeShell> {
           NavigationDestination(
             icon: const Icon(Icons.show_chart),
             label: l10n.tabProgress,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.leaderboard),
+            label: l10n.tabRanking,
           ),
         ],
       ),

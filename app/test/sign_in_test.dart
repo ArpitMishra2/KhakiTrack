@@ -6,6 +6,7 @@ import 'package:maidan/main.dart';
 import 'fake_auth_service.dart';
 import 'fake_exam_repository.dart';
 import 'fake_gps.dart';
+import 'fake_leaderboard_repository.dart';
 import 'fake_profile_repository.dart';
 import 'fake_training_repository.dart';
 import 'test_helpers.dart';
@@ -15,6 +16,7 @@ void main() {
     final auth = FakeAuthService(signedIn: false);
     await tester.pumpWidget(
       MaidanApp(
+        boards: FakeLeaderboardRepository(),
         runs: FakeRunRepository(),
         location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
@@ -66,6 +68,7 @@ void main() {
   testWidgets('sign out returns to the sign-in screen', (tester) async {
     await tester.pumpWidget(
       MaidanApp(
+        boards: FakeLeaderboardRepository(),
         runs: FakeRunRepository(),
         location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),

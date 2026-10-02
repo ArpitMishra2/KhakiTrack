@@ -7,6 +7,7 @@ import 'package:maidan/main.dart';
 import 'fake_auth_service.dart';
 import 'fake_exam_repository.dart';
 import 'fake_gps.dart';
+import 'fake_leaderboard_repository.dart';
 import 'fake_profile_repository.dart';
 import 'fake_training_repository.dart';
 import 'test_helpers.dart';
@@ -79,6 +80,7 @@ void main() {
     final profiles = FakeProfileRepository(const Profile());
     await tester.pumpWidget(
       MaidanApp(
+        boards: FakeLeaderboardRepository(),
         runs: FakeRunRepository(),
         location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
@@ -141,6 +143,7 @@ void main() {
     )..failSave = true;
     await tester.pumpWidget(
       MaidanApp(
+        boards: FakeLeaderboardRepository(),
         runs: FakeRunRepository(),
         location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
@@ -159,6 +162,7 @@ void main() {
   testWidgets('a complete profile skips setup', (tester) async {
     await tester.pumpWidget(
       MaidanApp(
+        boards: FakeLeaderboardRepository(),
         runs: FakeRunRepository(),
         location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
