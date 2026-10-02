@@ -4,6 +4,8 @@ import '../data/auth_service.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../data/training_repository.dart';
+import '../gps/location_source.dart';
+import '../gps/run_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
 import 'progress_tab.dart';
@@ -15,6 +17,8 @@ class HomeShell extends StatefulWidget {
     super.key,
     required this.exams,
     required this.training,
+    required this.runs,
+    required this.location,
     required this.auth,
     required this.profile,
     this.today,
@@ -22,6 +26,8 @@ class HomeShell extends StatefulWidget {
 
   final ExamRepository exams;
   final TrainingRepository training;
+  final RunRepository runs;
+  final LocationSource Function(AppLocalizations) location;
   final AuthService auth;
   final Profile profile;
 
@@ -56,6 +62,8 @@ class _HomeShellState extends State<HomeShell> {
           ProgressTab(
             exams: widget.exams,
             training: widget.training,
+            runs: widget.runs,
+            location: widget.location,
             profile: widget.profile,
             today: widget.today,
             visible: _tab == 2,

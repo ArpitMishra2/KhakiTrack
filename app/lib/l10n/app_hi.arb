@@ -397,5 +397,160 @@
       }
     }
   },
-  "trialSaveFailed": "सेव नहीं हो सका। फिर कोशिश करें।"
+  "trialSaveFailed": "सेव नहीं हो सका। फिर कोशिश करें।",
+  "runTitle": "दौड़",
+  "mockPetTitle": "मॉक PET",
+  "freeRunTitle": "खुली दौड़",
+  "mockPetIntro": "असली PET की तरह {distance} दौड़ें। ऐप GPS से समय नापेगा और बताएगा कि आप {time} के लक्ष्य में क्वालीफाई करते या नहीं।",
+  "@mockPetIntro": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "freeRunIntro": "अपनी किसी भी दौड़ को GPS से रिकॉर्ड करें।",
+  "runTips": "खुले मैदान में दौड़ें, फोन जेब या हाथ में रखें। Xiaomi/Redmi फोन में ऐप की बैटरी सेटिंग 'No restrictions' रखें ताकि स्क्रीन बंद होने पर भी GPS चलता रहे।",
+  "gpsSearching": "GPS सिग्नल ढूंढ रहे हैं…",
+  "gpsAccuracy": "GPS सटीकता: {metres} मीटर",
+  "@gpsAccuracy": {
+    "placeholders": {
+      "metres": {
+        "type": "int"
+      }
+    }
+  },
+  "gpsReady": "GPS तैयार है",
+  "gpsDenied": "दौड़ रिकॉर्ड करने के लिए लोकेशन की अनुमति चाहिए।",
+  "gpsOff": "फोन की लोकेशन (GPS) चालू करें।",
+  "openSettings": "सेटिंग खोलें",
+  "startRun": "शुरू करें",
+  "startAnyway": "फिर भी शुरू करें",
+  "holdToStop": "रोकने के लिए दबाकर रखें",
+  "elapsed": "समय",
+  "distanceLabel": "दूरी",
+  "paceLabel": "गति",
+  "aheadBy": "लक्ष्य से {time} आगे",
+  "@aheadBy": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "behindBy": "लक्ष्य से {time} पीछे",
+  "@behindBy": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "remaining": "{distance} बाकी",
+  "@remaining": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "trackingNotificationTitle": "मैदान: दौड़ रिकॉर्ड हो रही है",
+  "trackingNotificationText": "GPS से दूरी और समय नापा जा रहा है",
+  "resultTitle": "नतीजा",
+  "outcomeQualified": "आप क्वालीफाई करते!",
+  "outcomeBorderline": "सीमा पर – थोड़ा और तेज़ दौड़ें",
+  "outcomeNotQualified": "अभी क्वालीफाई नहीं",
+  "outcomeIncomplete": "दूरी पूरी नहीं हुई",
+  "borderlineNote": "GPS में 2-3% तक का फर्क हो सकता है। पक्का क्वालीफाई के लिए लक्ष्य से कम से कम 3% तेज़ दौड़ें।",
+  "finishTime": "{distance} का समय: {time}",
+  "@finishTime": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "targetLine": "लक्ष्य: {time}",
+  "@targetLine": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "marginAhead": "लक्ष्य से {time} कम",
+  "@marginAhead": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "marginBehind": "लक्ष्य से {time} ज़्यादा",
+  "@marginBehind": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "totalDistance": "कुल दूरी: {distance}",
+  "@totalDistance": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "totalTime": "कुल समय: {time}",
+  "@totalTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "verdictVerified": "GPS जांच: सही",
+  "verdictSuspicious": "GPS जांच: पक्का नहीं",
+  "verdictRejected": "GPS जांच: अमान्य",
+  "verdictNotCounted": "यह दौड़ प्रगति और रैंकिंग में नहीं गिनी जाएगी।",
+  "flagMock": "नकली लोकेशन (mock location) मिली।",
+  "flagTeleport": "लोकेशन अचानक बहुत दूर कूद गई।",
+  "flagImpossibleSpeed": "कुछ हिस्से में गति इंसान के लिए असंभव थी।",
+  "flagVehicle": "कुछ हिस्सा गाड़ी/साइकिल जैसी गति से था।",
+  "flagAverage": "पूरी दौड़ की औसत गति असंभव थी।",
+  "flagPoorSignal": "GPS सिग्नल कमज़ोर था।",
+  "flagGap": "बीच में GPS सिग्नल टूट गया।",
+  "flagSparse": "GPS से बहुत कम जानकारी मिली।",
+  "flagTooShort": "दौड़ बहुत छोटी थी।",
+  "uploading": "सर्वर पर जांच हो रही है…",
+  "savedOffline": "इंटरनेट नहीं है। दौड़ फोन में सेव है और इंटरनेट मिलने पर भेज दी जाएगी।",
+  "uploadRefused": "सर्वर ने यह दौड़ नहीं ली (आज की सीमा पूरी या गलत डेटा)।",
+  "serverChecked": "सर्वर जांच पूरी",
+  "done": "ठीक है",
+  "mockPetCta": "मॉक PET दौड़ें",
+  "recordRun": "दौड़ रिकॉर्ड करें",
+  "recentRuns": "हाल की GPS दौड़ें",
+  "pendingRuns": "{n} दौड़ भेजनी बाकी",
+  "@pendingRuns": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "minPerKm": "{pace} /किमी",
+  "@minPerKm": {
+    "placeholders": {
+      "pace": {
+        "type": "String"
+      }
+    }
+  }
 }

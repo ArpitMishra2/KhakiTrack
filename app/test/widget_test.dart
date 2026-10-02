@@ -4,6 +4,7 @@ import 'package:maidan/main.dart';
 
 import 'fake_auth_service.dart';
 import 'fake_exam_repository.dart';
+import 'fake_gps.dart';
 import 'fake_profile_repository.dart';
 import 'fake_training_repository.dart';
 import 'test_helpers.dart';
@@ -14,6 +15,8 @@ void main() {
   ) async {
     await tester.pumpWidget(
       MaidanApp(
+        runs: FakeRunRepository(),
+        location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
         repository: FakeExamRepository(),
         auth: FakeAuthService(),
@@ -31,6 +34,8 @@ void main() {
     final repo = FakeExamRepository()..failing = true;
     await tester.pumpWidget(
       MaidanApp(
+        runs: FakeRunRepository(),
+        location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
         repository: repo,
         auth: FakeAuthService(),
@@ -50,6 +55,8 @@ void main() {
   testWidgets('UP Police standards for men, then women', (tester) async {
     await tester.pumpWidget(
       MaidanApp(
+        runs: FakeRunRepository(),
+        location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
         repository: FakeExamRepository(),
         auth: FakeAuthService(),
@@ -86,6 +93,8 @@ void main() {
 
     await tester.pumpWidget(
       MaidanApp(
+        runs: FakeRunRepository(),
+        location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
         repository: FakeExamRepository(),
         auth: FakeAuthService(),
@@ -111,6 +120,8 @@ void main() {
   testWidgets('SSC GD category change updates standards', (tester) async {
     await tester.pumpWidget(
       MaidanApp(
+        runs: FakeRunRepository(),
+        location: (_) => FakeLocationSource(),
         training: FakeTrainingRepository(),
         repository: FakeExamRepository(),
         auth: FakeAuthService(),

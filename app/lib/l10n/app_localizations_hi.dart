@@ -607,4 +607,209 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get trialSaveFailed => 'सेव नहीं हो सका। फिर कोशिश करें।';
+
+  @override
+  String get runTitle => 'दौड़';
+
+  @override
+  String get mockPetTitle => 'मॉक PET';
+
+  @override
+  String get freeRunTitle => 'खुली दौड़';
+
+  @override
+  String mockPetIntro(String distance, String time) {
+    return 'असली PET की तरह $distance दौड़ें। ऐप GPS से समय नापेगा और बताएगा कि आप $time के लक्ष्य में क्वालीफाई करते या नहीं।';
+  }
+
+  @override
+  String get freeRunIntro => 'अपनी किसी भी दौड़ को GPS से रिकॉर्ड करें।';
+
+  @override
+  String get runTips =>
+      'खुले मैदान में दौड़ें, फोन जेब या हाथ में रखें। Xiaomi/Redmi फोन में ऐप की बैटरी सेटिंग \'No restrictions\' रखें ताकि स्क्रीन बंद होने पर भी GPS चलता रहे।';
+
+  @override
+  String get gpsSearching => 'GPS सिग्नल ढूंढ रहे हैं…';
+
+  @override
+  String gpsAccuracy(int metres) {
+    return 'GPS सटीकता: $metres मीटर';
+  }
+
+  @override
+  String get gpsReady => 'GPS तैयार है';
+
+  @override
+  String get gpsDenied => 'दौड़ रिकॉर्ड करने के लिए लोकेशन की अनुमति चाहिए।';
+
+  @override
+  String get gpsOff => 'फोन की लोकेशन (GPS) चालू करें।';
+
+  @override
+  String get openSettings => 'सेटिंग खोलें';
+
+  @override
+  String get startRun => 'शुरू करें';
+
+  @override
+  String get startAnyway => 'फिर भी शुरू करें';
+
+  @override
+  String get holdToStop => 'रोकने के लिए दबाकर रखें';
+
+  @override
+  String get elapsed => 'समय';
+
+  @override
+  String get distanceLabel => 'दूरी';
+
+  @override
+  String get paceLabel => 'गति';
+
+  @override
+  String aheadBy(String time) {
+    return 'लक्ष्य से $time आगे';
+  }
+
+  @override
+  String behindBy(String time) {
+    return 'लक्ष्य से $time पीछे';
+  }
+
+  @override
+  String remaining(String distance) {
+    return '$distance बाकी';
+  }
+
+  @override
+  String get trackingNotificationTitle => 'मैदान: दौड़ रिकॉर्ड हो रही है';
+
+  @override
+  String get trackingNotificationText => 'GPS से दूरी और समय नापा जा रहा है';
+
+  @override
+  String get resultTitle => 'नतीजा';
+
+  @override
+  String get outcomeQualified => 'आप क्वालीफाई करते!';
+
+  @override
+  String get outcomeBorderline => 'सीमा पर – थोड़ा और तेज़ दौड़ें';
+
+  @override
+  String get outcomeNotQualified => 'अभी क्वालीफाई नहीं';
+
+  @override
+  String get outcomeIncomplete => 'दूरी पूरी नहीं हुई';
+
+  @override
+  String get borderlineNote =>
+      'GPS में 2-3% तक का फर्क हो सकता है। पक्का क्वालीफाई के लिए लक्ष्य से कम से कम 3% तेज़ दौड़ें।';
+
+  @override
+  String finishTime(String distance, String time) {
+    return '$distance का समय: $time';
+  }
+
+  @override
+  String targetLine(String time) {
+    return 'लक्ष्य: $time';
+  }
+
+  @override
+  String marginAhead(String time) {
+    return 'लक्ष्य से $time कम';
+  }
+
+  @override
+  String marginBehind(String time) {
+    return 'लक्ष्य से $time ज़्यादा';
+  }
+
+  @override
+  String totalDistance(String distance) {
+    return 'कुल दूरी: $distance';
+  }
+
+  @override
+  String totalTime(String time) {
+    return 'कुल समय: $time';
+  }
+
+  @override
+  String get verdictVerified => 'GPS जांच: सही';
+
+  @override
+  String get verdictSuspicious => 'GPS जांच: पक्का नहीं';
+
+  @override
+  String get verdictRejected => 'GPS जांच: अमान्य';
+
+  @override
+  String get verdictNotCounted =>
+      'यह दौड़ प्रगति और रैंकिंग में नहीं गिनी जाएगी।';
+
+  @override
+  String get flagMock => 'नकली लोकेशन (mock location) मिली।';
+
+  @override
+  String get flagTeleport => 'लोकेशन अचानक बहुत दूर कूद गई।';
+
+  @override
+  String get flagImpossibleSpeed => 'कुछ हिस्से में गति इंसान के लिए असंभव थी।';
+
+  @override
+  String get flagVehicle => 'कुछ हिस्सा गाड़ी/साइकिल जैसी गति से था।';
+
+  @override
+  String get flagAverage => 'पूरी दौड़ की औसत गति असंभव थी।';
+
+  @override
+  String get flagPoorSignal => 'GPS सिग्नल कमज़ोर था।';
+
+  @override
+  String get flagGap => 'बीच में GPS सिग्नल टूट गया।';
+
+  @override
+  String get flagSparse => 'GPS से बहुत कम जानकारी मिली।';
+
+  @override
+  String get flagTooShort => 'दौड़ बहुत छोटी थी।';
+
+  @override
+  String get uploading => 'सर्वर पर जांच हो रही है…';
+
+  @override
+  String get savedOffline =>
+      'इंटरनेट नहीं है। दौड़ फोन में सेव है और इंटरनेट मिलने पर भेज दी जाएगी।';
+
+  @override
+  String get uploadRefused =>
+      'सर्वर ने यह दौड़ नहीं ली (आज की सीमा पूरी या गलत डेटा)।';
+
+  @override
+  String get serverChecked => 'सर्वर जांच पूरी';
+
+  @override
+  String get done => 'ठीक है';
+
+  @override
+  String get mockPetCta => 'मॉक PET दौड़ें';
+
+  @override
+  String get recordRun => 'दौड़ रिकॉर्ड करें';
+
+  @override
+  String get recentRuns => 'हाल की GPS दौड़ें';
+
+  @override
+  String pendingRuns(int n) {
+    return '$n दौड़ भेजनी बाकी';
+  }
+
+  @override
+  String minPerKm(String pace) {
+    return '$pace /किमी';
+  }
 }

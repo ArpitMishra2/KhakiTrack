@@ -4,6 +4,9 @@ import '../data/auth_service.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../data/training_repository.dart';
+import '../gps/location_source.dart';
+import '../gps/run_repository.dart';
+import '../l10n/app_localizations.dart';
 import 'home_shell.dart';
 import 'load_error.dart';
 import 'profile_setup_screen.dart';
@@ -18,12 +21,16 @@ class AuthGate extends StatelessWidget {
     required this.repository,
     required this.profiles,
     required this.training,
+    required this.runs,
+    required this.location,
   });
 
   final AuthService auth;
   final ExamRepository repository;
   final ProfileRepository profiles;
   final TrainingRepository training;
+  final RunRepository runs;
+  final LocationSource Function(AppLocalizations) location;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +43,8 @@ class AuthGate extends StatelessWidget {
               repository: repository,
               profiles: profiles,
               training: training,
+              runs: runs,
+              location: location,
             )
           : SignInScreen(auth: auth),
     );
@@ -48,12 +57,16 @@ class _ProfileGate extends StatefulWidget {
     required this.repository,
     required this.profiles,
     required this.training,
+    required this.runs,
+    required this.location,
   });
 
   final AuthService auth;
   final ExamRepository repository;
   final ProfileRepository profiles;
   final TrainingRepository training;
+  final RunRepository runs;
+  final LocationSource Function(AppLocalizations) location;
 
   @override
   State<_ProfileGate> createState() => _ProfileGateState();
@@ -97,6 +110,8 @@ class _ProfileGateState extends State<_ProfileGate> {
         return HomeShell(
           exams: widget.repository,
           training: widget.training,
+          runs: widget.runs,
+          location: widget.location,
           auth: widget.auth,
           profile: profile,
         );

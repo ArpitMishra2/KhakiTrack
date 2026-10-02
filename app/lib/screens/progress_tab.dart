@@ -9,8 +9,11 @@ import '../data/standards_logic.dart';
 import '../data/training_logic.dart';
 import '../data/training_models.dart';
 import '../data/training_repository.dart';
+import '../gps/location_source.dart';
+import '../gps/run_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'load_error.dart';
+import 'run_screen.dart';
 import 'standard_labels.dart';
 import 'training_labels.dart';
 
@@ -20,6 +23,8 @@ class ProgressTab extends StatefulWidget {
     super.key,
     required this.exams,
     required this.training,
+    required this.runs,
+    required this.location,
     required this.profile,
     required this.visible,
     this.today,
@@ -27,6 +32,8 @@ class ProgressTab extends StatefulWidget {
 
   final ExamRepository exams;
   final TrainingRepository training;
+  final RunRepository runs;
+  final LocationSource Function(AppLocalizations) location;
   final Profile profile;
 
   /// Reloads when the tab is shown, to pick up trials logged elsewhere.
@@ -37,13 +44,28 @@ class ProgressTab extends StatefulWidget {
   State<ProgressTab> createState() => _ProgressTabState();
 }
 
-typedef _Data = ({List<TimeTrial> trials, Standard? run});
+typedef _Data = ({
+  List<TimeTrial> trials,
+  Standard? run,
+  List<GpsRunSummary> gpsRuns,
+  int pending,
+});
 
 class _ProgressTabState extends State<ProgressTab> {
   late Future<_Data> _data = _load();
 
   Future<_Data> _load() async {
     final examId = widget.profile.examId!;
+    // Send runs recorded while offline; failures just stay pending.
+    try {
+      await widget.runs.flushPending();
+    } on Exception {
+      // Offline again; try next time.
+    }
+    final gps = await Future.wait<Object>([
+      widget.runs.recentRuns(),
+      widget.runs.pendingCount(),
+    ]);
     final results = await Future.wait<Object>([
       widget.training.fetchTimeTrials(examId),
       widget.exams.fetchStandards(examId),
@@ -55,7 +77,29 @@ class _ProgressTabState extends State<ProgressTab> {
         widget.profile.gender!,
         widget.profile.category,
       ),
+      gpsRuns: gps[0] as List<GpsRunSummary>,
+      pending: gps[1] as int,
     );
+  }
+
+  Future<void> _openRun(Standard run, {required bool mockPet}) async {
+    final recorded = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (c) => RunScreen(
+          examId: widget.profile.examId!,
+          runMetres: run.runMetres!,
+          targetSeconds: run.value!.round(),
+          mockPet: mockPet,
+          source: widget.location(AppLocalizations.of(c)),
+          runs: widget.runs,
+        ),
+      ),
+    );
+    if (recorded == true && mounted) {
+      setState(() {
+        _data = _load();
+      });
+    }
   }
 
   @override
@@ -111,7 +155,7 @@ class _ProgressTabState extends State<ProgressTab> {
               ? const Center(child: CircularProgressIndicator())
               : run == null
               ? const SizedBox.shrink()
-              : _body(context, l10n, snapshot.data!.trials, run),
+              : _body(context, l10n, snapshot.data!, run),
         );
       },
     );
@@ -120,9 +164,10 @@ class _ProgressTabState extends State<ProgressTab> {
   Widget _body(
     BuildContext context,
     AppLocalizations l10n,
-    List<TimeTrial> trials,
+    _Data data,
     Standard run,
   ) {
+    final trials = data.trials;
     final textTheme = Theme.of(context).textTheme;
     final metres = run.runMetres!;
     final target = run.value!;
@@ -133,6 +178,36 @@ class _ProgressTabState extends State<ProgressTab> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
       children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                FilledButton.icon(
+                  onPressed: () => _openRun(run, mockPet: true),
+                  icon: const Icon(Icons.timer),
+                  label: Text(l10n.mockPetCta),
+                ),
+                const SizedBox(height: 8),
+                OutlinedButton.icon(
+                  onPressed: () => _openRun(run, mockPet: false),
+                  icon: const Icon(Icons.directions_run),
+                  label: Text(l10n.recordRun),
+                ),
+                if (data.pending > 0)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      l10n.pendingRuns(data.pending),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
         Text(l10n.progressTitle(distance), style: textTheme.titleLarge),
         Text(l10n.targetTime(formatDuration(target))),
         const SizedBox(height: 12),
@@ -184,6 +259,27 @@ class _ProgressTabState extends State<ProgressTab> {
             ),
           if (series.any((p) => p.estimated))
             Text(l10n.estimateNote(distance), style: textTheme.bodySmall),
+        ],
+        if (data.gpsRuns.isNotEmpty) ...[
+          const SizedBox(height: 16),
+          Text(l10n.recentRuns, style: textTheme.titleMedium),
+          for (final g in data.gpsRuns)
+            ListTile(
+              dense: true,
+              leading: Icon(switch (g.verdict) {
+                'verified' => Icons.verified,
+                'rejected' => Icons.block,
+                _ => Icons.help_outline,
+              }),
+              title: Text(
+                [
+                  g.mode == 'mock_pet' ? l10n.mockPetTitle : l10n.freeRunTitle,
+                  l10n.km((g.distanceM / 1000).toStringAsFixed(2)),
+                  formatDuration(g.finishSeconds ?? g.durationS),
+                ].join(' · '),
+              ),
+              subtitle: Text(shortDate(l10n, g.startedAt)),
+            ),
         ],
       ],
     );
