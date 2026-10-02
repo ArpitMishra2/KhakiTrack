@@ -887,4 +887,8 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get youLabel => 'आप';
+
+  @override
+  String get errAiBusy =>
+      'AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।';
 }

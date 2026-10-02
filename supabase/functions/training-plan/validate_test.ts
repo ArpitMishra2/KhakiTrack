@@ -150,6 +150,9 @@ Deno.test("week rules: days, rest day, hard days, duration, volume", () => {
   const tiny: WeekDetail = { ...goodWeek(1), sessions: [s(1, "easy_run", 2)] };
   assert(validateWeek(tiny, outline, fitAnswers).some((e) => e.includes("add up to")));
 
+  const sprint: WeekDetail = { ...goodWeek(1), sessions: [...goodWeek(1).sessions.slice(0, 4), s(6, "long_run", 5, 10)] };
+  assert(validateWeek(sprint, outline, fitAnswers).some((e) => e.includes("not realistic")));
+
   const noKm: WeekDetail = { ...goodWeek(1), sessions: [...goodWeek(1).sessions, s(7, "easy_run", null)] };
   assert(validateWeek(noKm, outline, fitAnswers).some((e) => e.includes("needs distance_km")));
 });

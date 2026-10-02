@@ -6,7 +6,7 @@ import 'training_models.dart';
 class TrainingException implements Exception {
   const TrainingException(this.code, {this.unlocksOn});
 
-  /// rate_limited | ai_not_configured | generation_failed | too_early |
+  /// rate_limited | ai_not_configured | ai_busy | generation_failed | too_early |
   /// profile_incomplete | plan_complete | network | unknown
   final String code;
   final String? unlocksOn;

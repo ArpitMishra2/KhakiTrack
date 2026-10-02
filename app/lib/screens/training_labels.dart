@@ -48,6 +48,7 @@ String trainingErrorText(AppLocalizations l10n, TrainingException e) =>
     switch (e.code) {
       'rate_limited' => l10n.errRateLimited,
       'ai_not_configured' => l10n.errAiNotConfigured,
+      'ai_busy' => l10n.errAiBusy,
       'too_early' => l10n.errTooEarly(
         e.unlocksOn == null
             ? ''

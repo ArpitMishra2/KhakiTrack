@@ -257,5 +257,6 @@
   "rankingRules": "Only GPS-verified runs count. For PET time, run a mock PET over the real distance. Rankings restart every Monday.",
   "rankingEmpty": "Nobody here yet this week. Run a mock PET and take the top spot!",
   "rankingNeedsBlock": "Add your block and village for this ranking.",
-  "youLabel": "You"
+  "youLabel": "You",
+  "errAiBusy": "The AI coach is busy with other plans. Try again in a minute."
 }
