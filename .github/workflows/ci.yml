@@ -51,8 +51,12 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - name: Type-check and test training-plan
-        working-directory: supabase/functions/training-plan
+      - name: Type-check and test every edge function
+        working-directory: supabase/functions
         run: |
-          deno check --config deno.json index.ts
-          deno test --config deno.json --allow-env .
+          for f in */; do
+            f=${f%/}
+            [ -f "$f/deno.json" ] || continue
+            echo "== $f"
+            (cd "$f" && deno check --config deno.json index.ts && deno test --config deno.json --allow-env --allow-read .)
+          done

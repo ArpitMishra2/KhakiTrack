@@ -1,0 +1,94 @@
+{
+  "rules_version": 1,
+  "note": "Exact outputs that the Dart and TypeScript analysers must both reproduce (distance within 0.5 m, finish within 0.05 s). Regenerate only when the rules change on purpose.",
+  "results": {
+    "bicycle.json": {
+      "verdict": "rejected",
+      "flags": [
+        "vehicle_like"
+      ],
+      "distance_m": 4278.9,
+      "finish_seconds": null
+    },
+    "good_4800_steady.json": {
+      "verdict": "verified",
+      "flags": [],
+      "distance_m": 5003.3,
+      "finish_seconds": 1496.83
+    },
+    "good_5000_ssc.json": {
+      "verdict": "verified",
+      "flags": [],
+      "distance_m": 5261.5,
+      "finish_seconds": 1368.49
+    },
+    "good_run_walk.json": {
+      "verdict": "verified",
+      "flags": [],
+      "distance_m": 2901.9,
+      "finish_seconds": null
+    },
+    "good_with_sprint.json": {
+      "verdict": "verified",
+      "flags": [],
+      "distance_m": 1368.1,
+      "finish_seconds": null
+    },
+    "mock_location.json": {
+      "verdict": "rejected",
+      "flags": [
+        "mock_location"
+      ],
+      "distance_m": 1910.6,
+      "finish_seconds": null
+    },
+    "motorbike_burst.json": {
+      "verdict": "rejected",
+      "flags": [
+        "impossible_speed"
+      ],
+      "distance_m": 2194.4,
+      "finish_seconds": null
+    },
+    "poor_signal.json": {
+      "verdict": "suspicious",
+      "flags": [
+        "poor_signal"
+      ],
+      "distance_m": 2839.2,
+      "finish_seconds": null
+    },
+    "signal_gap.json": {
+      "verdict": "suspicious",
+      "flags": [
+        "signal_gap"
+      ],
+      "distance_m": 3103.3,
+      "finish_seconds": null
+    },
+    "sparse_samples.json": {
+      "verdict": "suspicious",
+      "flags": [
+        "sparse_samples"
+      ],
+      "distance_m": 2813.6,
+      "finish_seconds": null
+    },
+    "standing_still.json": {
+      "verdict": "suspicious",
+      "flags": [
+        "too_short"
+      ],
+      "distance_m": 10.3,
+      "finish_seconds": null
+    },
+    "teleport.json": {
+      "verdict": "rejected",
+      "flags": [
+        "teleport"
+      ],
+      "distance_m": 2887.3,
+      "finish_seconds": null
+    }
+  }
+}
