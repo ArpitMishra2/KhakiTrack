@@ -1159,6 +1159,354 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'सेव नहीं हो सका। फिर कोशिश करें।'**
   String get trialSaveFailed;
+
+  /// No description provided for @runTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'दौड़'**
+  String get runTitle;
+
+  /// No description provided for @mockPetTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'मॉक PET'**
+  String get mockPetTitle;
+
+  /// No description provided for @freeRunTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'खुली दौड़'**
+  String get freeRunTitle;
+
+  /// No description provided for @mockPetIntro.
+  ///
+  /// In hi, this message translates to:
+  /// **'असली PET की तरह {distance} दौड़ें। ऐप GPS से समय नापेगा और बताएगा कि आप {time} के लक्ष्य में क्वालीफाई करते या नहीं।'**
+  String mockPetIntro(String distance, String time);
+
+  /// No description provided for @freeRunIntro.
+  ///
+  /// In hi, this message translates to:
+  /// **'अपनी किसी भी दौड़ को GPS से रिकॉर्ड करें।'**
+  String get freeRunIntro;
+
+  /// No description provided for @runTips.
+  ///
+  /// In hi, this message translates to:
+  /// **'खुले मैदान में दौड़ें, फोन जेब या हाथ में रखें। Xiaomi/Redmi फोन में ऐप की बैटरी सेटिंग \'No restrictions\' रखें ताकि स्क्रीन बंद होने पर भी GPS चलता रहे।'**
+  String get runTips;
+
+  /// No description provided for @gpsSearching.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS सिग्नल ढूंढ रहे हैं…'**
+  String get gpsSearching;
+
+  /// No description provided for @gpsAccuracy.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS सटीकता: {metres} मीटर'**
+  String gpsAccuracy(int metres);
+
+  /// No description provided for @gpsReady.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS तैयार है'**
+  String get gpsReady;
+
+  /// No description provided for @gpsDenied.
+  ///
+  /// In hi, this message translates to:
+  /// **'दौड़ रिकॉर्ड करने के लिए लोकेशन की अनुमति चाहिए।'**
+  String get gpsDenied;
+
+  /// No description provided for @gpsOff.
+  ///
+  /// In hi, this message translates to:
+  /// **'फोन की लोकेशन (GPS) चालू करें।'**
+  String get gpsOff;
+
+  /// No description provided for @openSettings.
+  ///
+  /// In hi, this message translates to:
+  /// **'सेटिंग खोलें'**
+  String get openSettings;
+
+  /// No description provided for @startRun.
+  ///
+  /// In hi, this message translates to:
+  /// **'शुरू करें'**
+  String get startRun;
+
+  /// No description provided for @startAnyway.
+  ///
+  /// In hi, this message translates to:
+  /// **'फिर भी शुरू करें'**
+  String get startAnyway;
+
+  /// No description provided for @holdToStop.
+  ///
+  /// In hi, this message translates to:
+  /// **'रोकने के लिए दबाकर रखें'**
+  String get holdToStop;
+
+  /// No description provided for @elapsed.
+  ///
+  /// In hi, this message translates to:
+  /// **'समय'**
+  String get elapsed;
+
+  /// No description provided for @distanceLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'दूरी'**
+  String get distanceLabel;
+
+  /// No description provided for @paceLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'गति'**
+  String get paceLabel;
+
+  /// No description provided for @aheadBy.
+  ///
+  /// In hi, this message translates to:
+  /// **'लक्ष्य से {time} आगे'**
+  String aheadBy(String time);
+
+  /// No description provided for @behindBy.
+  ///
+  /// In hi, this message translates to:
+  /// **'लक्ष्य से {time} पीछे'**
+  String behindBy(String time);
+
+  /// No description provided for @remaining.
+  ///
+  /// In hi, this message translates to:
+  /// **'{distance} बाकी'**
+  String remaining(String distance);
+
+  /// No description provided for @trackingNotificationTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'मैदान: दौड़ रिकॉर्ड हो रही है'**
+  String get trackingNotificationTitle;
+
+  /// No description provided for @trackingNotificationText.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS से दूरी और समय नापा जा रहा है'**
+  String get trackingNotificationText;
+
+  /// No description provided for @resultTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'नतीजा'**
+  String get resultTitle;
+
+  /// No description provided for @outcomeQualified.
+  ///
+  /// In hi, this message translates to:
+  /// **'आप क्वालीफाई करते!'**
+  String get outcomeQualified;
+
+  /// No description provided for @outcomeBorderline.
+  ///
+  /// In hi, this message translates to:
+  /// **'सीमा पर – थोड़ा और तेज़ दौड़ें'**
+  String get outcomeBorderline;
+
+  /// No description provided for @outcomeNotQualified.
+  ///
+  /// In hi, this message translates to:
+  /// **'अभी क्वालीफाई नहीं'**
+  String get outcomeNotQualified;
+
+  /// No description provided for @outcomeIncomplete.
+  ///
+  /// In hi, this message translates to:
+  /// **'दूरी पूरी नहीं हुई'**
+  String get outcomeIncomplete;
+
+  /// No description provided for @borderlineNote.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS में 2-3% तक का फर्क हो सकता है। पक्का क्वालीफाई के लिए लक्ष्य से कम से कम 3% तेज़ दौड़ें।'**
+  String get borderlineNote;
+
+  /// No description provided for @finishTime.
+  ///
+  /// In hi, this message translates to:
+  /// **'{distance} का समय: {time}'**
+  String finishTime(String distance, String time);
+
+  /// No description provided for @targetLine.
+  ///
+  /// In hi, this message translates to:
+  /// **'लक्ष्य: {time}'**
+  String targetLine(String time);
+
+  /// No description provided for @marginAhead.
+  ///
+  /// In hi, this message translates to:
+  /// **'लक्ष्य से {time} कम'**
+  String marginAhead(String time);
+
+  /// No description provided for @marginBehind.
+  ///
+  /// In hi, this message translates to:
+  /// **'लक्ष्य से {time} ज़्यादा'**
+  String marginBehind(String time);
+
+  /// No description provided for @totalDistance.
+  ///
+  /// In hi, this message translates to:
+  /// **'कुल दूरी: {distance}'**
+  String totalDistance(String distance);
+
+  /// No description provided for @totalTime.
+  ///
+  /// In hi, this message translates to:
+  /// **'कुल समय: {time}'**
+  String totalTime(String time);
+
+  /// No description provided for @verdictVerified.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS जांच: सही'**
+  String get verdictVerified;
+
+  /// No description provided for @verdictSuspicious.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS जांच: पक्का नहीं'**
+  String get verdictSuspicious;
+
+  /// No description provided for @verdictRejected.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS जांच: अमान्य'**
+  String get verdictRejected;
+
+  /// No description provided for @verdictNotCounted.
+  ///
+  /// In hi, this message translates to:
+  /// **'यह दौड़ प्रगति और रैंकिंग में नहीं गिनी जाएगी।'**
+  String get verdictNotCounted;
+
+  /// No description provided for @flagMock.
+  ///
+  /// In hi, this message translates to:
+  /// **'नकली लोकेशन (mock location) मिली।'**
+  String get flagMock;
+
+  /// No description provided for @flagTeleport.
+  ///
+  /// In hi, this message translates to:
+  /// **'लोकेशन अचानक बहुत दूर कूद गई।'**
+  String get flagTeleport;
+
+  /// No description provided for @flagImpossibleSpeed.
+  ///
+  /// In hi, this message translates to:
+  /// **'कुछ हिस्से में गति इंसान के लिए असंभव थी।'**
+  String get flagImpossibleSpeed;
+
+  /// No description provided for @flagVehicle.
+  ///
+  /// In hi, this message translates to:
+  /// **'कुछ हिस्सा गाड़ी/साइकिल जैसी गति से था।'**
+  String get flagVehicle;
+
+  /// No description provided for @flagAverage.
+  ///
+  /// In hi, this message translates to:
+  /// **'पूरी दौड़ की औसत गति असंभव थी।'**
+  String get flagAverage;
+
+  /// No description provided for @flagPoorSignal.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS सिग्नल कमज़ोर था।'**
+  String get flagPoorSignal;
+
+  /// No description provided for @flagGap.
+  ///
+  /// In hi, this message translates to:
+  /// **'बीच में GPS सिग्नल टूट गया।'**
+  String get flagGap;
+
+  /// No description provided for @flagSparse.
+  ///
+  /// In hi, this message translates to:
+  /// **'GPS से बहुत कम जानकारी मिली।'**
+  String get flagSparse;
+
+  /// No description provided for @flagTooShort.
+  ///
+  /// In hi, this message translates to:
+  /// **'दौड़ बहुत छोटी थी।'**
+  String get flagTooShort;
+
+  /// No description provided for @uploading.
+  ///
+  /// In hi, this message translates to:
+  /// **'सर्वर पर जांच हो रही है…'**
+  String get uploading;
+
+  /// No description provided for @savedOffline.
+  ///
+  /// In hi, this message translates to:
+  /// **'इंटरनेट नहीं है। दौड़ फोन में सेव है और इंटरनेट मिलने पर भेज दी जाएगी।'**
+  String get savedOffline;
+
+  /// No description provided for @uploadRefused.
+  ///
+  /// In hi, this message translates to:
+  /// **'सर्वर ने यह दौड़ नहीं ली (आज की सीमा पूरी या गलत डेटा)।'**
+  String get uploadRefused;
+
+  /// No description provided for @serverChecked.
+  ///
+  /// In hi, this message translates to:
+  /// **'सर्वर जांच पूरी'**
+  String get serverChecked;
+
+  /// No description provided for @done.
+  ///
+  /// In hi, this message translates to:
+  /// **'ठीक है'**
+  String get done;
+
+  /// No description provided for @mockPetCta.
+  ///
+  /// In hi, this message translates to:
+  /// **'मॉक PET दौड़ें'**
+  String get mockPetCta;
+
+  /// No description provided for @recordRun.
+  ///
+  /// In hi, this message translates to:
+  /// **'दौड़ रिकॉर्ड करें'**
+  String get recordRun;
+
+  /// No description provided for @recentRuns.
+  ///
+  /// In hi, this message translates to:
+  /// **'हाल की GPS दौड़ें'**
+  String get recentRuns;
+
+  /// No description provided for @pendingRuns.
+  ///
+  /// In hi, this message translates to:
+  /// **'{n} दौड़ भेजनी बाकी'**
+  String pendingRuns(int n);
+
+  /// No description provided for @minPerKm.
+  ///
+  /// In hi, this message translates to:
+  /// **'{pace} /किमी'**
+  String minPerKm(String pace);
 }
 
 class _AppLocalizationsDelegate

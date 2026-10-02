@@ -7,6 +7,8 @@ import 'data/auth_service.dart';
 import 'data/exam_repository.dart';
 import 'data/profile.dart';
 import 'data/training_repository.dart';
+import 'gps/location_source.dart';
+import 'gps/run_repository.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/auth_gate.dart';
 
@@ -23,6 +25,11 @@ Future<void> main() async {
       auth: SupabaseAuthService(Supabase.instance.client),
       profiles: SupabaseProfileRepository(Supabase.instance.client),
       training: SupabaseTrainingRepository(Supabase.instance.client),
+      runs: SupabaseRunRepository(Supabase.instance.client),
+      location: (l10n) => GeolocatorSource(
+        notificationTitle: l10n.trackingNotificationTitle,
+        notificationText: l10n.trackingNotificationText,
+      ),
     ),
   );
 }
@@ -34,12 +41,16 @@ class MaidanApp extends StatelessWidget {
     required this.auth,
     required this.profiles,
     required this.training,
+    required this.runs,
+    required this.location,
   });
 
   final ExamRepository repository;
   final AuthService auth;
   final ProfileRepository profiles;
   final TrainingRepository training;
+  final RunRepository runs;
+  final LocationSource Function(AppLocalizations) location;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +74,8 @@ class MaidanApp extends StatelessWidget {
         repository: repository,
         profiles: profiles,
         training: training,
+        runs: runs,
+        location: location,
       ),
     );
   }

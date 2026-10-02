@@ -609,4 +609,210 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trialSaveFailed => 'Could not save. Try again.';
+
+  @override
+  String get runTitle => 'Run';
+
+  @override
+  String get mockPetTitle => 'Mock PET';
+
+  @override
+  String get freeRunTitle => 'Free run';
+
+  @override
+  String mockPetIntro(String distance, String time) {
+    return 'Run $distance like the real PET. The app times you by GPS and tells you whether you would qualify within $time.';
+  }
+
+  @override
+  String get freeRunIntro => 'Record any run with GPS.';
+
+  @override
+  String get runTips =>
+      'Run in the open with the phone in your pocket or hand. On Xiaomi/Redmi phones set the app\'s battery saver to \'No restrictions\' so GPS keeps running with the screen off.';
+
+  @override
+  String get gpsSearching => 'Looking for GPS signal…';
+
+  @override
+  String gpsAccuracy(int metres) {
+    return 'GPS accuracy: $metres m';
+  }
+
+  @override
+  String get gpsReady => 'GPS ready';
+
+  @override
+  String get gpsDenied => 'Location permission is needed to record runs.';
+
+  @override
+  String get gpsOff => 'Turn on your phone\'s location (GPS).';
+
+  @override
+  String get openSettings => 'Open settings';
+
+  @override
+  String get startRun => 'Start';
+
+  @override
+  String get startAnyway => 'Start anyway';
+
+  @override
+  String get holdToStop => 'Hold to stop';
+
+  @override
+  String get elapsed => 'Time';
+
+  @override
+  String get distanceLabel => 'Distance';
+
+  @override
+  String get paceLabel => 'Pace';
+
+  @override
+  String aheadBy(String time) {
+    return '$time ahead of target';
+  }
+
+  @override
+  String behindBy(String time) {
+    return '$time behind target';
+  }
+
+  @override
+  String remaining(String distance) {
+    return '$distance to go';
+  }
+
+  @override
+  String get trackingNotificationTitle => 'Maidan: recording your run';
+
+  @override
+  String get trackingNotificationText => 'Measuring distance and time by GPS';
+
+  @override
+  String get resultTitle => 'Result';
+
+  @override
+  String get outcomeQualified => 'You would qualify!';
+
+  @override
+  String get outcomeBorderline => 'Borderline – run a little faster';
+
+  @override
+  String get outcomeNotQualified => 'Not qualifying yet';
+
+  @override
+  String get outcomeIncomplete => 'Distance not completed';
+
+  @override
+  String get borderlineNote =>
+      'GPS can be off by 2-3%. To be sure, finish at least 3% inside the target.';
+
+  @override
+  String finishTime(String distance, String time) {
+    return '$distance time: $time';
+  }
+
+  @override
+  String targetLine(String time) {
+    return 'Target: $time';
+  }
+
+  @override
+  String marginAhead(String time) {
+    return '$time inside the target';
+  }
+
+  @override
+  String marginBehind(String time) {
+    return '$time over the target';
+  }
+
+  @override
+  String totalDistance(String distance) {
+    return 'Total distance: $distance';
+  }
+
+  @override
+  String totalTime(String time) {
+    return 'Total time: $time';
+  }
+
+  @override
+  String get verdictVerified => 'GPS check: passed';
+
+  @override
+  String get verdictSuspicious => 'GPS check: uncertain';
+
+  @override
+  String get verdictRejected => 'GPS check: rejected';
+
+  @override
+  String get verdictNotCounted =>
+      'This run will not count for progress or rankings.';
+
+  @override
+  String get flagMock => 'A fake (mock) location was detected.';
+
+  @override
+  String get flagTeleport => 'The location jumped a long way at once.';
+
+  @override
+  String get flagImpossibleSpeed =>
+      'Part of the run was faster than humanly possible.';
+
+  @override
+  String get flagVehicle => 'Part of the run was at vehicle or bicycle speed.';
+
+  @override
+  String get flagAverage => 'The average speed was not possible on foot.';
+
+  @override
+  String get flagPoorSignal => 'The GPS signal was weak.';
+
+  @override
+  String get flagGap => 'GPS signal was lost during the run.';
+
+  @override
+  String get flagSparse => 'Too few GPS readings were received.';
+
+  @override
+  String get flagTooShort => 'The run was too short.';
+
+  @override
+  String get uploading => 'Checking on the server…';
+
+  @override
+  String get savedOffline =>
+      'No internet. The run is saved on the phone and will be sent when you are online.';
+
+  @override
+  String get uploadRefused =>
+      'The server did not accept this run (daily limit or bad data).';
+
+  @override
+  String get serverChecked => 'Checked by the server';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get mockPetCta => 'Run a mock PET';
+
+  @override
+  String get recordRun => 'Record a run';
+
+  @override
+  String get recentRuns => 'Recent GPS runs';
+
+  @override
+  String pendingRuns(int n) {
+    return '$n runs waiting to upload';
+  }
+
+  @override
+  String minPerKm(String pace) {
+    return '$pace /km';
+  }
 }

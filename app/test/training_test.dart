@@ -7,6 +7,7 @@ import 'package:maidan/main.dart';
 
 import 'fake_auth_service.dart';
 import 'fake_exam_repository.dart';
+import 'fake_gps.dart';
 import 'fake_profile_repository.dart';
 import 'fake_training_repository.dart';
 
@@ -36,6 +37,8 @@ Future<void> pumpApp(
   addTearDown(tester.view.reset);
   await tester.pumpWidget(
     MaidanApp(
+      runs: FakeRunRepository(),
+      location: (_) => FakeLocationSource(),
       repository: FakeExamRepository(),
       auth: FakeAuthService(),
       profiles: FakeProfileRepository(),
@@ -56,6 +59,8 @@ Future<void> pumpApp(
         home: HomeShell(
           exams: shell.exams,
           training: training,
+          runs: shell.runs,
+          location: shell.location,
           auth: shell.auth,
           profile: shell.profile,
           today: today,
