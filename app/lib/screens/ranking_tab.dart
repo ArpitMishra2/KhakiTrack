@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../data/leaderboard_repository.dart';
 import '../data/training_logic.dart';
 import '../l10n/app_localizations.dart';
 import 'load_error.dart';
 
-/// Weekly leaderboards for the user's village, block, district and state.
+/// Weekly leaderboards: everyone, or one of the user's areas and groups.
 class RankingTab extends StatefulWidget {
   const RankingTab({super.key, required this.boards});
 
@@ -16,146 +17,130 @@ class RankingTab extends StatefulWidget {
 }
 
 class _RankingTabState extends State<RankingTab> {
-  late Future<Area> _area = widget.boards.myArea();
-  String _scope = 'district';
+  late Future<List<Community>> _mine = widget.boards.myCommunities();
+  int? _community; // null: everyone
   String _metric = 'pet';
   int _week = 0;
-  Future<List<LeaderboardEntry>>? _entries;
+  late Future<List<LeaderboardEntry>> _entries = _fetch();
 
-  void _load(Area area) {
-    final needsBlock =
-        (_scope == 'block' && area.block == null) ||
-        (_scope == 'village' && (area.block == null || area.village == null));
-    _entries = needsBlock
-        ? null
-        : widget.boards.fetch(_scope, _metric, weekOffset: _week);
-  }
+  Future<List<LeaderboardEntry>> _fetch() =>
+      widget.boards.fetch(_community, _metric, weekOffset: _week);
 
-  Future<void> _editArea(Area current) async {
-    final saved = await Navigator.of(context).push<bool>(
+  void _change(VoidCallback f) => setState(() {
+    f();
+    _entries = _fetch();
+  });
+
+  Future<void> _manage() async {
+    await Navigator.of(context).push<void>(
       MaterialPageRoute(
-        builder: (_) => AreaScreen(boards: widget.boards, initial: current),
+        builder: (_) => CommunitiesScreen(boards: widget.boards),
       ),
     );
-    if (saved == true) {
-      setState(() {
-        _area = widget.boards.myArea();
-        _entries = null;
-      });
-    }
+    if (!mounted) return;
+    final mine = widget.boards.myCommunities();
+    final ids = (await mine).map((c) => c.id).toSet();
+    setState(() {
+      _mine = mine;
+      if (_community != null && !ids.contains(_community)) _community = null;
+      _entries = _fetch();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return FutureBuilder<Area>(
-      future: _area,
-      builder: (context, snapshot) {
-        final area = snapshot.data;
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(l10n.tabRanking),
-            actions: [
-              if (area != null && area.hasDistrict)
-                IconButton(
-                  tooltip: l10n.editArea,
-                  icon: const Icon(Icons.edit_location_alt),
-                  onPressed: () => _editArea(area),
-                ),
-            ],
-          ),
-          body: snapshot.hasError
-              ? Center(
-                  child: LoadError(
-                    onRetry: () => setState(() {
-                      _area = widget.boards.myArea();
-                    }),
-                  ),
-                )
-              : area == null
-              ? const Center(child: CircularProgressIndicator())
-              : !area.hasDistrict
-              ? _AreaPrompt(onSet: () => _editArea(area))
-              : _boards(context, l10n, area),
-        );
-      },
-    );
-  }
-
-  Widget _boards(BuildContext context, AppLocalizations l10n, Area area) {
-    if (_entries == null) _load(area);
     final textTheme = Theme.of(context).textTheme;
-    void change(VoidCallback f) => setState(() {
-      f();
-      _load(area);
-    });
-
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SegmentedButton<String>(
-            showSelectedIcon: false,
-            segments: [
-              ButtonSegment(value: 'village', label: Text(l10n.scopeVillage)),
-              ButtonSegment(value: 'block', label: Text(l10n.scopeBlock)),
-              ButtonSegment(value: 'district', label: Text(l10n.scopeDistrict)),
-              ButtonSegment(value: 'state', label: Text(l10n.scopeState)),
-            ],
-            selected: {_scope},
-            onSelectionChanged: (s) => change(() => _scope = s.first),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.tabRanking),
+        actions: [
+          TextButton.icon(
+            onPressed: _manage,
+            icon: const Icon(Icons.groups),
+            label: Text(l10n.manageCommunities),
           ),
-        ),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            ChoiceChip(
-              label: Text(l10n.metricPet),
-              selected: _metric == 'pet',
-              onSelected: (_) => change(() => _metric = 'pet'),
-            ),
-            ChoiceChip(
-              label: Text(l10n.metricDistance),
-              selected: _metric == 'distance',
-              onSelected: (_) => change(() => _metric = 'distance'),
-            ),
-            ChoiceChip(
-              label: Text(l10n.thisWeek),
-              selected: _week == 0,
-              onSelected: (_) => change(() => _week = 0),
-            ),
-            ChoiceChip(
-              label: Text(l10n.lastWeek),
-              selected: _week == 1,
-              onSelected: (_) => change(() => _week = 1),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Text(l10n.rankingRules, style: textTheme.bodySmall),
-        const SizedBox(height: 8),
-        if (_entries == null)
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Text(l10n.rankingNeedsBlock, textAlign: TextAlign.center),
-                TextButton(
-                  onPressed: () => _editArea(area),
-                  child: Text(l10n.editArea),
-                ),
-              ],
-            ),
-          )
-        else
+        ],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          FutureBuilder<List<Community>>(
+            future: _mine,
+            builder: (context, snap) {
+              final mine = snap.data ?? const <Community>[];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      ChoiceChip(
+                        avatar: const Icon(Icons.public, size: 18),
+                        label: Text(l10n.boardEveryone),
+                        selected: _community == null,
+                        onSelected: (_) => _change(() => _community = null),
+                      ),
+                      for (final c in mine)
+                        ChoiceChip(
+                          avatar: Icon(
+                            c.kind == 'group' ? Icons.groups : Icons.place,
+                            size: 18,
+                          ),
+                          label: Text(c.name),
+                          selected: _community == c.id,
+                          onSelected: (_) => _change(() => _community = c.id),
+                        ),
+                    ],
+                  ),
+                  if (snap.hasData && mine.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(
+                        l10n.noCommunitiesYet,
+                        style: textTheme.bodySmall,
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+          const Divider(height: 24),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              ChoiceChip(
+                label: Text(l10n.metricPet),
+                selected: _metric == 'pet',
+                onSelected: (_) => _change(() => _metric = 'pet'),
+              ),
+              ChoiceChip(
+                label: Text(l10n.metricDistance),
+                selected: _metric == 'distance',
+                onSelected: (_) => _change(() => _metric = 'distance'),
+              ),
+              ChoiceChip(
+                label: Text(l10n.thisWeek),
+                selected: _week == 0,
+                onSelected: (_) => _change(() => _week = 0),
+              ),
+              ChoiceChip(
+                label: Text(l10n.lastWeek),
+                selected: _week == 1,
+                onSelected: (_) => _change(() => _week = 1),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(l10n.rankingRules, style: textTheme.bodySmall),
+          const SizedBox(height: 8),
           FutureBuilder<List<LeaderboardEntry>>(
             future: _entries,
             builder: (context, snap) {
               if (snap.hasError) {
-                return LoadError(onRetry: () => change(() {}));
+                return LoadError(onRetry: () => _change(() {}));
               }
               final rows = snap.data;
               if (rows == null) {
@@ -193,163 +178,273 @@ class _RankingTabState extends State<RankingTab> {
               );
             },
           ),
-      ],
-    );
-  }
-}
-
-class _AreaPrompt extends StatelessWidget {
-  const _AreaPrompt({required this.onSet});
-
-  final VoidCallback onSet;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.leaderboard, size: 56),
-          const SizedBox(height: 16),
-          Text(l10n.areaIntro, textAlign: TextAlign.center),
-          const SizedBox(height: 16),
-          FilledButton(onPressed: onSet, child: Text(l10n.areaTitle)),
         ],
       ),
     );
   }
 }
 
-/// Pick district (from the list) and type block and village.
-class AreaScreen extends StatefulWidget {
-  const AreaScreen({super.key, required this.boards, required this.initial});
+String communityError(AppLocalizations l10n, CommunityException e) =>
+    switch (e.code) {
+      'name_taken' => l10n.errNameTaken,
+      'create_limit' => l10n.errCreateLimit,
+      'member_limit' => l10n.errMemberLimit,
+      'not_found' => l10n.errCodeNotFound,
+      _ => l10n.errCommunity,
+    };
+
+/// Search, join, create and leave areas and groups.
+class CommunitiesScreen extends StatefulWidget {
+  const CommunitiesScreen({super.key, required this.boards});
 
   final LeaderboardRepository boards;
-  final Area initial;
 
   @override
-  State<AreaScreen> createState() => _AreaScreenState();
+  State<CommunitiesScreen> createState() => _CommunitiesScreenState();
 }
 
-class _AreaScreenState extends State<AreaScreen> {
-  late final Future<List<District>> _districts = widget.boards.districts();
-  late String? _district = widget.initial.district;
-  late final _block = TextEditingController(text: widget.initial.block ?? '');
-  late final _village = TextEditingController(
-    text: widget.initial.village ?? '',
-  );
-  late bool _visible = widget.initial.visible;
-  bool _saving = false;
-  bool _failed = false;
+class _CommunitiesScreenState extends State<CommunitiesScreen> {
+  final _query = TextEditingController();
+  final _code = TextEditingController();
+  final _newName = TextEditingController();
+  late Future<List<Community>> _mine = widget.boards.myCommunities();
+  late Future<List<Community>> _found = widget.boards.search('');
+  late Future<bool> _visible = widget.boards.visible();
+  bool _group = false;
+  bool _private = false;
+  bool _busy = false;
+  String? _error;
 
   @override
   void dispose() {
-    _block.dispose();
-    _village.dispose();
+    _query.dispose();
+    _code.dispose();
+    _newName.dispose();
     super.dispose();
   }
 
-  Future<void> _save() async {
+  void _refresh() => setState(() {
+    _mine = widget.boards.myCommunities();
+    _found = widget.boards.search(_query.text);
+  });
+
+  Future<void> _act(Future<void> Function() action) async {
     setState(() {
-      _saving = true;
-      _failed = false;
+      _busy = true;
+      _error = null;
     });
     try {
-      await widget.boards.saveArea(
-        Area(
-          district: _district,
-          block: _block.text,
-          village: _village.text,
-          visible: _visible,
-        ),
-      );
-      if (mounted) Navigator.pop(context, true);
+      await action();
+      _refresh();
+    } on CommunityException catch (e) {
+      if (mounted) {
+        setState(
+          () => _error = communityError(AppLocalizations.of(context), e),
+        );
+      }
     } catch (_) {
       if (mounted) {
-        setState(() {
-          _saving = false;
-          _failed = true;
-        });
+        setState(() => _error = AppLocalizations.of(context).errCommunity);
       }
+    } finally {
+      if (mounted) setState(() => _busy = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final language = Localizations.localeOf(context).languageCode;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.areaTitle)),
-      body: FutureBuilder<List<District>>(
-        future: _districts,
-        builder: (context, snap) {
-          final list = snap.data;
-          if (snap.hasError) {
-            return Center(child: Text(l10n.loadError));
-          }
-          if (list == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              Text(l10n.areaIntro),
-              const SizedBox(height: 16),
-              DropdownMenu<String>(
-                expandedInsets: EdgeInsets.zero,
-                enableFilter: true,
-                requestFocusOnTap: true,
-                menuHeight: 320,
-                initialSelection: _district,
-                label: Text(l10n.areaDistrict),
-                hintText: l10n.areaChooseDistrict,
-                dropdownMenuEntries: [
-                  for (final d in list)
-                    DropdownMenuEntry(value: d.id, label: d.nameFor(language)),
-                ],
-                onSelected: (v) => setState(() => _district = v),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _block,
-                decoration: InputDecoration(labelText: l10n.areaBlock),
-              ),
-              TextField(
-                controller: _village,
-                decoration: InputDecoration(labelText: l10n.areaVillage),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                l10n.areaSpellingHint,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                value: _visible,
-                onChanged: (v) => setState(() => _visible = v),
-                title: Text(l10n.areaVisible),
-                subtitle: Text(l10n.areaVisibleNote),
-              ),
-              const SizedBox(height: 16),
-              FilledButton(
-                onPressed: _district == null || _saving ? null : _save,
-                child: Text(l10n.save),
-              ),
-              if (_failed)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    l10n.saveFailed,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
+    final textTheme = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
+
+    Widget communityTile(Community c) => Card(
+      child: ListTile(
+        leading: Icon(c.kind == 'group' ? Icons.groups : Icons.place),
+        title: Text(c.name),
+        subtitle: Text(
+          [
+            c.kind == 'group' ? l10n.kindGroup : l10n.kindRegion,
+            if (c.isPrivate) l10n.privateLabel,
+            l10n.membersCount(c.members),
+            if (c.isMember && c.inviteCode != null)
+              '${l10n.inviteCodeLabel}: ${c.inviteCode}',
+          ].join(' · '),
+        ),
+        trailing: c.isMember
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (c.inviteCode != null)
+                    IconButton(
+                      tooltip: l10n.inviteCodeShare(c.inviteCode!),
+                      icon: const Icon(Icons.copy),
+                      onPressed: () async {
+                        await Clipboard.setData(
+                          ClipboardData(
+                            text: l10n.inviteCodeShare(c.inviteCode!),
+                          ),
+                        );
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.codeCopied)),
+                          );
+                        }
+                      },
                     ),
+                  TextButton(
+                    onPressed: _busy
+                        ? null
+                        : () => _act(() => widget.boards.leave(c.id)),
+                    child: Text(l10n.leaveLabel),
                   ),
+                ],
+              )
+            : FilledButton.tonal(
+                onPressed: _busy
+                    ? null
+                    : () => _act(() => widget.boards.join(c.id)),
+                child: Text(l10n.joinLabel),
+              ),
+      ),
+    );
+
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.communitiesTitle)),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Text(l10n.communitiesIntro),
+          if (_error != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(_error!, style: TextStyle(color: colors.error)),
+            ),
+          FutureBuilder<List<Community>>(
+            future: _mine,
+            builder: (context, snap) => Column(
+              children: [
+                for (final c in snap.data ?? const <Community>[])
+                  communityTile(c),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _query,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search),
+              labelText: l10n.searchCommunities,
+            ),
+            onChanged: (q) => setState(() {
+              _found = widget.boards.search(q);
+            }),
+          ),
+          FutureBuilder<List<Community>>(
+            future: _found,
+            builder: (context, snap) {
+              final list = (snap.data ?? const <Community>[])
+                  .where((c) => !c.isMember)
+                  .toList();
+              if (snap.hasData &&
+                  list.isEmpty &&
+                  _query.text.trim().isNotEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(l10n.noCommunitiesFound),
+                );
+              }
+              return Column(children: [for (final c in list) communityTile(c)]);
+            },
+          ),
+          const Divider(height: 32),
+          Text(l10n.joinByCode, style: textTheme.titleMedium),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _code,
+                  textCapitalization: TextCapitalization.characters,
+                  maxLength: 6,
+                  decoration: InputDecoration(labelText: l10n.inviteCodeLabel),
                 ),
+              ),
+              const SizedBox(width: 8),
+              FilledButton(
+                onPressed: _busy
+                    ? null
+                    : () => _act(() async {
+                        await widget.boards.joinByCode(_code.text);
+                        _code.clear();
+                      }),
+                child: Text(l10n.joinLabel),
+              ),
             ],
-          );
-        },
+          ),
+          const Divider(height: 32),
+          Text(l10n.createCommunity, style: textTheme.titleMedium),
+          TextField(
+            controller: _newName,
+            maxLength: 60,
+            decoration: InputDecoration(labelText: l10n.communityName),
+            onChanged: (_) => setState(() {}),
+          ),
+          RadioGroup<bool>(
+            groupValue: _group,
+            onChanged: (v) => setState(() => _group = v ?? false),
+            child: Column(
+              children: [
+                RadioListTile<bool>(
+                  value: false,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(l10n.communityKindRegion),
+                ),
+                RadioListTile<bool>(
+                  value: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(l10n.communityKindGroup),
+                ),
+              ],
+            ),
+          ),
+          if (_group)
+            CheckboxListTile(
+              contentPadding: EdgeInsets.zero,
+              value: _private,
+              onChanged: (v) => setState(() => _private = v ?? false),
+              title: Text(l10n.communityPrivate),
+            ),
+          FilledButton(
+            onPressed: _busy || (cleanName(_newName.text)?.length ?? 0) < 3
+                ? null
+                : () => _act(() async {
+                    await widget.boards.create(
+                      _newName.text,
+                      group: _group,
+                      private: _private,
+                    );
+                    _newName.clear();
+                  }),
+            child: Text(l10n.createLabel),
+          ),
+          const Divider(height: 32),
+          FutureBuilder<bool>(
+            future: _visible,
+            builder: (context, snap) => SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              value: snap.data ?? true,
+              onChanged: snap.hasData
+                  ? (v) async {
+                      await widget.boards.setVisible(v);
+                      setState(() {
+                        _visible = Future.value(v);
+                      });
+                    }
+                  : null,
+              title: Text(l10n.areaVisible),
+              subtitle: Text(l10n.areaVisibleNote),
+            ),
+          ),
+        ],
       ),
     );
   }

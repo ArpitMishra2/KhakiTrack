@@ -817,49 +817,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tabRanking => 'रैंकिंग';
 
   @override
-  String get areaTitle => 'आपका क्षेत्र';
-
-  @override
-  String get areaIntro =>
-      'अपने गाँव, ब्लॉक और ज़िले के साथियों से मुकाबला करने के लिए अपना क्षेत्र चुनें।';
-
-  @override
-  String get areaDistrict => 'ज़िला';
-
-  @override
-  String get areaChooseDistrict => 'ज़िला चुनें';
-
-  @override
-  String get areaBlock => 'ब्लॉक / तहसील';
-
-  @override
-  String get areaVillage => 'गाँव / मोहल्ला';
-
-  @override
-  String get areaSpellingHint =>
-      'गाँव और ब्लॉक का नाम वैसे ही लिखें जैसे आपके साथी लिखेंगे, ताकि आप एक ही रैंकिंग में आएं।';
-
-  @override
   String get areaVisible => 'दूसरों की रैंकिंग में मेरा नाम दिखाएं';
 
   @override
   String get areaVisibleNote =>
       'केवल पहला नाम और उपनाम का पहला अक्षर दिखता है।';
-
-  @override
-  String get editArea => 'क्षेत्र बदलें';
-
-  @override
-  String get scopeVillage => 'गाँव';
-
-  @override
-  String get scopeBlock => 'ब्लॉक';
-
-  @override
-  String get scopeDistrict => 'ज़िला';
-
-  @override
-  String get scopeState => 'राज्य';
 
   @override
   String get metricPet => 'PET समय';
@@ -882,13 +844,105 @@ class AppLocalizationsHi extends AppLocalizations {
       'इस हफ्ते यहाँ अभी कोई नहीं है। मॉक PET दौड़कर पहले नंबर पर आएं!';
 
   @override
-  String get rankingNeedsBlock =>
-      'इस रैंकिंग के लिए अपना ब्लॉक और गाँव जोड़ें।';
-
-  @override
   String get youLabel => 'आप';
 
   @override
   String get errAiBusy =>
       'AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।';
+
+  @override
+  String get boardEveryone => 'सभी';
+
+  @override
+  String get communitiesTitle => 'मेरे इलाके और ग्रुप';
+
+  @override
+  String get communitiesIntro =>
+      'अपने गाँव, मैदान या दोस्तों के ग्रुप से जुड़ें और उन्हीं से मुकाबला करें। न मिले तो खुद बना लें!';
+
+  @override
+  String get manageCommunities => 'इलाके / ग्रुप';
+
+  @override
+  String get searchCommunities => 'गाँव, मैदान या ग्रुप ढूंढें';
+
+  @override
+  String get noCommunitiesFound => 'कुछ नहीं मिला। नीचे से नया बना लें।';
+
+  @override
+  String get joinLabel => 'जुड़ें';
+
+  @override
+  String get leaveLabel => 'छोड़ें';
+
+  @override
+  String get joinedLabel => 'जुड़े हुए';
+
+  @override
+  String membersCount(int n) {
+    return '$n सदस्य';
+  }
+
+  @override
+  String get kindRegion => 'इलाका';
+
+  @override
+  String get kindGroup => 'ग्रुप';
+
+  @override
+  String get privateLabel => 'प्राइवेट';
+
+  @override
+  String get createCommunity => 'नया बनाएं';
+
+  @override
+  String get communityName => 'नाम';
+
+  @override
+  String get communityKindRegion =>
+      'इलाका (गाँव, मोहल्ला, मैदान) – सबके लिए खुला';
+
+  @override
+  String get communityKindGroup => 'ग्रुप (दोस्त, बैच, अकादमी)';
+
+  @override
+  String get communityPrivate => 'प्राइवेट – सिर्फ कोड से जुड़ सकते हैं';
+
+  @override
+  String get createLabel => 'बनाएं';
+
+  @override
+  String get joinByCode => 'कोड से जुड़ें';
+
+  @override
+  String get inviteCodeLabel => 'ग्रुप कोड';
+
+  @override
+  String inviteCodeShare(String code) {
+    return 'दोस्तों को यह कोड भेजें: $code';
+  }
+
+  @override
+  String get codeCopied => 'कोड कॉपी हो गया';
+
+  @override
+  String get errNameTaken =>
+      'इस नाम का इलाका/ग्रुप पहले से है। ऊपर ढूंढकर उसमें जुड़ जाएं।';
+
+  @override
+  String get errCreateLimit => 'आज के लिए आप 3 बना चुके हैं। कल फिर बनाएं।';
+
+  @override
+  String get errMemberLimit =>
+      'आप 15 इलाकों/ग्रुप में हैं। नया जोड़ने के लिए कोई एक छोड़ें।';
+
+  @override
+  String get errCodeNotFound => 'यह कोड नहीं मिला। दोबारा जांचें।';
+
+  @override
+  String get errCommunity => 'कुछ गड़बड़ हुई। फिर कोशिश करें।';
+
+  @override
+  String get noCommunitiesYet =>
+      'आप अभी किसी इलाके या ग्रुप में नहीं हैं। \'सभी\' की रैंकिंग देखें या अपना इलाका जोड़ें।';
 }

@@ -1514,48 +1514,6 @@ abstract class AppLocalizations {
   /// **'रैंकिंग'**
   String get tabRanking;
 
-  /// No description provided for @areaTitle.
-  ///
-  /// In hi, this message translates to:
-  /// **'आपका क्षेत्र'**
-  String get areaTitle;
-
-  /// No description provided for @areaIntro.
-  ///
-  /// In hi, this message translates to:
-  /// **'अपने गाँव, ब्लॉक और ज़िले के साथियों से मुकाबला करने के लिए अपना क्षेत्र चुनें।'**
-  String get areaIntro;
-
-  /// No description provided for @areaDistrict.
-  ///
-  /// In hi, this message translates to:
-  /// **'ज़िला'**
-  String get areaDistrict;
-
-  /// No description provided for @areaChooseDistrict.
-  ///
-  /// In hi, this message translates to:
-  /// **'ज़िला चुनें'**
-  String get areaChooseDistrict;
-
-  /// No description provided for @areaBlock.
-  ///
-  /// In hi, this message translates to:
-  /// **'ब्लॉक / तहसील'**
-  String get areaBlock;
-
-  /// No description provided for @areaVillage.
-  ///
-  /// In hi, this message translates to:
-  /// **'गाँव / मोहल्ला'**
-  String get areaVillage;
-
-  /// No description provided for @areaSpellingHint.
-  ///
-  /// In hi, this message translates to:
-  /// **'गाँव और ब्लॉक का नाम वैसे ही लिखें जैसे आपके साथी लिखेंगे, ताकि आप एक ही रैंकिंग में आएं।'**
-  String get areaSpellingHint;
-
   /// No description provided for @areaVisible.
   ///
   /// In hi, this message translates to:
@@ -1567,36 +1525,6 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'केवल पहला नाम और उपनाम का पहला अक्षर दिखता है।'**
   String get areaVisibleNote;
-
-  /// No description provided for @editArea.
-  ///
-  /// In hi, this message translates to:
-  /// **'क्षेत्र बदलें'**
-  String get editArea;
-
-  /// No description provided for @scopeVillage.
-  ///
-  /// In hi, this message translates to:
-  /// **'गाँव'**
-  String get scopeVillage;
-
-  /// No description provided for @scopeBlock.
-  ///
-  /// In hi, this message translates to:
-  /// **'ब्लॉक'**
-  String get scopeBlock;
-
-  /// No description provided for @scopeDistrict.
-  ///
-  /// In hi, this message translates to:
-  /// **'ज़िला'**
-  String get scopeDistrict;
-
-  /// No description provided for @scopeState.
-  ///
-  /// In hi, this message translates to:
-  /// **'राज्य'**
-  String get scopeState;
 
   /// No description provided for @metricPet.
   ///
@@ -1634,12 +1562,6 @@ abstract class AppLocalizations {
   /// **'इस हफ्ते यहाँ अभी कोई नहीं है। मॉक PET दौड़कर पहले नंबर पर आएं!'**
   String get rankingEmpty;
 
-  /// No description provided for @rankingNeedsBlock.
-  ///
-  /// In hi, this message translates to:
-  /// **'इस रैंकिंग के लिए अपना ब्लॉक और गाँव जोड़ें।'**
-  String get rankingNeedsBlock;
-
   /// No description provided for @youLabel.
   ///
   /// In hi, this message translates to:
@@ -1651,6 +1573,180 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।'**
   String get errAiBusy;
+
+  /// No description provided for @boardEveryone.
+  ///
+  /// In hi, this message translates to:
+  /// **'सभी'**
+  String get boardEveryone;
+
+  /// No description provided for @communitiesTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'मेरे इलाके और ग्रुप'**
+  String get communitiesTitle;
+
+  /// No description provided for @communitiesIntro.
+  ///
+  /// In hi, this message translates to:
+  /// **'अपने गाँव, मैदान या दोस्तों के ग्रुप से जुड़ें और उन्हीं से मुकाबला करें। न मिले तो खुद बना लें!'**
+  String get communitiesIntro;
+
+  /// No description provided for @manageCommunities.
+  ///
+  /// In hi, this message translates to:
+  /// **'इलाके / ग्रुप'**
+  String get manageCommunities;
+
+  /// No description provided for @searchCommunities.
+  ///
+  /// In hi, this message translates to:
+  /// **'गाँव, मैदान या ग्रुप ढूंढें'**
+  String get searchCommunities;
+
+  /// No description provided for @noCommunitiesFound.
+  ///
+  /// In hi, this message translates to:
+  /// **'कुछ नहीं मिला। नीचे से नया बना लें।'**
+  String get noCommunitiesFound;
+
+  /// No description provided for @joinLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'जुड़ें'**
+  String get joinLabel;
+
+  /// No description provided for @leaveLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'छोड़ें'**
+  String get leaveLabel;
+
+  /// No description provided for @joinedLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'जुड़े हुए'**
+  String get joinedLabel;
+
+  /// No description provided for @membersCount.
+  ///
+  /// In hi, this message translates to:
+  /// **'{n} सदस्य'**
+  String membersCount(int n);
+
+  /// No description provided for @kindRegion.
+  ///
+  /// In hi, this message translates to:
+  /// **'इलाका'**
+  String get kindRegion;
+
+  /// No description provided for @kindGroup.
+  ///
+  /// In hi, this message translates to:
+  /// **'ग्रुप'**
+  String get kindGroup;
+
+  /// No description provided for @privateLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'प्राइवेट'**
+  String get privateLabel;
+
+  /// No description provided for @createCommunity.
+  ///
+  /// In hi, this message translates to:
+  /// **'नया बनाएं'**
+  String get createCommunity;
+
+  /// No description provided for @communityName.
+  ///
+  /// In hi, this message translates to:
+  /// **'नाम'**
+  String get communityName;
+
+  /// No description provided for @communityKindRegion.
+  ///
+  /// In hi, this message translates to:
+  /// **'इलाका (गाँव, मोहल्ला, मैदान) – सबके लिए खुला'**
+  String get communityKindRegion;
+
+  /// No description provided for @communityKindGroup.
+  ///
+  /// In hi, this message translates to:
+  /// **'ग्रुप (दोस्त, बैच, अकादमी)'**
+  String get communityKindGroup;
+
+  /// No description provided for @communityPrivate.
+  ///
+  /// In hi, this message translates to:
+  /// **'प्राइवेट – सिर्फ कोड से जुड़ सकते हैं'**
+  String get communityPrivate;
+
+  /// No description provided for @createLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'बनाएं'**
+  String get createLabel;
+
+  /// No description provided for @joinByCode.
+  ///
+  /// In hi, this message translates to:
+  /// **'कोड से जुड़ें'**
+  String get joinByCode;
+
+  /// No description provided for @inviteCodeLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'ग्रुप कोड'**
+  String get inviteCodeLabel;
+
+  /// No description provided for @inviteCodeShare.
+  ///
+  /// In hi, this message translates to:
+  /// **'दोस्तों को यह कोड भेजें: {code}'**
+  String inviteCodeShare(String code);
+
+  /// No description provided for @codeCopied.
+  ///
+  /// In hi, this message translates to:
+  /// **'कोड कॉपी हो गया'**
+  String get codeCopied;
+
+  /// No description provided for @errNameTaken.
+  ///
+  /// In hi, this message translates to:
+  /// **'इस नाम का इलाका/ग्रुप पहले से है। ऊपर ढूंढकर उसमें जुड़ जाएं।'**
+  String get errNameTaken;
+
+  /// No description provided for @errCreateLimit.
+  ///
+  /// In hi, this message translates to:
+  /// **'आज के लिए आप 3 बना चुके हैं। कल फिर बनाएं।'**
+  String get errCreateLimit;
+
+  /// No description provided for @errMemberLimit.
+  ///
+  /// In hi, this message translates to:
+  /// **'आप 15 इलाकों/ग्रुप में हैं। नया जोड़ने के लिए कोई एक छोड़ें।'**
+  String get errMemberLimit;
+
+  /// No description provided for @errCodeNotFound.
+  ///
+  /// In hi, this message translates to:
+  /// **'यह कोड नहीं मिला। दोबारा जांचें।'**
+  String get errCodeNotFound;
+
+  /// No description provided for @errCommunity.
+  ///
+  /// In hi, this message translates to:
+  /// **'कुछ गड़बड़ हुई। फिर कोशिश करें।'**
+  String get errCommunity;
+
+  /// No description provided for @noCommunitiesYet.
+  ///
+  /// In hi, this message translates to:
+  /// **'आप अभी किसी इलाके या ग्रुप में नहीं हैं। \'सभी\' की रैंकिंग देखें या अपना इलाका जोड़ें।'**
+  String get noCommunitiesYet;
 }
 
 class _AppLocalizationsDelegate

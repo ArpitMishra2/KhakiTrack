@@ -22,5 +22,3 @@ Version `1.0` of both files is sourced from official notices, retrieved 2026-10-
 
 Arpit reviewed both files against the PDFs on 2026-10-02 (`owner_review.reviewed: true`).
 
-## Regions
-`regions/up_districts.json`: the 75 districts of Uttar Pradesh for the leaderboard area picker, version `0.1-unverified`. Names come from Wikipedia, cross-checked against the official igod.gov.in directory for the 25 districts it returned (official spelling used where they differ). Hindi names are transliterations. Arpit to verify before release.

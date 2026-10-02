@@ -554,27 +554,57 @@
     }
   },
   "tabRanking": "रैंकिंग",
-  "areaTitle": "आपका क्षेत्र",
-  "areaIntro": "अपने गाँव, ब्लॉक और ज़िले के साथियों से मुकाबला करने के लिए अपना क्षेत्र चुनें।",
-  "areaDistrict": "ज़िला",
-  "areaChooseDistrict": "ज़िला चुनें",
-  "areaBlock": "ब्लॉक / तहसील",
-  "areaVillage": "गाँव / मोहल्ला",
-  "areaSpellingHint": "गाँव और ब्लॉक का नाम वैसे ही लिखें जैसे आपके साथी लिखेंगे, ताकि आप एक ही रैंकिंग में आएं।",
   "areaVisible": "दूसरों की रैंकिंग में मेरा नाम दिखाएं",
   "areaVisibleNote": "केवल पहला नाम और उपनाम का पहला अक्षर दिखता है।",
-  "editArea": "क्षेत्र बदलें",
-  "scopeVillage": "गाँव",
-  "scopeBlock": "ब्लॉक",
-  "scopeDistrict": "ज़िला",
-  "scopeState": "राज्य",
   "metricPet": "PET समय",
   "metricDistance": "इस हफ्ते की दूरी",
   "thisWeek": "इस हफ्ते",
   "lastWeek": "पिछला हफ्ता",
   "rankingRules": "केवल GPS से जाँची गई दौड़ें गिनी जाती हैं। PET समय के लिए असली दूरी पर मॉक PET दौड़ें। रैंकिंग हर सोमवार नई शुरू होती है।",
   "rankingEmpty": "इस हफ्ते यहाँ अभी कोई नहीं है। मॉक PET दौड़कर पहले नंबर पर आएं!",
-  "rankingNeedsBlock": "इस रैंकिंग के लिए अपना ब्लॉक और गाँव जोड़ें।",
   "youLabel": "आप",
-  "errAiBusy": "AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।"
+  "errAiBusy": "AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।",
+  "boardEveryone": "सभी",
+  "communitiesTitle": "मेरे इलाके और ग्रुप",
+  "communitiesIntro": "अपने गाँव, मैदान या दोस्तों के ग्रुप से जुड़ें और उन्हीं से मुकाबला करें। न मिले तो खुद बना लें!",
+  "manageCommunities": "इलाके / ग्रुप",
+  "searchCommunities": "गाँव, मैदान या ग्रुप ढूंढें",
+  "noCommunitiesFound": "कुछ नहीं मिला। नीचे से नया बना लें।",
+  "joinLabel": "जुड़ें",
+  "leaveLabel": "छोड़ें",
+  "joinedLabel": "जुड़े हुए",
+  "membersCount": "{n} सदस्य",
+  "@membersCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "kindRegion": "इलाका",
+  "kindGroup": "ग्रुप",
+  "privateLabel": "प्राइवेट",
+  "createCommunity": "नया बनाएं",
+  "communityName": "नाम",
+  "communityKindRegion": "इलाका (गाँव, मोहल्ला, मैदान) – सबके लिए खुला",
+  "communityKindGroup": "ग्रुप (दोस्त, बैच, अकादमी)",
+  "communityPrivate": "प्राइवेट – सिर्फ कोड से जुड़ सकते हैं",
+  "createLabel": "बनाएं",
+  "joinByCode": "कोड से जुड़ें",
+  "inviteCodeLabel": "ग्रुप कोड",
+  "inviteCodeShare": "दोस्तों को यह कोड भेजें: {code}",
+  "@inviteCodeShare": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "codeCopied": "कोड कॉपी हो गया",
+  "errNameTaken": "इस नाम का इलाका/ग्रुप पहले से है। ऊपर ढूंढकर उसमें जुड़ जाएं।",
+  "errCreateLimit": "आज के लिए आप 3 बना चुके हैं। कल फिर बनाएं।",
+  "errMemberLimit": "आप 15 इलाकों/ग्रुप में हैं। नया जोड़ने के लिए कोई एक छोड़ें।",
+  "errCodeNotFound": "यह कोड नहीं मिला। दोबारा जांचें।",
+  "errCommunity": "कुछ गड़बड़ हुई। फिर कोशिश करें।",
+  "noCommunitiesYet": "आप अभी किसी इलाके या ग्रुप में नहीं हैं। 'सभी' की रैंकिंग देखें या अपना इलाका जोड़ें।"
 }

@@ -22,6 +22,6 @@ Needs the Supabase secret `GROQ_API_KEY` or `ANTHROPIC_API_KEY` (Dashboard > Edg
 ## Database tests
 `tests/*.sql` run against the dev project and leave no data behind: each test is a DO block that ends by raising `PASS ...` or `FAIL ...`, which rolls back everything it created.
 
-    SUPABASE_ACCESS_TOKEN=... bash supabase/tests/run.sh leaderboard_test.sql
+    SUPABASE_ACCESS_TOKEN=... bash supabase/tests/run.sh communities_test.sql
 
 They are not in CI yet because CI has no database access token.
