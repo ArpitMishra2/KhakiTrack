@@ -1,0 +1,58 @@
+{
+  "exam_id": "agniveer_army_gd",
+  "recruitment": "Indian Army Agniveer (General Duty), Agnipath scheme",
+  "data_version": "0.1-unverified",
+  "status": "UNVERIFIED: the official notification on joinindianarmy.nic.in is behind a captcha and could not be read from the build environment. Values below are only what coaching sites report and are withheld (value null) until Arpit confirms them from the official notification of the relevant Army Recruiting Office.",
+  "official_source_needed": "Agniveer notification PDF from joinindianarmy.nic.in (Physical Fitness Test and Physical Measurement Test tables)",
+  "reported_by": "https://www.pw.live/defence/exams/indian-army-agniveer-physical-test-requirements",
+  "notes": [
+    "Physical Measurement Test (height, chest, weight) differs by region and is not captured here.",
+    "Reported scoring: 1.6 km under 5:30 for full marks, 5:31 to 5:45 for fewer marks; pull-ups 6 to 10 for marks; 9 ft ditch and zig-zag balance are pass/fail."
+  ],
+  "standards": [
+    {
+      "gender": "male",
+      "category": "all",
+      "event": "run_1600m",
+      "kind": "time_max_seconds",
+      "value": null,
+      "reported_value": 345,
+      "verified": false,
+      "source_url": null,
+      "note": "Reported qualifying limit 5:45 (Group II); full marks under 5:30."
+    },
+    {
+      "gender": "male",
+      "category": "all",
+      "event": "pull_ups",
+      "kind": "count_min",
+      "value": null,
+      "reported_value": 6,
+      "verified": false,
+      "source_url": null,
+      "note": "Reported minimum 6 for marks; 10 for full marks."
+    },
+    {
+      "gender": "male",
+      "category": "all",
+      "event": "ditch_9ft",
+      "kind": "qualify",
+      "value": null,
+      "reported_value": null,
+      "verified": false,
+      "source_url": null,
+      "note": "Reported pass/fail."
+    },
+    {
+      "gender": "male",
+      "category": "all",
+      "event": "zigzag_balance",
+      "kind": "qualify",
+      "value": null,
+      "reported_value": null,
+      "verified": false,
+      "source_url": null,
+      "note": "Reported pass/fail."
+    }
+  ]
+}

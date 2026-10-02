@@ -33,6 +33,8 @@ class Standard {
     required this.value,
     required this.sourceUrl,
     required this.verified,
+    this.ageMin,
+    this.ageMax,
   });
 
   factory Standard.fromJson(Map<String, dynamic> json) => Standard(
@@ -43,6 +45,8 @@ class Standard {
     value: (json['value'] as num?)?.toDouble(),
     sourceUrl: json['source_url'] as String?,
     verified: json['verified'] as bool? ?? false,
+    ageMin: (json['age_min'] as num?)?.toInt(),
+    ageMax: (json['age_max'] as num?)?.toInt(),
   );
 
   final String gender;
@@ -52,6 +56,24 @@ class Standard {
   final double? value;
   final String? sourceUrl;
   final bool verified;
+
+  /// Age band in completed years (inclusive); null means no limit.
+  final int? ageMin;
+  final int? ageMax;
+
+  bool get ageBanded => ageMin != null || ageMax != null;
+
+  bool appliesToAge(int? age) =>
+      !ageBanded ||
+      (age != null &&
+          (ageMin == null || age >= ageMin!) &&
+          (ageMax == null || age <= ageMax!));
+
+  /// Body measurements (PST); everything else is a physical test (PET).
+  bool get isMeasurement =>
+      event.startsWith('height') ||
+      event.startsWith('chest') ||
+      event.startsWith('weight');
 
   /// Only values read from an official notice may be shown as real standards.
   bool get isConfirmed => verified && value != null && sourceUrl != null;

@@ -949,4 +949,46 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noCommunitiesYet =>
       'You are not in any area or group yet. See the \'Everyone\' ranking or add your area.';
+
+  @override
+  String get catScSt => 'Scheduled Caste / Tribe (SC/ST)';
+
+  @override
+  String get catHillAreas =>
+      'Hill areas (Garhwali, Kumaoni, Gorkha etc. – with certificate)';
+
+  @override
+  String get catPoliceWard => 'Son/daughter of Delhi Police personnel';
+
+  @override
+  String get eventLongJump => 'Long jump';
+
+  @override
+  String get eventHighJump => 'High jump';
+
+  @override
+  String get eventPullUps => 'Pull-ups (beam)';
+
+  @override
+  String get eventDitch => '9 ft ditch jump';
+
+  @override
+  String get eventZigzag => 'Zig-zag balance';
+
+  @override
+  String get mustPass => 'Must pass';
+
+  @override
+  String countAtLeast(int n) {
+    return 'At least $n';
+  }
+
+  @override
+  String standardsForAge(int age) {
+    return 'Standards for your age ($age years)';
+  }
+
+  @override
+  String get examUnconfirmed =>
+      'This exam\'s standards are not yet confirmed from the official notice. They will show here once confirmed, and AI plans, mock PET and rankings will switch on then.';
 }

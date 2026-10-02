@@ -76,6 +76,9 @@ class _ProgressTabState extends State<ProgressTab> {
         results[1] as List<Standard>,
         widget.profile.gender!,
         widget.profile.category,
+        age: widget.profile.dateOfBirth == null
+            ? null
+            : ageOn(widget.profile.dateOfBirth!, DateTime.now()),
       ),
       gpsRuns: gps[0] as List<GpsRunSummary>,
       pending: gps[1] as int,
@@ -154,7 +157,15 @@ class _ProgressTabState extends State<ProgressTab> {
               : snapshot.data == null
               ? const Center(child: CircularProgressIndicator())
               : run == null
-              ? const SizedBox.shrink()
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Text(
+                      l10n.examUnconfirmed,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
               : _body(context, l10n, snapshot.data!, run),
         );
       },

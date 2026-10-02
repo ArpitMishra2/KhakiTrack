@@ -11,6 +11,9 @@ String categoryLabel(AppLocalizations l10n, String category) =>
       'ladakh_region' => l10n.catLadakh,
       'ne_states' => l10n.catNeStates,
       'gta' => l10n.catGta,
+      'sc_st' => l10n.catScSt,
+      'hill_areas' => l10n.catHillAreas,
+      'police_ward' => l10n.catPoliceWard,
       _ => category,
     };
 
@@ -22,6 +25,13 @@ String distanceText(AppLocalizations l10n, int metres) => metres >= 1000
     ? l10n.distanceKm(_number(metres / 1000))
     : l10n.distanceM('$metres');
 
+/// 3.75 feet -> 3'9", 14 -> 14'.
+String feetInches(double feet) {
+  final whole = feet.floor();
+  final inches = ((feet - whole) * 12).round();
+  return inches == 0 ? "$whole'" : "$whole'$inches\"";
+}
+
 String eventLabel(AppLocalizations l10n, Standard s) {
   if (s.isRun) return l10n.eventRun(distanceText(l10n, s.runMetres ?? 0));
   return switch (s.event) {
@@ -30,6 +40,11 @@ String eventLabel(AppLocalizations l10n, Standard s) {
     'chest_unexpanded_cm' => l10n.eventChestUnexpanded,
     'chest_expanded_cm' => l10n.eventChestExpanded,
     'chest_expansion_cm' => l10n.eventChestExpansion,
+    'long_jump_ft' => l10n.eventLongJump,
+    'high_jump_ft' => l10n.eventHighJump,
+    'pull_ups' => l10n.eventPullUps,
+    'ditch_9ft' => l10n.eventDitch,
+    'zigzag_balance' => l10n.eventZigzag,
     _ => s.event,
   };
 }
@@ -37,8 +52,13 @@ String eventLabel(AppLocalizations l10n, Standard s) {
 /// The requirement as shown to the user, or [AppLocalizations.notConfirmed]
 /// when the value is not from an official notice.
 String valueLabel(AppLocalizations l10n, Standard s) {
+  if (s.kind == 'qualify') {
+    return s.verified ? l10n.mustPass : l10n.notConfirmed;
+  }
   if (!s.isConfirmed) return l10n.notConfirmed;
   final v = s.value!;
+  if (s.kind == 'count_min') return l10n.countAtLeast(v.round());
+  if (s.event.endsWith('_ft')) return feetInches(v);
   if (s.kind == 'time_max_seconds') {
     final total = v.round();
     final minutes = total ~/ 60, seconds = total % 60;

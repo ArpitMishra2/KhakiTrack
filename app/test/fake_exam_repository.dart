@@ -23,6 +23,18 @@ const testExams = [
     dataVersion: '1.0',
   ),
   Exam(
+    id: 'delhi_police_constable',
+    nameHi: 'दिल्ली पुलिस कांस्टेबल',
+    nameEn: 'Delhi Police Constable',
+    dataVersion: '1.0',
+  ),
+  Exam(
+    id: 'agniveer_army_gd',
+    nameHi: 'अग्निवीर थल सेना (GD)',
+    nameEn: 'Agniveer Army (GD)',
+    dataVersion: '0.1-unverified',
+  ),
+  Exam(
     id: 'up_police_constable',
     nameHi: 'यूपी पुलिस कांस्टेबल',
     nameEn: 'UP Police Constable',

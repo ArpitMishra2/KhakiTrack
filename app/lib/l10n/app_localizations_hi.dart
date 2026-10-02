@@ -945,4 +945,46 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get noCommunitiesYet =>
       'आप अभी किसी इलाके या ग्रुप में नहीं हैं। \'सभी\' की रैंकिंग देखें या अपना इलाका जोड़ें।';
+
+  @override
+  String get catScSt => 'अनुसूचित जाति / जनजाति (SC/ST)';
+
+  @override
+  String get catHillAreas =>
+      'पहाड़ी क्षेत्र (गढ़वाली, कुमाऊँनी, गोरखा आदि – प्रमाणपत्र के साथ)';
+
+  @override
+  String get catPoliceWard => 'दिल्ली पुलिस कर्मी के बेटे/बेटी';
+
+  @override
+  String get eventLongJump => 'लंबी कूद';
+
+  @override
+  String get eventHighJump => 'ऊँची कूद';
+
+  @override
+  String get eventPullUps => 'पुल-अप (बीम)';
+
+  @override
+  String get eventDitch => '9 फीट गड्ढा कूद';
+
+  @override
+  String get eventZigzag => 'ज़िग-ज़ैग बैलेंस';
+
+  @override
+  String get mustPass => 'पास होना ज़रूरी';
+
+  @override
+  String countAtLeast(int n) {
+    return 'कम से कम $n';
+  }
+
+  @override
+  String standardsForAge(int age) {
+    return 'आपकी उम्र ($age साल) के हिसाब से मानक';
+  }
+
+  @override
+  String get examUnconfirmed =>
+      'इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।';
 }

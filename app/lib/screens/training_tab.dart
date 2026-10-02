@@ -50,6 +50,9 @@ class _TrainingTabState extends State<TrainingTab> {
         results[1]! as List<Standard>,
         widget.profile.gender!,
         widget.profile.category,
+        age: widget.profile.dateOfBirth == null
+            ? null
+            : ageOn(widget.profile.dateOfBirth!, DateTime.now()),
       ),
     );
   }
@@ -162,6 +165,14 @@ class _Intro extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(l10n.trainingIntroBody, textAlign: TextAlign.center),
+              if (run == null) ...[
+                const SizedBox(height: 16),
+                Text(
+                  l10n.examUnconfirmed,
+                  style: textTheme.titleSmall,
+                  textAlign: TextAlign.center,
+                ),
+              ],
               if (run != null) ...[
                 const SizedBox(height: 16),
                 Text(
