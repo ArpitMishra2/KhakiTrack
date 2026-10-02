@@ -1645,6 +1645,12 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'आप'**
   String get youLabel;
+
+  /// No description provided for @errAiBusy.
+  ///
+  /// In hi, this message translates to:
+  /// **'AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।'**
+  String get errAiBusy;
 }
 
 class _AppLocalizationsDelegate

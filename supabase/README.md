@@ -12,9 +12,9 @@ Never commit or request the service-role key or the database password.
 Then run `seed.sql` in the SQL editor, or through the Management API (`POST /v1/projects/<ref>/database/query`) with a personal access token. It is idempotent: it upserts each exam and replaces that exam's standards.
 
 ## Edge functions
-`functions/training-plan` builds a personal PET running plan with Claude (`claude-opus-5-5`, structured JSON output). It runs as the signed-in user, so row-level security applies; no service-role key is used. Every AI plan must pass the hard safety rules in `validate.ts` (rest day, hard-session limits, gradual volume increase, session length) before it is saved; one corrected retry is allowed within the 150 s limit.
+`functions/training-plan` builds a personal PET running plan with an LLM using strict JSON-schema output: Groq (`openai/gpt-oss-120b`) while `GROQ_API_KEY` is set (development), otherwise Claude (`claude-opus-5-5`) with `ANTHROPIC_API_KEY`. The coach voice is funny and warm, but safety advice stays serious. Groq's free tier allows about 8,000 tokens per minute (roughly one plan per minute across all users); a short rate limit is waited out once, otherwise the app says the coach is busy. It runs as the signed-in user, so row-level security applies; no service-role key is used. Every AI plan must pass the hard safety rules in `validate.ts` (rest day, hard-session limits, gradual volume increase, session length) before it is saved; one corrected retry is allowed within the 150 s limit.
 
-Needs the Supabase secret `ANTHROPIC_API_KEY` (Dashboard > Edge Functions > Secrets).
+Needs the Supabase secret `GROQ_API_KEY` or `ANTHROPIC_API_KEY` (Dashboard > Edge Functions > Secrets).
 
     cd supabase/functions/training-plan && deno test --config deno.json --allow-env .
     SUPABASE_ACCESS_TOKEN=... npx supabase functions deploy training-plan --project-ref <ref> --use-api

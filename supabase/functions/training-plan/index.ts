@@ -4,16 +4,18 @@
 // POST { action: "next_week", plan_id } -> next week, adapted to the logs
 //
 // Runs as the signed-in user (their JWT), so row-level security applies to
-// every read and write. ANTHROPIC_API_KEY is a Supabase secret.
+// every read and write. The model is Groq (GROQ_API_KEY) in development,
+// or Claude (ANTHROPIC_API_KEY); both are Supabase secrets.
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import {
   anthropicCreateMessage,
-  type CreateMessage,
+  claudeModel,
+  groqModel,
+  type JsonModel,
   generate,
   GenerationError,
-  MODEL,
 } from "./generate.ts";
 import { type Candidate, nextWeekRequest, outlineRequest, type WeekHistory } from "./prompt.ts";
 import {
@@ -40,7 +42,7 @@ const fail = (status: number, error: string, extra: Json = {}) =>
 
 export async function handle(
   req: Request,
-  deps: { db: SupabaseClient; userId: string; create: CreateMessage; today: string },
+  deps: { db: SupabaseClient; userId: string; model: JsonModel; today: string },
 ): Promise<Response> {
   const started = Date.now();
   let body: Json;
@@ -57,6 +59,7 @@ export async function handle(
   } catch (e) {
     if (e instanceof GenerationError) {
       console.error(JSON.stringify({ event: "generation_failed", kind: e.kind, details: e.details }));
+      if (e.kind === "busy") return fail(503, "ai_busy");
       return fail(502, "generation_failed", { kind: e.kind });
     }
     throw e;
@@ -113,7 +116,7 @@ async function countSince(db: SupabaseClient, table: string, userId: string, sin
 
 async function createPlan(
   body: Json,
-  { db, userId, create, today }: Parameters<typeof handle>[1],
+  { db, userId, model, today }: Parameters<typeof handle>[1],
   started: number,
 ) {
   const parsed = Answers.safeParse(body.answers);
@@ -130,8 +133,9 @@ async function createPlan(
   }
 
   const weeksTotal = answers.weeks_to_pet;
-  const outline = await generate({
-    create,
+  const { value: outline, model: modelName } = await generate({
+    model,
+    schemaName: "training_plan",
     userText: outlineRequest(candidate, answers, weeksTotal),
     jsonSchema: planOutlineJsonSchema,
     schema: PlanOutline,
@@ -160,7 +164,7 @@ async function createPlan(
     start_date: today,
     weeks_total: weeksTotal,
     outline: outlineOnly,
-    model: MODEL,
+    model: modelName,
   }).select("id").single();
   if (pErr) throw pErr;
 
@@ -170,7 +174,7 @@ async function createPlan(
       user_id: userId,
       week_number: w.week,
       sessions: { sessions: w.sessions, coach_note: w.coach_note },
-      model: MODEL,
+      model: modelName,
     })),
   );
   if (wErr) throw wErr;
@@ -190,7 +194,7 @@ async function createPlan(
 
 async function nextWeek(
   body: Json,
-  { db, userId, create, today }: Parameters<typeof handle>[1],
+  { db, userId, model, today }: Parameters<typeof handle>[1],
   started: number,
 ) {
   const planId = Number(body.plan_id);
@@ -240,8 +244,9 @@ async function nextWeek(
     logs: (logs ?? []).filter((l) => l.week_number === w.week_number),
   }));
 
-  const detail = await generate({
-    create,
+  const { value: detail, model: modelName } = await generate({
+    model,
+    schemaName: "training_week",
     userText: nextWeekRequest(
       loaded.candidate,
       answers,
@@ -264,7 +269,7 @@ async function nextWeek(
     user_id: userId,
     week_number: n,
     sessions: { sessions: detail.sessions, coach_note: detail.coach_note },
-    model: MODEL,
+    model: modelName,
   });
   if (error) throw error;
   return reply(200, { plan_id: planId, week_number: n });
@@ -288,13 +293,20 @@ if (import.meta.main) {
     const { data: { user } } = await db.auth.getUser(auth.replace(/^Bearer /, ""));
     if (!user) return fail(401, "unauthorized");
 
-    const apiKey = Deno.env.get("ANTHROPIC_API_KEY");
-    if (!apiKey) return fail(503, "ai_not_configured");
+    // Groq while in development; Claude if only its key is set.
+    const groqKey = Deno.env.get("GROQ_API_KEY");
+    const claudeKey = Deno.env.get("ANTHROPIC_API_KEY");
+    const model = groqKey
+      ? groqModel(groqKey)
+      : claudeKey
+      ? claudeModel(anthropicCreateMessage(claudeKey))
+      : null;
+    if (!model) return fail(503, "ai_not_configured");
 
     return handle(req, {
       db,
       userId: user.id,
-      create: anthropicCreateMessage(apiKey),
+      model,
       today: indiaToday(),
     });
   });

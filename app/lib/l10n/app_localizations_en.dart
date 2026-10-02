@@ -890,4 +890,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get youLabel => 'You';
+
+  @override
+  String get errAiBusy =>
+      'The AI coach is busy with other plans. Try again in a minute.';
 }

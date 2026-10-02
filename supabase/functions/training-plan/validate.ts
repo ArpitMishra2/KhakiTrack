@@ -140,6 +140,14 @@ export function validateWeek(
     if (RUN_TYPES.has(s.type) && s.distance_km == null) {
       errors.push(`${p} day ${s.day}: running session needs distance_km`);
     }
+    // Total session time includes warm-up, so the implied pace can only be
+    // slower than the running pace; faster than 2:30 per km is impossible.
+    if (
+      RUN_TYPES.has(s.type) && s.distance_km && s.duration_min &&
+      (s.duration_min * 60) / s.distance_km < 150
+    ) {
+      errors.push(`${p} day ${s.day}: ${s.distance_km} km in ${s.duration_min} min is faster than 2:30 per km, which is not realistic`);
+    }
   }
 
   const km = d.sessions
