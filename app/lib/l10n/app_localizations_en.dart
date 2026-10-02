@@ -144,4 +144,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signOut => 'Sign out';
+
+  @override
+  String get profileTitle => 'About you';
+
+  @override
+  String get profileIntro =>
+      'We need this to show your exact physical standards.';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
+
+  @override
+  String get chooseDate => 'Choose date';
+
+  @override
+  String get chooseCategory => 'Choose category';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get saveFailed => 'Could not save. Check your internet and try again.';
+
+  @override
+  String get socialGeneral => 'General';
+
+  @override
+  String get socialObc => 'Other Backward Class (OBC)';
+
+  @override
+  String get socialSc => 'Scheduled Caste (SC)';
+
+  @override
+  String get socialSt => 'Scheduled Tribe (ST)';
+
+  @override
+  String get socialEws => 'Economically Weaker Section (EWS)';
 }

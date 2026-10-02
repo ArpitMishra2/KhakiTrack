@@ -4,13 +4,18 @@ import 'package:maidan/main.dart';
 
 import 'fake_auth_service.dart';
 import 'fake_exam_repository.dart';
+import 'fake_profile_repository.dart';
 
 void main() {
   testWidgets('home screen is Hindi by default and lists exams', (
     tester,
   ) async {
     await tester.pumpWidget(
-      MaidanApp(repository: FakeExamRepository(), auth: FakeAuthService()),
+      MaidanApp(
+        repository: FakeExamRepository(),
+        auth: FakeAuthService(),
+        profiles: FakeProfileRepository(),
+      ),
     );
     await tester.pumpAndSettle();
     expect(find.text('अपनी परीक्षा चुनें'), findsOneWidget);
@@ -21,7 +26,11 @@ void main() {
   testWidgets('shows retry when offline and recovers', (tester) async {
     final repo = FakeExamRepository()..failing = true;
     await tester.pumpWidget(
-      MaidanApp(repository: repo, auth: FakeAuthService()),
+      MaidanApp(
+        repository: repo,
+        auth: FakeAuthService(),
+        profiles: FakeProfileRepository(),
+      ),
     );
     await tester.pumpAndSettle();
     expect(find.text('फिर कोशिश करें'), findsOneWidget);
@@ -34,7 +43,11 @@ void main() {
 
   testWidgets('UP Police standards for men, then women', (tester) async {
     await tester.pumpWidget(
-      MaidanApp(repository: FakeExamRepository(), auth: FakeAuthService()),
+      MaidanApp(
+        repository: FakeExamRepository(),
+        auth: FakeAuthService(),
+        profiles: FakeProfileRepository(),
+      ),
     );
     await tester.pumpAndSettle();
     await tester.tap(find.text('यूपी पुलिस कांस्टेबल'));
@@ -64,7 +77,11 @@ void main() {
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
 
     await tester.pumpWidget(
-      MaidanApp(repository: FakeExamRepository(), auth: FakeAuthService()),
+      MaidanApp(
+        repository: FakeExamRepository(),
+        auth: FakeAuthService(),
+        profiles: FakeProfileRepository(),
+      ),
     );
     await tester.pumpAndSettle();
     await tester.tap(find.text('SSC GD कांस्टेबल'));
@@ -81,7 +98,11 @@ void main() {
 
   testWidgets('SSC GD category change updates standards', (tester) async {
     await tester.pumpWidget(
-      MaidanApp(repository: FakeExamRepository(), auth: FakeAuthService()),
+      MaidanApp(
+        repository: FakeExamRepository(),
+        auth: FakeAuthService(),
+        profiles: FakeProfileRepository(),
+      ),
     );
     await tester.pumpAndSettle();
     await tester.tap(find.text('SSC GD कांस्टेबल'));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
+import '../data/profile.dart';
 import '../data/standards_logic.dart';
 import '../l10n/app_localizations.dart';
 import 'load_error.dart';
@@ -13,10 +14,14 @@ class StandardsScreen extends StatefulWidget {
     super.key,
     required this.exam,
     required this.repository,
+    required this.profile,
   });
 
   final Exam exam;
   final ExamRepository repository;
+
+  /// Pre-selects gender and category; the user can still change both.
+  final Profile profile;
 
   @override
   State<StandardsScreen> createState() => _StandardsScreenState();
@@ -24,7 +29,7 @@ class StandardsScreen extends StatefulWidget {
 
 class _StandardsScreenState extends State<StandardsScreen> {
   late Future<List<Standard>> _standards = _load();
-  String _gender = 'male';
+  late String _gender = widget.profile.gender ?? 'male';
   String? _category;
 
   Future<List<Standard>> _load() =>
@@ -61,10 +66,12 @@ class _StandardsScreenState extends State<StandardsScreen> {
     List<Standard> all,
   ) {
     final categories = categoriesFor(all, _gender);
+    final fromProfile = standardsCategoryFor(all, widget.profile.category);
     final category = categories.contains(_category)
         ? _category!
-        : (defaultCategory(all) ??
-              (categories.isEmpty ? '' : categories.first));
+        : categories.contains(fromProfile)
+        ? fromProfile!
+        : (categories.isEmpty ? '' : categories.first);
     final resolved = resolveStandards(all, _gender, category);
     final pst = resolved.where((s) => !s.isRun).toList();
     final pet = resolved.where((s) => s.isRun).toList();

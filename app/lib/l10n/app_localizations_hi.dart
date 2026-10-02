@@ -144,4 +144,43 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get signOut => 'साइन आउट';
+
+  @override
+  String get profileTitle => 'आपकी जानकारी';
+
+  @override
+  String get profileIntro => 'सही शारीरिक मानक दिखाने के लिए यह जानकारी चाहिए।';
+
+  @override
+  String get name => 'नाम';
+
+  @override
+  String get dateOfBirth => 'जन्म तिथि';
+
+  @override
+  String get chooseDate => 'तारीख चुनें';
+
+  @override
+  String get chooseCategory => 'श्रेणी चुनें';
+
+  @override
+  String get save => 'सेव करें';
+
+  @override
+  String get saveFailed => 'सेव नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।';
+
+  @override
+  String get socialGeneral => 'सामान्य';
+
+  @override
+  String get socialObc => 'अन्य पिछड़ा वर्ग (OBC)';
+
+  @override
+  String get socialSc => 'अनुसूचित जाति (SC)';
+
+  @override
+  String get socialSt => 'अनुसूचित जनजाति (ST)';
+
+  @override
+  String get socialEws => 'आर्थिक रूप से कमज़ोर वर्ग (EWS)';
 }

@@ -331,6 +331,84 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'साइन आउट'**
   String get signOut;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'आपकी जानकारी'**
+  String get profileTitle;
+
+  /// No description provided for @profileIntro.
+  ///
+  /// In hi, this message translates to:
+  /// **'सही शारीरिक मानक दिखाने के लिए यह जानकारी चाहिए।'**
+  String get profileIntro;
+
+  /// No description provided for @name.
+  ///
+  /// In hi, this message translates to:
+  /// **'नाम'**
+  String get name;
+
+  /// No description provided for @dateOfBirth.
+  ///
+  /// In hi, this message translates to:
+  /// **'जन्म तिथि'**
+  String get dateOfBirth;
+
+  /// No description provided for @chooseDate.
+  ///
+  /// In hi, this message translates to:
+  /// **'तारीख चुनें'**
+  String get chooseDate;
+
+  /// No description provided for @chooseCategory.
+  ///
+  /// In hi, this message translates to:
+  /// **'श्रेणी चुनें'**
+  String get chooseCategory;
+
+  /// No description provided for @save.
+  ///
+  /// In hi, this message translates to:
+  /// **'सेव करें'**
+  String get save;
+
+  /// No description provided for @saveFailed.
+  ///
+  /// In hi, this message translates to:
+  /// **'सेव नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।'**
+  String get saveFailed;
+
+  /// No description provided for @socialGeneral.
+  ///
+  /// In hi, this message translates to:
+  /// **'सामान्य'**
+  String get socialGeneral;
+
+  /// No description provided for @socialObc.
+  ///
+  /// In hi, this message translates to:
+  /// **'अन्य पिछड़ा वर्ग (OBC)'**
+  String get socialObc;
+
+  /// No description provided for @socialSc.
+  ///
+  /// In hi, this message translates to:
+  /// **'अनुसूचित जाति (SC)'**
+  String get socialSc;
+
+  /// No description provided for @socialSt.
+  ///
+  /// In hi, this message translates to:
+  /// **'अनुसूचित जनजाति (ST)'**
+  String get socialSt;
+
+  /// No description provided for @socialEws.
+  ///
+  /// In hi, this message translates to:
+  /// **'आर्थिक रूप से कमज़ोर वर्ग (EWS)'**
+  String get socialEws;
 }
 
 class _AppLocalizationsDelegate
