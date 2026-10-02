@@ -38,5 +38,18 @@
   "signInWithGoogle": "Continue with Google",
   "signInFailed": "Could not sign in. Check your internet and try again.",
   "adultsOnly": "This app is only for people aged 18 or over.",
-  "signOut": "Sign out"
+  "signOut": "Sign out",
+  "profileTitle": "About you",
+  "profileIntro": "We need this to show your exact physical standards.",
+  "name": "Name",
+  "dateOfBirth": "Date of birth",
+  "chooseDate": "Choose date",
+  "chooseCategory": "Choose category",
+  "save": "Save",
+  "saveFailed": "Could not save. Check your internet and try again.",
+  "socialGeneral": "General",
+  "socialObc": "Other Backward Class (OBC)",
+  "socialSc": "Scheduled Caste (SC)",
+  "socialSt": "Scheduled Tribe (ST)",
+  "socialEws": "Economically Weaker Section (EWS)"
 }

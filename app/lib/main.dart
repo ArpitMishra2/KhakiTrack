@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config.dart';
 import 'data/auth_service.dart';
 import 'data/exam_repository.dart';
+import 'data/profile.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/auth_gate.dart';
 
@@ -19,15 +20,22 @@ Future<void> main() async {
     MaidanApp(
       repository: SupabaseExamRepository(Supabase.instance.client),
       auth: SupabaseAuthService(Supabase.instance.client),
+      profiles: SupabaseProfileRepository(Supabase.instance.client),
     ),
   );
 }
 
 class MaidanApp extends StatelessWidget {
-  const MaidanApp({super.key, required this.repository, required this.auth});
+  const MaidanApp({
+    super.key,
+    required this.repository,
+    required this.auth,
+    required this.profiles,
+  });
 
   final ExamRepository repository;
   final AuthService auth;
+  final ProfileRepository profiles;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +54,7 @@ class MaidanApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: AuthGate(auth: auth, repository: repository),
+      home: AuthGate(auth: auth, repository: repository, profiles: profiles),
     );
   }
 }

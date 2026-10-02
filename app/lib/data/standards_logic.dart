@@ -103,3 +103,11 @@ List<Standard> resolveStandards(
   return bySlot.values.toList()
     ..sort((a, b) => rank(_slot(a)).compareTo(rank(_slot(b))));
 }
+
+/// The standards category for a user's social category (`profiles.category`).
+/// Only ST has its own relaxed standards in both notices; General, OBC, SC and
+/// EWS all use the exam's default. Regional relaxations are picked by hand.
+String? standardsCategoryFor(List<Standard> standards, String? social) {
+  if (social == 'st' && standards.any((s) => s.category == 'st')) return 'st';
+  return defaultCategory(standards);
+}

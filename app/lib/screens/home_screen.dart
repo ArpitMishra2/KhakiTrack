@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 import '../data/auth_service.dart';
 import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
+import '../data/profile.dart';
 import '../l10n/app_localizations.dart';
 import 'load_error.dart';
 import 'standards_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.repository, required this.auth});
+  const HomeScreen({
+    super.key,
+    required this.repository,
+    required this.auth,
+    required this.profile,
+  });
 
   final ExamRepository repository;
   final AuthService auth;
+  final Profile profile;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -75,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (_) => StandardsScreen(
                               exam: exam,
                               repository: widget.repository,
+                              profile: widget.profile,
                             ),
                           ),
                         ),

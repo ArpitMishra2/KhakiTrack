@@ -5,12 +5,17 @@ import 'package:maidan/main.dart';
 
 import 'fake_auth_service.dart';
 import 'fake_exam_repository.dart';
+import 'fake_profile_repository.dart';
 
 void main() {
   Future<FakeAuthService> pumpSignedOut(WidgetTester tester) async {
     final auth = FakeAuthService(signedIn: false);
     await tester.pumpWidget(
-      MaidanApp(repository: FakeExamRepository(), auth: auth),
+      MaidanApp(
+        repository: FakeExamRepository(),
+        auth: auth,
+        profiles: FakeProfileRepository(),
+      ),
     );
     await tester.pumpAndSettle();
     return auth;
@@ -54,7 +59,11 @@ void main() {
 
   testWidgets('sign out returns to the sign-in screen', (tester) async {
     await tester.pumpWidget(
-      MaidanApp(repository: FakeExamRepository(), auth: FakeAuthService()),
+      MaidanApp(
+        repository: FakeExamRepository(),
+        auth: FakeAuthService(),
+        profiles: FakeProfileRepository(),
+      ),
     );
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(Icons.logout));
