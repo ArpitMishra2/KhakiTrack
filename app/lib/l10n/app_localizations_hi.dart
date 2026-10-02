@@ -183,4 +183,428 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get socialEws => 'आर्थिक रूप से कमज़ोर वर्ग (EWS)';
+
+  @override
+  String get tabTraining => 'ट्रेनिंग';
+
+  @override
+  String get tabStandards => 'मानक';
+
+  @override
+  String get tabProgress => 'प्रगति';
+
+  @override
+  String get trainingIntroTitle => 'आपका अपना रनिंग प्लान';
+
+  @override
+  String get trainingIntroBody =>
+      'कुछ सवालों के जवाब दें। AI आपके अभी के स्तर, समय और अनुभव के हिसाब से हफ्ते-दर-हफ्ते प्लान बनाएगा, ताकि PET के दिन तक आप दौड़ आराम से समय में पूरी कर सकें।';
+
+  @override
+  String get startQuestionnaire => 'प्लान बनाना शुरू करें';
+
+  @override
+  String get qTitle => 'आपके बारे में';
+
+  @override
+  String qStep(int step, int total) {
+    return 'चरण $step / $total';
+  }
+
+  @override
+  String get qNext => 'आगे';
+
+  @override
+  String get qBack => 'पीछे';
+
+  @override
+  String get qCreate => 'मेरा प्लान बनाएं';
+
+  @override
+  String get qLevelTitle => 'अभी आपका स्तर';
+
+  @override
+  String qCanComplete(String distance) {
+    return 'क्या आप अभी $distance बिना रुके दौड़ सकते हैं?';
+  }
+
+  @override
+  String get yes => 'हाँ';
+
+  @override
+  String get no => 'नहीं';
+
+  @override
+  String qCurrentTime(String distance) {
+    return '$distance में कितना समय लगता है? (मिनट:सेकंड)';
+  }
+
+  @override
+  String get qTimeHint => 'जैसे 27:30';
+
+  @override
+  String get qTimeInvalid => 'समय मिनट:सेकंड में लिखें, जैसे 27:30';
+
+  @override
+  String get qLongest => 'बिना रुके सबसे ज़्यादा कितना दौड़ लेते हैं?';
+
+  @override
+  String qTarget(String distance, String time) {
+    return 'लक्ष्य: $distance $time में';
+  }
+
+  @override
+  String get qExperienceTitle => 'अनुभव';
+
+  @override
+  String get qExperience => 'आप कब से नियमित दौड़ रहे हैं?';
+
+  @override
+  String get expNone => 'अभी शुरू नहीं किया';
+
+  @override
+  String get expLt3m => '3 महीने से कम';
+
+  @override
+  String get exp3to12m => '3 से 12 महीने';
+
+  @override
+  String get expGt1y => '1 साल से ज़्यादा';
+
+  @override
+  String get qRunsPerWeek => 'अभी हफ्ते में कितनी बार दौड़ते हैं?';
+
+  @override
+  String get qWeeklyKm => 'हफ्ते में कुल लगभग कितने किमी?';
+
+  @override
+  String get qBackground => 'और कौन-सा शारीरिक काम करते हैं?';
+
+  @override
+  String get bgFarm => 'खेती / मेहनत का काम';
+
+  @override
+  String get bgSports => 'खेल (क्रिकेट, फुटबॉल, कबड्डी)';
+
+  @override
+  String get bgGym => 'जिम / कसरत';
+
+  @override
+  String get qScheduleTitle => 'समय और दिन';
+
+  @override
+  String get qWeeks => 'PET में लगभग कितने हफ्ते बचे हैं?';
+
+  @override
+  String get qWeeksUnknown => 'तारीख पता नहीं हो तो 12 हफ्ते चुनें।';
+
+  @override
+  String weeksN(int n) {
+    return '$n हफ्ते';
+  }
+
+  @override
+  String get qDays => 'हफ्ते में कितने दिन ट्रेनिंग कर सकते हैं?';
+
+  @override
+  String daysN(int n) {
+    return '$n दिन';
+  }
+
+  @override
+  String get qMinutes => 'एक बार में कितना समय दे सकते हैं?';
+
+  @override
+  String minutesN(int n) {
+    return '$n मिनट';
+  }
+
+  @override
+  String get qTrainingTime => 'कब दौड़ना पसंद है?';
+
+  @override
+  String get timeMorning => 'सुबह';
+
+  @override
+  String get timeEvening => 'शाम';
+
+  @override
+  String get timeEither => 'कभी भी';
+
+  @override
+  String get qSurface => 'कहाँ दौड़ते हैं?';
+
+  @override
+  String get surfaceGround => 'मैदान';
+
+  @override
+  String get surfaceRoad => 'सड़क';
+
+  @override
+  String get surfaceTrack => 'ट्रैक';
+
+  @override
+  String get surfaceMixed => 'मिला-जुला';
+
+  @override
+  String get qHealthTitle => 'सेहत';
+
+  @override
+  String get qPain => 'क्या अभी कहीं दर्द या चोट है?';
+
+  @override
+  String get painNone => 'कोई दर्द नहीं';
+
+  @override
+  String get painKnee => 'घुटना';
+
+  @override
+  String get painShin => 'पिंडली';
+
+  @override
+  String get painAnkle => 'टखना';
+
+  @override
+  String get painBack => 'कमर / पीठ';
+
+  @override
+  String get painOther => 'कुछ और';
+
+  @override
+  String get qPainNote => 'दर्द के बारे में थोड़ा बताएं (वैकल्पिक)';
+
+  @override
+  String get qMedical => 'कोई बीमारी?';
+
+  @override
+  String get medNone => 'कोई नहीं';
+
+  @override
+  String get medAsthma => 'दमा / सांस';
+
+  @override
+  String get medHeart => 'दिल की बीमारी';
+
+  @override
+  String get medBp => 'बीपी';
+
+  @override
+  String get medDiabetes => 'शुगर';
+
+  @override
+  String get medOther => 'कुछ और';
+
+  @override
+  String get qWeight => 'वज़न किग्रा (वैकल्पिक)';
+
+  @override
+  String get qHeight => 'लंबाई सेमी (वैकल्पिक)';
+
+  @override
+  String get generatingTitle => 'AI आपका प्लान बना रहा है';
+
+  @override
+  String get generatingBody => 'इसमें 1-2 मिनट लग सकते हैं। ऐप बंद न करें।';
+
+  @override
+  String get errRateLimited =>
+      'आज के लिए प्लान बनाने की सीमा पूरी हो गई। कल फिर कोशिश करें।';
+
+  @override
+  String get errAiNotConfigured =>
+      'AI प्लान अभी चालू नहीं है। थोड़ी देर बाद कोशिश करें।';
+
+  @override
+  String get errGeneration => 'प्लान नहीं बन पाया। फिर कोशिश करें।';
+
+  @override
+  String errTooEarly(String date) {
+    return 'अगला हफ्ता $date से खुलेगा।';
+  }
+
+  @override
+  String get errNetwork =>
+      'इंटरनेट से जुड़ नहीं पाए। कनेक्शन जांचकर फिर कोशिश करें।';
+
+  @override
+  String get readinessOnTrack => 'सही रास्ते पर';
+
+  @override
+  String get readinessNeedsWork => 'मेहनत की ज़रूरत';
+
+  @override
+  String get readinessBigGap => 'लंबा सफ़र';
+
+  @override
+  String get seeDoctor => 'शुरू करने से पहले डॉक्टर से सलाह ज़रूर लें।';
+
+  @override
+  String weekOf(int week, int total) {
+    return 'हफ्ता $week / $total';
+  }
+
+  @override
+  String get recoveryWeek => 'आराम वाला हफ्ता';
+
+  @override
+  String weekDone(int done, int total) {
+    return '$done / $total सेशन पूरे';
+  }
+
+  @override
+  String generateNextWeek(int week) {
+    return 'हफ्ता $week का प्लान बनाएं';
+  }
+
+  @override
+  String nextWeekLocked(int week, String date) {
+    return 'हफ्ता $week का प्लान $date को खुलेगा, ताकि वह आपकी इस हफ्ते की ट्रेनिंग के हिसाब से बने।';
+  }
+
+  @override
+  String get planFinished => 'प्लान पूरा हुआ। PET के लिए शुभकामनाएं!';
+
+  @override
+  String get fullPlan => 'पूरा प्लान';
+
+  @override
+  String get safetyNotes => 'ध्यान रखें';
+
+  @override
+  String get newPlan => 'नया प्लान बनाएं';
+
+  @override
+  String get newPlanConfirm =>
+      'नया प्लान बनाने पर अभी वाला प्लान बंद हो जाएगा। आगे बढ़ें?';
+
+  @override
+  String get cancel => 'रद्द करें';
+
+  @override
+  String get continueLabel => 'आगे बढ़ें';
+
+  @override
+  String get sessionToday => 'आज';
+
+  @override
+  String get statusDone => 'पूरा';
+
+  @override
+  String get statusPartial => 'आधा';
+
+  @override
+  String get statusMissed => 'छूट गया';
+
+  @override
+  String get logSession => 'सेशन दर्ज करें';
+
+  @override
+  String get logDistance => 'कितना दौड़े (किमी)';
+
+  @override
+  String get logTime => 'कुल समय (मिनट:सेकंड)';
+
+  @override
+  String get logEffort => 'कितना मुश्किल लगा? (1 आसान – 5 बहुत मुश्किल)';
+
+  @override
+  String get logPain => 'दौड़ते समय या बाद में दर्द हुआ';
+
+  @override
+  String get logNote => 'नोट (वैकल्पिक)';
+
+  @override
+  String get painWarning =>
+      'दर्द हो तो अगले सेशन धीरे करें। दर्द बढ़े या 2-3 दिन में ठीक न हो तो डॉक्टर को दिखाएं।';
+
+  @override
+  String km(String value) {
+    return '$value किमी';
+  }
+
+  @override
+  String minutesShort(String value) {
+    return '$value मिनट';
+  }
+
+  @override
+  String pacePerKm(String pace) {
+    return '$pace प्रति किमी';
+  }
+
+  @override
+  String get typeEasyRun => 'आसान दौड़';
+
+  @override
+  String get typeRunWalk => 'दौड़-चाल';
+
+  @override
+  String get typeLongRun => 'लंबी दौड़';
+
+  @override
+  String get typeTempo => 'टेम्पो रन';
+
+  @override
+  String get typeIntervals => 'इंटरवल';
+
+  @override
+  String get typeTimeTrial => 'टाइम ट्रायल';
+
+  @override
+  String get typeStrength => 'ताकत की कसरत';
+
+  @override
+  String get typeMobility => 'स्ट्रेचिंग';
+
+  @override
+  String progressTitle(String distance) {
+    return '$distance का समय';
+  }
+
+  @override
+  String get progressEmpty =>
+      'अभी कोई टाइम ट्रायल नहीं। अपना समय दर्ज करें और यहाँ अपनी प्रगति देखें।';
+
+  @override
+  String get addTrial => 'टाइम ट्रायल जोड़ें';
+
+  @override
+  String get trialDistance => 'दूरी (मीटर)';
+
+  @override
+  String get trialTime => 'समय (मिनट:सेकंड)';
+
+  @override
+  String get trialDate => 'तारीख';
+
+  @override
+  String latestTime(String time) {
+    return 'ताज़ा समय: $time';
+  }
+
+  @override
+  String targetTime(String time) {
+    return 'लक्ष्य: $time';
+  }
+
+  @override
+  String gapToCut(String time) {
+    return 'अभी $time और कम करना है';
+  }
+
+  @override
+  String underTarget(String time) {
+    return 'आप लक्ष्य से $time तेज़ हैं। इसे बनाए रखें!';
+  }
+
+  @override
+  String get estimated => 'अनुमानित';
+
+  @override
+  String estimateNote(String distance) {
+    return 'दूसरी दूरी के ट्रायल से $distance का समय अनुमान से निकाला गया है।';
+  }
+
+  @override
+  String get trialSaveFailed => 'सेव नहीं हो सका। फिर कोशिश करें।';
 }

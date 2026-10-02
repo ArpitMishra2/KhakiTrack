@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../data/auth_service.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
-import 'home_screen.dart';
+import '../data/training_repository.dart';
+import 'home_shell.dart';
 import 'load_error.dart';
 import 'profile_setup_screen.dart';
 import 'sign_in_screen.dart';
@@ -16,11 +17,13 @@ class AuthGate extends StatelessWidget {
     required this.auth,
     required this.repository,
     required this.profiles,
+    required this.training,
   });
 
   final AuthService auth;
   final ExamRepository repository;
   final ProfileRepository profiles;
+  final TrainingRepository training;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,12 @@ class AuthGate extends StatelessWidget {
       stream: auth.signedInChanges,
       initialData: auth.isSignedIn,
       builder: (context, snapshot) => snapshot.data == true
-          ? _ProfileGate(auth: auth, repository: repository, profiles: profiles)
+          ? _ProfileGate(
+              auth: auth,
+              repository: repository,
+              profiles: profiles,
+              training: training,
+            )
           : SignInScreen(auth: auth),
     );
   }
@@ -39,11 +47,13 @@ class _ProfileGate extends StatefulWidget {
     required this.auth,
     required this.repository,
     required this.profiles,
+    required this.training,
   });
 
   final AuthService auth;
   final ExamRepository repository;
   final ProfileRepository profiles;
+  final TrainingRepository training;
 
   @override
   State<_ProfileGate> createState() => _ProfileGateState();
@@ -84,8 +94,9 @@ class _ProfileGateState extends State<_ProfileGate> {
             }),
           );
         }
-        return HomeScreen(
-          repository: widget.repository,
+        return HomeShell(
+          exams: widget.repository,
+          training: widget.training,
           auth: widget.auth,
           profile: profile,
         );
