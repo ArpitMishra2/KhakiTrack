@@ -122,17 +122,191 @@ abstract class AppLocalizations {
   /// **'अपनी परीक्षा चुनें'**
   String get chooseExam;
 
-  /// No description provided for @examUpPolice.
+  /// No description provided for @loadError.
   ///
   /// In hi, this message translates to:
-  /// **'यूपी पुलिस कांस्टेबल'**
-  String get examUpPolice;
+  /// **'डेटा लोड नहीं हो सका। इंटरनेट कनेक्शन जांचें।'**
+  String get loadError;
 
-  /// No description provided for @examSscGd.
+  /// No description provided for @retry.
   ///
   /// In hi, this message translates to:
-  /// **'SSC GD'**
-  String get examSscGd;
+  /// **'फिर कोशिश करें'**
+  String get retry;
+
+  /// No description provided for @gender.
+  ///
+  /// In hi, this message translates to:
+  /// **'लिंग'**
+  String get gender;
+
+  /// No description provided for @male.
+  ///
+  /// In hi, this message translates to:
+  /// **'पुरुष'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In hi, this message translates to:
+  /// **'महिला'**
+  String get female;
+
+  /// No description provided for @category.
+  ///
+  /// In hi, this message translates to:
+  /// **'श्रेणी'**
+  String get category;
+
+  /// No description provided for @sectionPst.
+  ///
+  /// In hi, this message translates to:
+  /// **'शारीरिक मानक परीक्षण (PST)'**
+  String get sectionPst;
+
+  /// No description provided for @sectionPet.
+  ///
+  /// In hi, this message translates to:
+  /// **'शारीरिक दक्षता परीक्षा (PET)'**
+  String get sectionPet;
+
+  /// No description provided for @eventHeight.
+  ///
+  /// In hi, this message translates to:
+  /// **'न्यूनतम लंबाई'**
+  String get eventHeight;
+
+  /// No description provided for @eventWeight.
+  ///
+  /// In hi, this message translates to:
+  /// **'न्यूनतम वज़न'**
+  String get eventWeight;
+
+  /// No description provided for @eventChestUnexpanded.
+  ///
+  /// In hi, this message translates to:
+  /// **'सीना (बिना फुलाए)'**
+  String get eventChestUnexpanded;
+
+  /// No description provided for @eventChestExpanded.
+  ///
+  /// In hi, this message translates to:
+  /// **'सीना (फुलाकर)'**
+  String get eventChestExpanded;
+
+  /// No description provided for @eventChestExpansion.
+  ///
+  /// In hi, this message translates to:
+  /// **'सीने का न्यूनतम फुलाव'**
+  String get eventChestExpansion;
+
+  /// No description provided for @eventRun.
+  ///
+  /// In hi, this message translates to:
+  /// **'{distance} दौड़'**
+  String eventRun(String distance);
+
+  /// No description provided for @valueCm.
+  ///
+  /// In hi, this message translates to:
+  /// **'{value} सेमी'**
+  String valueCm(String value);
+
+  /// No description provided for @valueKg.
+  ///
+  /// In hi, this message translates to:
+  /// **'{value} किग्रा'**
+  String valueKg(String value);
+
+  /// No description provided for @distanceKm.
+  ///
+  /// In hi, this message translates to:
+  /// **'{value} किमी'**
+  String distanceKm(String value);
+
+  /// No description provided for @distanceM.
+  ///
+  /// In hi, this message translates to:
+  /// **'{value} मीटर'**
+  String distanceM(String value);
+
+  /// No description provided for @timeMinutes.
+  ///
+  /// In hi, this message translates to:
+  /// **'{minutes} मिनट में'**
+  String timeMinutes(int minutes);
+
+  /// No description provided for @timeMinutesSeconds.
+  ///
+  /// In hi, this message translates to:
+  /// **'{minutes} मिनट {seconds} सेकंड में'**
+  String timeMinutesSeconds(int minutes, int seconds);
+
+  /// No description provided for @notConfirmed.
+  ///
+  /// In hi, this message translates to:
+  /// **'पुष्टि बाकी'**
+  String get notConfirmed;
+
+  /// No description provided for @noStandards.
+  ///
+  /// In hi, this message translates to:
+  /// **'इस चयन के लिए कोई मानक नहीं मिला।'**
+  String get noStandards;
+
+  /// No description provided for @sourceNote.
+  ///
+  /// In hi, this message translates to:
+  /// **'स्रोत: आधिकारिक भर्ती सूचना (डेटा संस्करण {version})'**
+  String sourceNote(String version);
+
+  /// No description provided for @catGeneral.
+  ///
+  /// In hi, this message translates to:
+  /// **'सामान्य / OBC / SC / EWS'**
+  String get catGeneral;
+
+  /// No description provided for @catSt.
+  ///
+  /// In hi, this message translates to:
+  /// **'अनुसूचित जनजाति (ST)'**
+  String get catSt;
+
+  /// No description provided for @catStNeStates.
+  ///
+  /// In hi, this message translates to:
+  /// **'ST – पूर्वोत्तर राज्य'**
+  String get catStNeStates;
+
+  /// No description provided for @catStLweDistricts.
+  ///
+  /// In hi, this message translates to:
+  /// **'ST – वामपंथी उग्रवाद प्रभावित ज़िले'**
+  String get catStLweDistricts;
+
+  /// No description provided for @catHillGroups.
+  ///
+  /// In hi, this message translates to:
+  /// **'गढ़वाली, कुमाऊँनी, डोगरा, मराठा, असम, हिमाचल, जम्मू-कश्मीर'**
+  String get catHillGroups;
+
+  /// No description provided for @catLadakh.
+  ///
+  /// In hi, this message translates to:
+  /// **'लद्दाख क्षेत्र'**
+  String get catLadakh;
+
+  /// No description provided for @catNeStates.
+  ///
+  /// In hi, this message translates to:
+  /// **'पूर्वोत्तर राज्य (अरुणाचल, मणिपुर, मेघालय, मिज़ोरम, नागालैंड, सिक्किम, त्रिपुरा)'**
+  String get catNeStates;
+
+  /// No description provided for @catGta.
+  ///
+  /// In hi, this message translates to:
+  /// **'गोरखा क्षेत्रीय प्रशासन (दार्जिलिंग)'**
+  String get catGta;
 }
 
 class _AppLocalizationsDelegate
