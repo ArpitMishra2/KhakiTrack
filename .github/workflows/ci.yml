@@ -39,10 +39,17 @@ jobs:
             echo "::warning::DEBUG_KEYSTORE_BASE64 not set; Google sign-in will not work on this APK."
           fi
       - run: flutter build apk --debug
+      # Small phone build (arm64 only, about 20 MB) for installing on test
+      # phones over mobile data. Signed with the same shared debug key.
+      - run: flutter build apk --release --target-platform android-arm64
       - uses: actions/upload-artifact@v4
         with:
           name: maidan-debug-apk
           path: app/build/app/outputs/flutter-apk/app-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maidan-phone-arm64-apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
 
   edge-functions:
     runs-on: ubuntu-latest
