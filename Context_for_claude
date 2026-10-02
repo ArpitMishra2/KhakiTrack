@@ -1,0 +1,60 @@
+PROJECT: Maidan (placeholder name) — physical-test preparation app for Indian government job aspirants
+
+OWNER: Arpit Mishra, B.Tech CSE (HBTU Kanpur), based between Ghatampur (UP) and Bengaluru. Building this as a side business that he hopes becomes main income. Budget roughly 50,000 to 2 lakh rupees, mostly for marketing and local partnerships. A family member on the ground in Ghatampur will help seed local users.
+
+PRODUCT
+An Android app, Hindi-first with English second, for aspirants of physical-test exams. First launch covers only UP Police constable and SSC GD, for both male and female candidates. Users are 18+ only, mostly from small towns, on low-end phones and limited data.
+Core features:
+1. Exam selection, then exact physical standards for that exam, gender and category.
+2. Week-by-week training plans matched to the user's current level.
+3. Mock PET mode: the user runs the real test and the app says whether they would qualify.
+4. Progress tracking over time.
+5. GPS run logging with cheat detection.
+6. Hyperlocal leaderboards by village/block, district, state and exam category, with weekly resets, plus group leaderboards for grounds and academies.
+Non-GPS events (pull-ups, jumps, throws) use short video submissions that count on the main leaderboard only after verification by the community or a coach.
+Later ideas: low-cost local diet guide, paid coaching marketplace (commission), academy sponsorships, in-person district mock PET events, injury and recovery content, premium plan. Avoid heavy ads.
+
+TECH DECISIONS (fixed unless Arpit changes them)
+- Flutter, Android only to start. All strings localized from day one, Hindi default.
+- Backend: Supabase (Postgres, auth, storage, row-level security). Leaderboards as SQL ranking queries.
+- Login: Google sign-in first. Phone OTP (e.g. MSG91) only after we have real users.
+- Single repo, private on GitHub, monorepo layout: app/, supabase/ (migrations and edge functions), data/ (versioned exam standards), docs/.
+- GitHub Actions: run tests on every PR and build a debug APK as a downloadable artifact.
+- One Supabase dev project for now. No production environment until the MVP works.
+
+WORKFLOW RULES
+- Never commit to main. Work on feature branches, open pull requests, and Arpit merges.
+- Commit often. The cloud workspace is temporary, so GitHub is the only source of truth.
+- Secrets never go in the repo. Use GitHub Actions secrets and local env files. Never ask for or store the Supabase service-role key; use only the anon key and a dev-project access token.
+- Prefer a fine-grained GitHub token limited to this repo. Never ask for passwords or broad tokens.
+
+EXAM DATA RULES
+- Standards for UP Police and SSC GD must come from official recruitment notifications, with a source link stored beside every value, in versioned files in data/.
+- Arpit verifies the numbers before anything ships. If a number cannot be sourced, mark it unverified and say so clearly. Never guess.
+
+TESTING
+- Unit and widget tests for all logic. GPS tracking and cheat detection are tested against recorded GPS traces, including fake ones with impossible speeds or jumps.
+- Real GPS and real-device behavior can only be tested by Arpit on his own phone using the CI-built APK. After each build, ask him to run it on a real ground and report what broke.
+
+BUILD ORDER
+1. Repo structure and CI.
+2. Exam data and Google login.
+3. Training plans and progress tracker.
+4. GPS run logging with cheat checks.
+5. District leaderboards, then group leaderboards and video verification.
+
+KNOWN RISKS (keep these in view)
+- Cheating destroys leaderboard trust, so verification comes first.
+- Retention drops when users pass or give up on an exam.
+- Existing fitness and exam apps compete. Our edge is exam-specific standards and hyperlocal rankings.
+- Cold start: launch hyperlocally around Ghatampur and Kanpur grounds before expanding.
+- Privacy: location and fitness data are sensitive. Collect the minimum, and a privacy policy is needed before any public release.
+
+HOW TO WORK WITH ARPIT
+Direct and practical, natural prose, no emoji, no filler. Depth and completeness matter more than brevity in technical work. Be honest about what is uncertain or cannot be tested from the cloud, and flag problems early. When a decision is his to make, give a recommendation and ask once.
+
+STILL OPEN
+- Final app name.
+- GitHub repo URL and access method.
+- Supabase dev project details.
+- Google OAuth setup (later).
