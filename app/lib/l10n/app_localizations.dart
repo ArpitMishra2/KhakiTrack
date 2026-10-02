@@ -307,6 +307,30 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'गोरखा क्षेत्रीय प्रशासन (दार्जिलिंग)'**
   String get catGta;
+
+  /// No description provided for @signInWithGoogle.
+  ///
+  /// In hi, this message translates to:
+  /// **'Google से जारी रखें'**
+  String get signInWithGoogle;
+
+  /// No description provided for @signInFailed.
+  ///
+  /// In hi, this message translates to:
+  /// **'साइन इन नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।'**
+  String get signInFailed;
+
+  /// No description provided for @adultsOnly.
+  ///
+  /// In hi, this message translates to:
+  /// **'यह ऐप केवल 18 वर्ष या उससे अधिक उम्र के लोगों के लिए है।'**
+  String get adultsOnly;
+
+  /// No description provided for @signOut.
+  ///
+  /// In hi, this message translates to:
+  /// **'साइन आउट'**
+  String get signOut;
 }
 
 class _AppLocalizationsDelegate

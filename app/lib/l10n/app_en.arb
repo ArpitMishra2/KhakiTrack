@@ -34,5 +34,9 @@
   "catHillGroups": "Garhwali, Kumaoni, Dogra, Maratha, Assam, Himachal, J&K",
   "catLadakh": "Ladakh region",
   "catNeStates": "North Eastern states (Arunachal, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura)",
-  "catGta": "Gorkha Territorial Administration (Darjeeling)"
+  "catGta": "Gorkha Territorial Administration (Darjeeling)",
+  "signInWithGoogle": "Continue with Google",
+  "signInFailed": "Could not sign in. Check your internet and try again.",
+  "adultsOnly": "This app is only for people aged 18 or over.",
+  "signOut": "Sign out"
 }
