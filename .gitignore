@@ -6,3 +6,4 @@
 *.jks
 key.properties
 google-services.json
+supabase/.temp/
