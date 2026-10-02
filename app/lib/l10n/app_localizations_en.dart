@@ -815,4 +815,79 @@ class AppLocalizationsEn extends AppLocalizations {
   String minPerKm(String pace) {
     return '$pace /km';
   }
+
+  @override
+  String get tabRanking => 'Rankings';
+
+  @override
+  String get areaTitle => 'Your area';
+
+  @override
+  String get areaIntro =>
+      'Choose your area to compete with people from your village, block and district.';
+
+  @override
+  String get areaDistrict => 'District';
+
+  @override
+  String get areaChooseDistrict => 'Choose district';
+
+  @override
+  String get areaBlock => 'Block / tehsil';
+
+  @override
+  String get areaVillage => 'Village / locality';
+
+  @override
+  String get areaSpellingHint =>
+      'Spell your village and block the way your friends will, so you land on the same board.';
+
+  @override
+  String get areaVisible => 'Show my name on other people\'s rankings';
+
+  @override
+  String get areaVisibleNote =>
+      'Only your first name and the first letter of your surname are shown.';
+
+  @override
+  String get editArea => 'Change area';
+
+  @override
+  String get scopeVillage => 'Village';
+
+  @override
+  String get scopeBlock => 'Block';
+
+  @override
+  String get scopeDistrict => 'District';
+
+  @override
+  String get scopeState => 'State';
+
+  @override
+  String get metricPet => 'PET time';
+
+  @override
+  String get metricDistance => 'Distance this week';
+
+  @override
+  String get thisWeek => 'This week';
+
+  @override
+  String get lastWeek => 'Last week';
+
+  @override
+  String get rankingRules =>
+      'Only GPS-verified runs count. For PET time, run a mock PET over the real distance. Rankings restart every Monday.';
+
+  @override
+  String get rankingEmpty =>
+      'Nobody here yet this week. Run a mock PET and take the top spot!';
+
+  @override
+  String get rankingNeedsBlock =>
+      'Add your block and village for this ranking.';
+
+  @override
+  String get youLabel => 'You';
 }

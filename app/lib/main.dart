@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config.dart';
 import 'data/auth_service.dart';
 import 'data/exam_repository.dart';
+import 'data/leaderboard_repository.dart';
 import 'data/profile.dart';
 import 'data/training_repository.dart';
 import 'gps/location_source.dart';
@@ -26,6 +27,7 @@ Future<void> main() async {
       profiles: SupabaseProfileRepository(Supabase.instance.client),
       training: SupabaseTrainingRepository(Supabase.instance.client),
       runs: SupabaseRunRepository(Supabase.instance.client),
+      boards: SupabaseLeaderboardRepository(Supabase.instance.client),
       location: (l10n) => GeolocatorSource(
         notificationTitle: l10n.trackingNotificationTitle,
         notificationText: l10n.trackingNotificationText,
@@ -43,6 +45,7 @@ class MaidanApp extends StatelessWidget {
     required this.training,
     required this.runs,
     required this.location,
+    required this.boards,
   });
 
   final ExamRepository repository;
@@ -50,6 +53,7 @@ class MaidanApp extends StatelessWidget {
   final ProfileRepository profiles;
   final TrainingRepository training;
   final RunRepository runs;
+  final LeaderboardRepository boards;
   final LocationSource Function(AppLocalizations) location;
 
   @override
@@ -76,6 +80,7 @@ class MaidanApp extends StatelessWidget {
         training: training,
         runs: runs,
         location: location,
+        boards: boards,
       ),
     );
   }

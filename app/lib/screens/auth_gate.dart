@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/auth_service.dart';
 import '../data/exam_repository.dart';
+import '../data/leaderboard_repository.dart';
 import '../data/profile.dart';
 import '../data/training_repository.dart';
 import '../gps/location_source.dart';
@@ -23,6 +24,7 @@ class AuthGate extends StatelessWidget {
     required this.training,
     required this.runs,
     required this.location,
+    required this.boards,
   });
 
   final AuthService auth;
@@ -30,6 +32,7 @@ class AuthGate extends StatelessWidget {
   final ProfileRepository profiles;
   final TrainingRepository training;
   final RunRepository runs;
+  final LeaderboardRepository boards;
   final LocationSource Function(AppLocalizations) location;
 
   @override
@@ -45,6 +48,7 @@ class AuthGate extends StatelessWidget {
               training: training,
               runs: runs,
               location: location,
+              boards: boards,
             )
           : SignInScreen(auth: auth),
     );
@@ -59,6 +63,7 @@ class _ProfileGate extends StatefulWidget {
     required this.training,
     required this.runs,
     required this.location,
+    required this.boards,
   });
 
   final AuthService auth;
@@ -66,6 +71,7 @@ class _ProfileGate extends StatefulWidget {
   final ProfileRepository profiles;
   final TrainingRepository training;
   final RunRepository runs;
+  final LeaderboardRepository boards;
   final LocationSource Function(AppLocalizations) location;
 
   @override
@@ -112,6 +118,7 @@ class _ProfileGateState extends State<_ProfileGate> {
           training: widget.training,
           runs: widget.runs,
           location: widget.location,
+          boards: widget.boards,
           auth: widget.auth,
           profile: profile,
         );
