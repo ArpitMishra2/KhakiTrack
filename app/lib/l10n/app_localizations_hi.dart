@@ -130,4 +130,18 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get catGta => 'गोरखा क्षेत्रीय प्रशासन (दार्जिलिंग)';
+
+  @override
+  String get signInWithGoogle => 'Google से जारी रखें';
+
+  @override
+  String get signInFailed =>
+      'साइन इन नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।';
+
+  @override
+  String get adultsOnly =>
+      'यह ऐप केवल 18 वर्ष या उससे अधिक उम्र के लोगों के लिए है।';
+
+  @override
+  String get signOut => 'साइन आउट';
 }

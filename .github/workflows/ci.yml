@@ -24,6 +24,20 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
+      # Sign with the shared debug key so the APK's SHA-1 matches the Android
+      # OAuth client. Without the secret (e.g. forks) a random key is used and
+      # Google sign-in will not work on that APK.
+      - name: Restore shared debug keystore
+        env:
+          DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$DEBUG_KEYSTORE_BASE64" ]; then
+            mkdir -p ~/.android
+            echo "$DEBUG_KEYSTORE_BASE64" | base64 -d > ~/.android/debug.keystore
+            keytool -list -v -keystore ~/.android/debug.keystore -storepass android | grep SHA1
+          else
+            echo "::warning::DEBUG_KEYSTORE_BASE64 not set; Google sign-in will not work on this APK."
+          fi
       - run: flutter build apk --debug
       - uses: actions/upload-artifact@v4
         with:

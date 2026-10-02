@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../data/auth_service.dart';
 import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
 import '../l10n/app_localizations.dart';
@@ -7,9 +8,10 @@ import 'load_error.dart';
 import 'standards_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.repository});
+  const HomeScreen({super.key, required this.repository, required this.auth});
 
   final ExamRepository repository;
+  final AuthService auth;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,7 +25,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final l10n = AppLocalizations.of(context);
     final language = Localizations.localeOf(context).languageCode;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.appName)),
+      appBar: AppBar(
+        title: Text(l10n.appName),
+        actions: [
+          IconButton(
+            tooltip: l10n.signOut,
+            icon: const Icon(Icons.logout),
+            onPressed: widget.auth.signOut,
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [

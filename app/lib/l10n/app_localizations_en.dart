@@ -131,4 +131,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catGta => 'Gorkha Territorial Administration (Darjeeling)';
+
+  @override
+  String get signInWithGoogle => 'Continue with Google';
+
+  @override
+  String get signInFailed =>
+      'Could not sign in. Check your internet and try again.';
+
+  @override
+  String get adultsOnly => 'This app is only for people aged 18 or over.';
+
+  @override
+  String get signOut => 'Sign out';
 }
