@@ -1,15 +1,53 @@
 {
   "exam_id": "ssc_gd",
-  "data_version": "0.1-unverified",
-  "status": "UNVERIFIED: no value below has been checked against the official SSC notice (ssc.gov.in was unreachable from the build environment). Do not ship to users until each is confirmed.",
-  "official_source_needed": "Latest SSC Constable (GD) notice PDF, PST/PET annexure",
-  "reported_by": "https://www.mahendras.org/blogs/ssc-gd-eligibility-criteria",
+  "recruitment": "Constable (GD) in CAPFs and SSF, and Rifleman (GD) in Assam Rifles Examination, 2026 (notice F. No. HQ-C-3007/10/2025-C-3, published 01-12-2025)",
+  "data_version": "1.0",
+  "owner_review": {
+    "reviewed": true,
+    "reviewed_on": "2026-10-02",
+    "note": "Every value below was read from the official SSC notice linked beside it. Arpit confirmed these values against the PDFs on 2026-10-02."
+  },
+  "sources": {
+    "notice": {
+      "title": "SSC Notice: Constable (GD) in CAPFs and SSF, and Rifleman (GD) in Assam Rifles Examination, 2026",
+      "url": "https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf",
+      "sha256": "0d849077c59287161f27a215c432d7757561f0b4889f03e3fb9dd2a556abae50",
+      "retrieved": "2026-10-02"
+    }
+  },
+  "notes": [
+    "Category 'general' means every candidate not covered by a relaxation below. SC, OBC and EWS candidates get no PST relaxation in this notice.",
+    "Regional relaxations (Garhwali, Kumaoni, Dogra, Maratha, Assam, HP, J&K, Ladakh, NE states, GTA) are kept for completeness. The exact Darjeeling mouza list for GTA is in the notice, para 12.5.1.3(f).",
+    "Women: chest is not measured, only checked to be well developed (para 12.5.2.4).",
+    "Weight: proportionate to height and age as per medical standards (para 12.5.3). No fixed number is given, so none is stored.",
+    "Ex-Servicemen are exempt from PET, but are measured at PST for record (para 12.3)."
+  ],
   "standards": [
-    {"gender":"male","category":"general","event":"height_cm","kind":"measure_min","value":170,"verified":false,"source_url":null,"note":"reported by secondary sites only; relaxations for ST/hill areas not captured"},
-    {"gender":"male","category":"general","event":"chest_unexpanded_cm","kind":"measure_min","value":80,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"general","event":"chest_expansion_cm","kind":"measure_min","value":5,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"female","category":"general","event":"height_cm","kind":"measure_min","value":157,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"general","event":"run_5000m","kind":"time_max_seconds","value":1440,"verified":false,"source_url":null,"note":"5 km in 24 min, reported by secondary sites only"},
-    {"gender":"female","category":"general","event":"run_1600m","kind":"time_max_seconds","value":510,"verified":false,"source_url":null,"note":"1.6 km in 8.5 min, reported by secondary sites only"}
+    {"gender":"male","category":"general","event":"height_cm","kind":"measure_min","value":170,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.1"},
+    {"gender":"female","category":"general","event":"height_cm","kind":"measure_min","value":157,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.2"},
+    {"gender":"male","category":"st","event":"height_cm","kind":"measure_min","value":162.5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(a)"},
+    {"gender":"female","category":"st","event":"height_cm","kind":"measure_min","value":150.0,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(a)"},
+    {"gender":"male","category":"st_ne_states","event":"height_cm","kind":"measure_min","value":157.0,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(b)"},
+    {"gender":"female","category":"st_ne_states","event":"height_cm","kind":"measure_min","value":147.5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(b)"},
+    {"gender":"male","category":"st_lwe_districts","event":"height_cm","kind":"measure_min","value":160.0,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(c)"},
+    {"gender":"female","category":"st_lwe_districts","event":"height_cm","kind":"measure_min","value":147.5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(c)"},
+    {"gender":"male","category":"garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh","event":"height_cm","kind":"measure_min","value":165.0,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(d)"},
+    {"gender":"female","category":"garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh","event":"height_cm","kind":"measure_min","value":155.0,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(d)"},
+    {"gender":"male","category":"ne_states","event":"height_cm","kind":"measure_min","value":162.5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(e): Arunachal Pradesh, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura"},
+    {"gender":"female","category":"ne_states","event":"height_cm","kind":"measure_min","value":152.5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(e)"},
+    {"gender":"male","category":"gta","event":"height_cm","kind":"measure_min","value":157.0,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(f)"},
+    {"gender":"female","category":"gta","event":"height_cm","kind":"measure_min","value":152.5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 18, para 12.5.1.3(f)"},
+    {"gender":"male","category":"general","event":"chest_unexpanded_cm","kind":"measure_min","value":80,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.1"},
+    {"gender":"male","category":"general","event":"chest_expansion_cm","kind":"measure_min","value":5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.2"},
+    {"gender":"male","category":"st","event":"chest_unexpanded_cm","kind":"measure_min","value":76,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.3(a)"},
+    {"gender":"male","category":"st","event":"chest_expansion_cm","kind":"measure_min","value":5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.3(a)"},
+    {"gender":"male","category":"garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh","event":"chest_unexpanded_cm","kind":"measure_min","value":78,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.3(b)"},
+    {"gender":"male","category":"garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh","event":"chest_expansion_cm","kind":"measure_min","value":5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.3(b)"},
+    {"gender":"male","category":"ne_states_and_gta","event":"chest_unexpanded_cm","kind":"measure_min","value":77,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.3(c)"},
+    {"gender":"male","category":"ne_states_and_gta","event":"chest_expansion_cm","kind":"measure_min","value":5,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 19, para 12.5.2.3(c)"},
+    {"gender":"male","category":"general","event":"run_5000m","kind":"time_max_seconds","value":1440,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 17, para 12.4: 5 km in 24 minutes (all candidates except Ladakh region)"},
+    {"gender":"female","category":"general","event":"run_1600m","kind":"time_max_seconds","value":510,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 17, para 12.4: 1.6 km in 8 1/2 minutes (all candidates except Ladakh region)"},
+    {"gender":"male","category":"ladakh_region","event":"run_1600m","kind":"time_max_seconds","value":420,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 17, para 12.4: 1.6 km in 7 minutes"},
+    {"gender":"female","category":"ladakh_region","event":"run_800m","kind":"time_max_seconds","value":300,"verified":true,"source":"notice","source_url":"https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf","source_ref":"page 17, para 12.4: 800 m in 5 minutes"}
   ]
 }

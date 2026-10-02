@@ -1,19 +1,44 @@
 {
   "exam_id": "up_police_constable",
-  "data_version": "0.1-unverified",
-  "status": "UNVERIFIED: no value below has been checked against the official UPPRPB notification (uppbpb.gov.in was unreachable from the build environment). Do not ship to users until each is confirmed.",
-  "official_source_needed": "Latest UPPRPB Constable (Civil Police) recruitment notification PDF",
-  "reported_by": "https://onlineresult.in/article/up-police-constable-physical-test",
+  "recruitment": "UP Police Constable (Civil Police) and equivalent posts, Direct Recruitment 2025 (advertisement dated 31-12-2025, 32,679 posts)",
+  "data_version": "1.0",
+  "owner_review": {
+    "reviewed": true,
+    "reviewed_on": "2026-10-02",
+    "note": "Every value below was read from the official UPPRPB notices linked beside it. Arpit confirmed these values against the PDFs on 2026-10-02."
+  },
+  "sources": {
+    "pst": {
+      "title": "Abhilekhon ki sanvikshaa evam sharirik maanak parikshan (DV/PST) ki prakriya, No. PRPB-B (Aarakshi PAC evam anya sanvarg) 07/2025, dated 10-08-2026",
+      "url": "https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf",
+      "sha256": "9ab0c2f3ebb8933e0b5b9761e3089e789867127f7a4fc48e9fd0030e884e1c3a",
+      "retrieved": "2026-10-02"
+    },
+    "pet": {
+      "title": "Sharirik dakshata pariksha (PET) ki prakriya, No. PRPB-B (Aarakshi PAC evam anya sanvarg) 07/2025, dated 23-09-2026",
+      "url": "https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf",
+      "sha256": "22a9543bfcf73dc0c744c09ef1491668efa6f3706375b3afdaa6c23a979817ed",
+      "retrieved": "2026-10-02"
+    }
+  },
+  "notes": [
+    "The PST notice names the category group as 'samanya / anya pichhde varg / anusuchit jati' (General / OBC / SC). EWS candidates are not named separately; they fall under General (samanya). Only ST has relaxed standards.",
+    "A minimum chest expansion of 5 cm is mandatory for men (PST notice, para 2-kha, tippani).",
+    "Height and chest measured in earlier recruitments or by any other body are not accepted; only the DV/PST board's measurement counts (PST notice, para 5).",
+    "PET is qualifying only. Candidates who do not finish the run in the prescribed time are not eligible (PET notice, para 1)."
+  ],
   "standards": [
-    {"gender":"male","category":"general_obc_sc","event":"height_cm","kind":"measure_min","value":168,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"st","event":"height_cm","kind":"measure_min","value":160,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"general_obc_sc","event":"chest_unexpanded_cm","kind":"measure_min","value":79,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"general_obc_sc","event":"chest_expanded_cm","kind":"measure_min","value":84,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"st","event":"chest_unexpanded_cm","kind":"measure_min","value":77,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"st","event":"chest_expanded_cm","kind":"measure_min","value":82,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"female","category":"general_obc_sc","event":"height_cm","kind":"measure_min","value":152,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"female","category":"st","event":"height_cm","kind":"measure_min","value":147,"verified":false,"source_url":null,"note":"reported by secondary sites only"},
-    {"gender":"male","category":"all","event":"run_4800m","kind":"time_max_seconds","value":null,"reported_value":1500,"verified":false,"source_url":null,"note":"Sites say 4.8 km in 25 min. Value withheld: this conflicts with other recollection (28 min in earlier notifications). Confirm from the official notification."},
-    {"gender":"female","category":"all","event":"run_2400m","kind":"time_max_seconds","value":null,"reported_value":840,"verified":false,"source_url":null,"note":"Sites say 2.4 km in 14 min. Value withheld pending official confirmation."}
+    {"gender":"male","category":"general_obc_sc","event":"height_cm","kind":"measure_min","value":168,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, Sharirik maanak parikshan para 2-ka(ek)"},
+    {"gender":"male","category":"st","event":"height_cm","kind":"measure_min","value":160,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 2-ka(do)"},
+    {"gender":"male","category":"general_obc_sc","event":"chest_unexpanded_cm","kind":"measure_min","value":79,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 2-kha"},
+    {"gender":"male","category":"general_obc_sc","event":"chest_expanded_cm","kind":"measure_min","value":84,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 2-kha"},
+    {"gender":"male","category":"st","event":"chest_unexpanded_cm","kind":"measure_min","value":77,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 2-kha"},
+    {"gender":"male","category":"st","event":"chest_expanded_cm","kind":"measure_min","value":82,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 2-kha"},
+    {"gender":"male","category":"all","event":"chest_expansion_cm","kind":"measure_min","value":5,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 2-kha, tippani"},
+    {"gender":"female","category":"general_obc_sc","event":"height_cm","kind":"measure_min","value":152,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 3-ka(ek)"},
+    {"gender":"female","category":"st","event":"height_cm","kind":"measure_min","value":147,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 3-ka(do)"},
+    {"gender":"female","category":"all","event":"weight_kg","kind":"measure_min","value":40,"verified":true,"source":"pst","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf","source_ref":"page 2, para 3-kha"},
+    {"gender":"male","category":"all","event":"run_4800m","kind":"time_max_seconds","value":1500,"verified":true,"source":"pet","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf","source_ref":"page 1, para 1: 4.8 km in 25 minutes"},
+    {"gender":"female","category":"all","event":"run_2400m","kind":"time_max_seconds","value":840,"verified":true,"source":"pet","source_url":"https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf","source_ref":"page 1, para 1: 2.4 km in 14 minutes"}
   ]
 }
