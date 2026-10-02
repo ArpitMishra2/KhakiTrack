@@ -111,3 +111,18 @@ String? standardsCategoryFor(List<Standard> standards, String? social) {
   if (social == 'st' && standards.any((s) => s.category == 'st')) return 'st';
   return defaultCategory(standards);
 }
+
+/// The confirmed run standard (distance and time limit) for a candidate, or
+/// null if there is none.
+Standard? runStandardFor(
+  List<Standard> standards,
+  String gender,
+  String? socialCategory,
+) {
+  final category = standardsCategoryFor(standards, socialCategory);
+  if (category == null) return null;
+  for (final s in resolveStandards(standards, gender, category)) {
+    if (s.isRun && s.isConfirmed) return s;
+  }
+  return null;
+}

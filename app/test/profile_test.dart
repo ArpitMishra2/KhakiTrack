@@ -7,6 +7,8 @@ import 'package:maidan/main.dart';
 import 'fake_auth_service.dart';
 import 'fake_exam_repository.dart';
 import 'fake_profile_repository.dart';
+import 'fake_training_repository.dart';
+import 'test_helpers.dart';
 
 Future<void> tapVisible(WidgetTester tester, Finder finder) async {
   await tester.ensureVisible(finder);
@@ -76,6 +78,7 @@ void main() {
     final profiles = FakeProfileRepository(const Profile());
     await tester.pumpWidget(
       MaidanApp(
+        training: FakeTrainingRepository(),
         repository: FakeExamRepository(),
         auth: FakeAuthService(),
         profiles: profiles,
@@ -114,6 +117,7 @@ void main() {
     expect(isAdult(profiles.stored.dateOfBirth!, DateTime.now()), isTrue);
 
     // Home, then the standards screen opens as female ST.
+    await openStandards(tester);
     expect(find.text('अपनी परीक्षा चुनें'), findsOneWidget);
     await tester.tap(find.text('यूपी पुलिस कांस्टेबल'));
     await tester.pumpAndSettle();
@@ -134,6 +138,7 @@ void main() {
     )..failSave = true;
     await tester.pumpWidget(
       MaidanApp(
+        training: FakeTrainingRepository(),
         repository: FakeExamRepository(),
         auth: FakeAuthService(),
         profiles: profiles,
@@ -149,6 +154,7 @@ void main() {
   testWidgets('a complete profile skips setup', (tester) async {
     await tester.pumpWidget(
       MaidanApp(
+        training: FakeTrainingRepository(),
         repository: FakeExamRepository(),
         auth: FakeAuthService(),
         profiles: FakeProfileRepository(),
@@ -156,6 +162,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('आपकी जानकारी'), findsNothing);
+    await openStandards(tester);
     expect(find.text('अपनी परीक्षा चुनें'), findsOneWidget);
   });
 }

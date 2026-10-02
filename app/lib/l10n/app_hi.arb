@@ -18,23 +18,74 @@
   "eventChestExpanded": "सीना (फुलाकर)",
   "eventChestExpansion": "सीने का न्यूनतम फुलाव",
   "eventRun": "{distance} दौड़",
-  "@eventRun": {"placeholders": {"distance": {"type": "String"}}},
+  "@eventRun": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
   "valueCm": "{value} सेमी",
-  "@valueCm": {"placeholders": {"value": {"type": "String"}}},
+  "@valueCm": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "valueKg": "{value} किग्रा",
-  "@valueKg": {"placeholders": {"value": {"type": "String"}}},
+  "@valueKg": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "distanceKm": "{value} किमी",
-  "@distanceKm": {"placeholders": {"value": {"type": "String"}}},
+  "@distanceKm": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "distanceM": "{value} मीटर",
-  "@distanceM": {"placeholders": {"value": {"type": "String"}}},
+  "@distanceM": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "timeMinutes": "{minutes} मिनट में",
-  "@timeMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@timeMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "timeMinutesSeconds": "{minutes} मिनट {seconds} सेकंड में",
-  "@timeMinutesSeconds": {"placeholders": {"minutes": {"type": "int"}, "seconds": {"type": "int"}}},
+  "@timeMinutesSeconds": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
   "notConfirmed": "पुष्टि बाकी",
   "noStandards": "इस चयन के लिए कोई मानक नहीं मिला।",
   "sourceNote": "स्रोत: आधिकारिक भर्ती सूचना (डेटा संस्करण {version})",
-  "@sourceNote": {"placeholders": {"version": {"type": "String"}}},
+  "@sourceNote": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "catGeneral": "सामान्य / OBC / SC / EWS",
   "catSt": "अनुसूचित जनजाति (ST)",
   "catStNeStates": "ST – पूर्वोत्तर राज्य",
@@ -59,5 +110,292 @@
   "socialObc": "अन्य पिछड़ा वर्ग (OBC)",
   "socialSc": "अनुसूचित जाति (SC)",
   "socialSt": "अनुसूचित जनजाति (ST)",
-  "socialEws": "आर्थिक रूप से कमज़ोर वर्ग (EWS)"
+  "socialEws": "आर्थिक रूप से कमज़ोर वर्ग (EWS)",
+  "tabTraining": "ट्रेनिंग",
+  "tabStandards": "मानक",
+  "tabProgress": "प्रगति",
+  "trainingIntroTitle": "आपका अपना रनिंग प्लान",
+  "trainingIntroBody": "कुछ सवालों के जवाब दें। AI आपके अभी के स्तर, समय और अनुभव के हिसाब से हफ्ते-दर-हफ्ते प्लान बनाएगा, ताकि PET के दिन तक आप दौड़ आराम से समय में पूरी कर सकें।",
+  "startQuestionnaire": "प्लान बनाना शुरू करें",
+  "qTitle": "आपके बारे में",
+  "qStep": "चरण {step} / {total}",
+  "@qStep": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "qNext": "आगे",
+  "qBack": "पीछे",
+  "qCreate": "मेरा प्लान बनाएं",
+  "qLevelTitle": "अभी आपका स्तर",
+  "qCanComplete": "क्या आप अभी {distance} बिना रुके दौड़ सकते हैं?",
+  "@qCanComplete": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "yes": "हाँ",
+  "no": "नहीं",
+  "qCurrentTime": "{distance} में कितना समय लगता है? (मिनट:सेकंड)",
+  "@qCurrentTime": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "qTimeHint": "जैसे 27:30",
+  "qTimeInvalid": "समय मिनट:सेकंड में लिखें, जैसे 27:30",
+  "qLongest": "बिना रुके सबसे ज़्यादा कितना दौड़ लेते हैं?",
+  "qTarget": "लक्ष्य: {distance} {time} में",
+  "@qTarget": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "qExperienceTitle": "अनुभव",
+  "qExperience": "आप कब से नियमित दौड़ रहे हैं?",
+  "expNone": "अभी शुरू नहीं किया",
+  "expLt3m": "3 महीने से कम",
+  "exp3to12m": "3 से 12 महीने",
+  "expGt1y": "1 साल से ज़्यादा",
+  "qRunsPerWeek": "अभी हफ्ते में कितनी बार दौड़ते हैं?",
+  "qWeeklyKm": "हफ्ते में कुल लगभग कितने किमी?",
+  "qBackground": "और कौन-सा शारीरिक काम करते हैं?",
+  "bgFarm": "खेती / मेहनत का काम",
+  "bgSports": "खेल (क्रिकेट, फुटबॉल, कबड्डी)",
+  "bgGym": "जिम / कसरत",
+  "qScheduleTitle": "समय और दिन",
+  "qWeeks": "PET में लगभग कितने हफ्ते बचे हैं?",
+  "qWeeksUnknown": "तारीख पता नहीं हो तो 12 हफ्ते चुनें।",
+  "weeksN": "{n} हफ्ते",
+  "@weeksN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "qDays": "हफ्ते में कितने दिन ट्रेनिंग कर सकते हैं?",
+  "daysN": "{n} दिन",
+  "@daysN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "qMinutes": "एक बार में कितना समय दे सकते हैं?",
+  "minutesN": "{n} मिनट",
+  "@minutesN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "qTrainingTime": "कब दौड़ना पसंद है?",
+  "timeMorning": "सुबह",
+  "timeEvening": "शाम",
+  "timeEither": "कभी भी",
+  "qSurface": "कहाँ दौड़ते हैं?",
+  "surfaceGround": "मैदान",
+  "surfaceRoad": "सड़क",
+  "surfaceTrack": "ट्रैक",
+  "surfaceMixed": "मिला-जुला",
+  "qHealthTitle": "सेहत",
+  "qPain": "क्या अभी कहीं दर्द या चोट है?",
+  "painNone": "कोई दर्द नहीं",
+  "painKnee": "घुटना",
+  "painShin": "पिंडली",
+  "painAnkle": "टखना",
+  "painBack": "कमर / पीठ",
+  "painOther": "कुछ और",
+  "qPainNote": "दर्द के बारे में थोड़ा बताएं (वैकल्पिक)",
+  "qMedical": "कोई बीमारी?",
+  "medNone": "कोई नहीं",
+  "medAsthma": "दमा / सांस",
+  "medHeart": "दिल की बीमारी",
+  "medBp": "बीपी",
+  "medDiabetes": "शुगर",
+  "medOther": "कुछ और",
+  "qWeight": "वज़न किग्रा (वैकल्पिक)",
+  "qHeight": "लंबाई सेमी (वैकल्पिक)",
+  "generatingTitle": "AI आपका प्लान बना रहा है",
+  "generatingBody": "इसमें 1-2 मिनट लग सकते हैं। ऐप बंद न करें।",
+  "errRateLimited": "आज के लिए प्लान बनाने की सीमा पूरी हो गई। कल फिर कोशिश करें।",
+  "errAiNotConfigured": "AI प्लान अभी चालू नहीं है। थोड़ी देर बाद कोशिश करें।",
+  "errGeneration": "प्लान नहीं बन पाया। फिर कोशिश करें।",
+  "errTooEarly": "अगला हफ्ता {date} से खुलेगा।",
+  "@errTooEarly": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "errNetwork": "इंटरनेट से जुड़ नहीं पाए। कनेक्शन जांचकर फिर कोशिश करें।",
+  "readinessOnTrack": "सही रास्ते पर",
+  "readinessNeedsWork": "मेहनत की ज़रूरत",
+  "readinessBigGap": "लंबा सफ़र",
+  "seeDoctor": "शुरू करने से पहले डॉक्टर से सलाह ज़रूर लें।",
+  "weekOf": "हफ्ता {week} / {total}",
+  "@weekOf": {
+    "placeholders": {
+      "week": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "recoveryWeek": "आराम वाला हफ्ता",
+  "weekDone": "{done} / {total} सेशन पूरे",
+  "@weekDone": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "generateNextWeek": "हफ्ता {week} का प्लान बनाएं",
+  "@generateNextWeek": {
+    "placeholders": {
+      "week": {
+        "type": "int"
+      }
+    }
+  },
+  "nextWeekLocked": "हफ्ता {week} का प्लान {date} को खुलेगा, ताकि वह आपकी इस हफ्ते की ट्रेनिंग के हिसाब से बने।",
+  "@nextWeekLocked": {
+    "placeholders": {
+      "week": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "planFinished": "प्लान पूरा हुआ। PET के लिए शुभकामनाएं!",
+  "fullPlan": "पूरा प्लान",
+  "safetyNotes": "ध्यान रखें",
+  "newPlan": "नया प्लान बनाएं",
+  "newPlanConfirm": "नया प्लान बनाने पर अभी वाला प्लान बंद हो जाएगा। आगे बढ़ें?",
+  "cancel": "रद्द करें",
+  "continueLabel": "आगे बढ़ें",
+  "sessionToday": "आज",
+  "statusDone": "पूरा",
+  "statusPartial": "आधा",
+  "statusMissed": "छूट गया",
+  "logSession": "सेशन दर्ज करें",
+  "logDistance": "कितना दौड़े (किमी)",
+  "logTime": "कुल समय (मिनट:सेकंड)",
+  "logEffort": "कितना मुश्किल लगा? (1 आसान – 5 बहुत मुश्किल)",
+  "logPain": "दौड़ते समय या बाद में दर्द हुआ",
+  "logNote": "नोट (वैकल्पिक)",
+  "painWarning": "दर्द हो तो अगले सेशन धीरे करें। दर्द बढ़े या 2-3 दिन में ठीक न हो तो डॉक्टर को दिखाएं।",
+  "km": "{value} किमी",
+  "@km": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "minutesShort": "{value} मिनट",
+  "@minutesShort": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "pacePerKm": "{pace} प्रति किमी",
+  "@pacePerKm": {
+    "placeholders": {
+      "pace": {
+        "type": "String"
+      }
+    }
+  },
+  "typeEasyRun": "आसान दौड़",
+  "typeRunWalk": "दौड़-चाल",
+  "typeLongRun": "लंबी दौड़",
+  "typeTempo": "टेम्पो रन",
+  "typeIntervals": "इंटरवल",
+  "typeTimeTrial": "टाइम ट्रायल",
+  "typeStrength": "ताकत की कसरत",
+  "typeMobility": "स्ट्रेचिंग",
+  "progressTitle": "{distance} का समय",
+  "@progressTitle": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "progressEmpty": "अभी कोई टाइम ट्रायल नहीं। अपना समय दर्ज करें और यहाँ अपनी प्रगति देखें।",
+  "addTrial": "टाइम ट्रायल जोड़ें",
+  "trialDistance": "दूरी (मीटर)",
+  "trialTime": "समय (मिनट:सेकंड)",
+  "trialDate": "तारीख",
+  "latestTime": "ताज़ा समय: {time}",
+  "@latestTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "targetTime": "लक्ष्य: {time}",
+  "@targetTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "gapToCut": "अभी {time} और कम करना है",
+  "@gapToCut": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "underTarget": "आप लक्ष्य से {time} तेज़ हैं। इसे बनाए रखें!",
+  "@underTarget": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "estimated": "अनुमानित",
+  "estimateNote": "दूसरी दूरी के ट्रायल से {distance} का समय अनुमान से निकाला गया है।",
+  "@estimateNote": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "trialSaveFailed": "सेव नहीं हो सका। फिर कोशिश करें।"
 }

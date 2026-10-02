@@ -17,14 +17,13 @@ String categoryLabel(AppLocalizations l10n, String category) =>
 String _number(double v) =>
     v == v.roundToDouble() ? v.toInt().toString() : v.toString();
 
+/// "4.8 किमी" or "800 मीटर".
+String distanceText(AppLocalizations l10n, int metres) => metres >= 1000
+    ? l10n.distanceKm(_number(metres / 1000))
+    : l10n.distanceM('$metres');
+
 String eventLabel(AppLocalizations l10n, Standard s) {
-  if (s.isRun) {
-    final m = s.runMetres ?? 0;
-    final distance = m >= 1000
-        ? l10n.distanceKm(_number(m / 1000))
-        : l10n.distanceM('$m');
-    return l10n.eventRun(distance);
-  }
+  if (s.isRun) return l10n.eventRun(distanceText(l10n, s.runMetres ?? 0));
   return switch (s.event) {
     'height_cm' => l10n.eventHeight,
     'weight_kg' => l10n.eventWeight,
