@@ -632,5 +632,60 @@
       }
     }
   },
-  "examUnconfirmed": "इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।"
+  "examUnconfirmed": "इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।",
+  "voiceStarted": "चलो शुरू! आराम से शुरुआत करो, पहला किलोमीटर रेस नहीं, वार्म-अप है।",
+  "voiceKmDone": "{km} किलोमीटर पूरा। समय {time}।",
+  "@voiceKmDone": {
+    "placeholders": {
+      "km": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceHalfway": "आधा रास्ता पूरा!",
+  "voiceLastStretch": "बस {metres} मीटर बाकी! अब पूरी ताकत लगाओ!",
+  "@voiceLastStretch": {
+    "placeholders": {
+      "metres": {
+        "type": "int"
+      }
+    }
+  },
+  "voiceAhead": "लक्ष्य से {seconds} सेकंड आगे।",
+  "@voiceAhead": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "voiceBehind": "लक्ष्य से {seconds} सेकंड पीछे, थोड़ा तेज़!",
+  "@voiceBehind": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "voiceCheer1": "शाबाश शेर!",
+  "voiceCheer2": "टांगें बोल रही हैं थक गए, दिल बोल रहा है चलते रहो!",
+  "voiceCheer3": "वर्दी इंतज़ार कर रही है!",
+  "voiceCheer4": "साँस पर ध्यान, कदम छोटे और तेज़।",
+  "voiceFinished": "दौड़ पूरी! पानी पियो और थोड़ा टहल लो।",
+  "voiceTime": "{minutes} मिनट {seconds} सेकंड",
+  "@voiceTime": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "voiceOn": "आवाज़ चालू",
+  "voiceOff": "आवाज़ बंद"
 }

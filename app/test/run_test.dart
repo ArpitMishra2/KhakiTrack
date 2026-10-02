@@ -28,6 +28,7 @@ Future<void> pumpRun(
   bool mockPet = true,
   int runMetres = 5000,
   int targetSeconds = 1440,
+  FakeVoiceCoach? voice,
 }) async {
   tester.view.physicalSize = const Size(400, 900);
   tester.view.devicePixelRatio = 1;
@@ -42,6 +43,7 @@ Future<void> pumpRun(
         mockPet: mockPet,
         source: source,
         runs: runs,
+        voice: voice ?? FakeVoiceCoach(),
       ),
     ),
   );
@@ -219,5 +221,65 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('दूरी पूरी नहीं हुई'), findsOneWidget);
     expect(runs.submitted, hasLength(1));
+  });
+
+  testWidgets('voice coach speaks each km, halfway and the finish', (
+    tester,
+  ) async {
+    final source = FakeLocationSource();
+    final voice = FakeVoiceCoach();
+    await pumpRun(
+      tester,
+      source: source,
+      runs: FakeRunRepository(),
+      voice: voice,
+    );
+    source.emit(tracePoints('good_5000_ssc.json').first);
+    await firstFix(tester);
+    await tester.tap(find.text('शुरू करें'));
+    await tester.pump();
+    await replay(tester, source, 'good_5000_ssc.json');
+
+    expect(voice.said.first, startsWith('चलो शुरू!'));
+    final km = voice.said.where((l) => l.contains('किलोमीटर पूरा')).toList();
+    expect(km.length, 4); // 1-4 km; the 5th is the finish
+    expect(km.first, startsWith('1 किलोमीटर पूरा। समय 4 मिनट'));
+    expect(km.first, contains('लक्ष्य से'));
+    expect(voice.said.where((l) => l.startsWith('आधा रास्ता')), hasLength(1));
+    expect(voice.said.where((l) => l.contains('मीटर बाकी')), hasLength(1));
+    expect(voice.said.last, startsWith('दौड़ पूरी!'));
+  });
+
+  testWidgets('voice can be muted mid-run', (tester) async {
+    final source = FakeLocationSource();
+    final voice = FakeVoiceCoach();
+    await pumpRun(
+      tester,
+      source: source,
+      runs: FakeRunRepository(),
+      voice: voice,
+      mockPet: false,
+    );
+    final pts = tracePoints('good_4800_steady.json');
+    source.emit(pts.first);
+    await firstFix(tester);
+    await tester.tap(find.text('शुरू करें'));
+    await tester.pump();
+    for (var i = 0; i < 100; i++) {
+      source.emit(pts[i]);
+    }
+    await tester.pump();
+    final before = voice.said.length;
+    await tester.tap(find.byIcon(Icons.volume_up));
+    await tester.pump();
+    expect(voice.stops, 1);
+    for (var i = 100; i < 700; i++) {
+      source.emit(pts[i]);
+      if (i % 50 == 0) await tester.pump();
+    }
+    await tester.pump();
+    expect(voice.said.length, before); // nothing more while muted
+    await tester.longPress(find.text('रोकने के लिए दबाकर रखें'));
+    await tester.pumpAndSettle();
   });
 }

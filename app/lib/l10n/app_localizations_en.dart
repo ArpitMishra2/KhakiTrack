@@ -991,4 +991,57 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get examUnconfirmed =>
       'This exam\'s standards are not yet confirmed from the official notice. They will show here once confirmed, and AI plans, mock PET and rankings will switch on then.';
+
+  @override
+  String get voiceStarted =>
+      'Off we go! Start easy, the first kilometre is a warm-up, not a race.';
+
+  @override
+  String voiceKmDone(int km, String time) {
+    return '$km kilometre done. Time $time.';
+  }
+
+  @override
+  String get voiceHalfway => 'Halfway there!';
+
+  @override
+  String voiceLastStretch(int metres) {
+    return 'Only $metres metres left! Give it everything!';
+  }
+
+  @override
+  String voiceAhead(int seconds) {
+    return '$seconds seconds ahead of target.';
+  }
+
+  @override
+  String voiceBehind(int seconds) {
+    return '$seconds seconds behind target, pick it up!';
+  }
+
+  @override
+  String get voiceCheer1 => 'Well done, tiger!';
+
+  @override
+  String get voiceCheer2 => 'Your legs say stop, your heart says keep going!';
+
+  @override
+  String get voiceCheer3 => 'The uniform is waiting for you!';
+
+  @override
+  String get voiceCheer4 => 'Watch your breathing, short quick steps.';
+
+  @override
+  String get voiceFinished => 'Run complete! Drink water and walk a little.';
+
+  @override
+  String voiceTime(int minutes, int seconds) {
+    return '$minutes minutes $seconds seconds';
+  }
+
+  @override
+  String get voiceOn => 'Voice on';
+
+  @override
+  String get voiceOff => 'Voice off';
 }

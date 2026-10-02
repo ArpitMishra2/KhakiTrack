@@ -8,6 +8,7 @@ import '../gps/location_source.dart';
 import '../gps/run_analysis.dart';
 import '../gps/run_recorder.dart';
 import '../gps/run_repository.dart';
+import '../gps/voice_coach.dart';
 import '../l10n/app_localizations.dart';
 import 'standard_labels.dart';
 
@@ -23,6 +24,7 @@ class RunScreen extends StatefulWidget {
     required this.mockPet,
     required this.source,
     required this.runs,
+    this.voice,
   });
 
   final String examId;
@@ -33,6 +35,9 @@ class RunScreen extends StatefulWidget {
   final bool mockPet;
   final LocationSource source;
   final RunRepository runs;
+
+  /// Spoken updates; defaults to the phone's text-to-speech.
+  final VoiceCoach? voice;
 
   @override
   State<RunScreen> createState() => _RunScreenState();
@@ -51,6 +56,9 @@ class _RunScreenState extends State<RunScreen> {
   bool _uploading = false;
   bool _savedOffline = false;
   bool _refused = false;
+  VoiceCoach? _voice;
+  Announcer? _announcer;
+  bool _voiceOn = true;
 
   @override
   void initState() {
@@ -75,7 +83,39 @@ class _RunScreenState extends State<RunScreen> {
     });
   }
 
+  void _speak(List<String> lines) {
+    if (!_voiceOn) return;
+    for (final l in lines) {
+      _voice?.say(l);
+    }
+  }
+
+  CoachPhrases _phrases(AppLocalizations l10n) => CoachPhrases(
+    started: l10n.voiceStarted,
+    kmDone: l10n.voiceKmDone,
+    halfway: l10n.voiceHalfway,
+    lastStretch: (m) => l10n.voiceLastStretch(m),
+    ahead: (s) => l10n.voiceAhead(s),
+    behind: (s) => l10n.voiceBehind(s),
+    cheers: [
+      l10n.voiceCheer1,
+      l10n.voiceCheer2,
+      l10n.voiceCheer3,
+      l10n.voiceCheer4,
+    ],
+    finished: l10n.voiceFinished,
+  );
+
   void _start() {
+    final l10n = AppLocalizations.of(context);
+    _voice = widget.voice ?? TtsVoiceCoach(l10n.localeName);
+    _announcer = Announcer(
+      phrases: _phrases(l10n),
+      targetM: widget.mockPet ? widget.runMetres : null,
+      targetSeconds: widget.mockPet ? widget.targetSeconds : null,
+    );
+    String spoken(double s) =>
+        Announcer.spokenTime(s, (m, sec) => l10n.voiceTime(m, sec));
     _warmup?.cancel();
     final r = RunRecorder(
       source: widget.source,
@@ -86,6 +126,10 @@ class _RunScreenState extends State<RunScreen> {
       if (r.finished && _phase == _Phase.running) {
         _finish();
       } else {
+        final live = r.live;
+        if (live != null) {
+          _speak(_announcer!.update(live.distanceM, live.durationS, spoken));
+        }
         setState(() {});
       }
     });
@@ -110,6 +154,7 @@ class _RunScreenState extends State<RunScreen> {
     final r = _recorder!;
     if (!r.finished) r.stop();
     _ticker?.cancel();
+    _speak([_announcer!.phrases.finished]);
     try {
       final verdict = await widget.runs.submit(
         RunSubmission(
@@ -135,6 +180,7 @@ class _RunScreenState extends State<RunScreen> {
 
   @override
   void dispose() {
+    _voice?.stop();
     _warmup?.cancel();
     _ticker?.cancel();
     _recorder?.dispose();
@@ -150,6 +196,17 @@ class _RunScreenState extends State<RunScreen> {
         appBar: AppBar(
           title: Text(widget.mockPet ? l10n.mockPetTitle : l10n.freeRunTitle),
           automaticallyImplyLeading: _phase != _Phase.running,
+          actions: [
+            if (_phase == _Phase.running)
+              IconButton(
+                tooltip: _voiceOn ? l10n.voiceOn : l10n.voiceOff,
+                icon: Icon(_voiceOn ? Icons.volume_up : Icons.volume_off),
+                onPressed: () {
+                  setState(() => _voiceOn = !_voiceOn);
+                  if (!_voiceOn) _voice?.stop();
+                },
+              ),
+          ],
         ),
         body: SafeArea(
           child: switch (_phase) {

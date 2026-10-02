@@ -1819,6 +1819,90 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।'**
   String get examUnconfirmed;
+
+  /// No description provided for @voiceStarted.
+  ///
+  /// In hi, this message translates to:
+  /// **'चलो शुरू! आराम से शुरुआत करो, पहला किलोमीटर रेस नहीं, वार्म-अप है।'**
+  String get voiceStarted;
+
+  /// No description provided for @voiceKmDone.
+  ///
+  /// In hi, this message translates to:
+  /// **'{km} किलोमीटर पूरा। समय {time}।'**
+  String voiceKmDone(int km, String time);
+
+  /// No description provided for @voiceHalfway.
+  ///
+  /// In hi, this message translates to:
+  /// **'आधा रास्ता पूरा!'**
+  String get voiceHalfway;
+
+  /// No description provided for @voiceLastStretch.
+  ///
+  /// In hi, this message translates to:
+  /// **'बस {metres} मीटर बाकी! अब पूरी ताकत लगाओ!'**
+  String voiceLastStretch(int metres);
+
+  /// No description provided for @voiceAhead.
+  ///
+  /// In hi, this message translates to:
+  /// **'लक्ष्य से {seconds} सेकंड आगे।'**
+  String voiceAhead(int seconds);
+
+  /// No description provided for @voiceBehind.
+  ///
+  /// In hi, this message translates to:
+  /// **'लक्ष्य से {seconds} सेकंड पीछे, थोड़ा तेज़!'**
+  String voiceBehind(int seconds);
+
+  /// No description provided for @voiceCheer1.
+  ///
+  /// In hi, this message translates to:
+  /// **'शाबाश शेर!'**
+  String get voiceCheer1;
+
+  /// No description provided for @voiceCheer2.
+  ///
+  /// In hi, this message translates to:
+  /// **'टांगें बोल रही हैं थक गए, दिल बोल रहा है चलते रहो!'**
+  String get voiceCheer2;
+
+  /// No description provided for @voiceCheer3.
+  ///
+  /// In hi, this message translates to:
+  /// **'वर्दी इंतज़ार कर रही है!'**
+  String get voiceCheer3;
+
+  /// No description provided for @voiceCheer4.
+  ///
+  /// In hi, this message translates to:
+  /// **'साँस पर ध्यान, कदम छोटे और तेज़।'**
+  String get voiceCheer4;
+
+  /// No description provided for @voiceFinished.
+  ///
+  /// In hi, this message translates to:
+  /// **'दौड़ पूरी! पानी पियो और थोड़ा टहल लो।'**
+  String get voiceFinished;
+
+  /// No description provided for @voiceTime.
+  ///
+  /// In hi, this message translates to:
+  /// **'{minutes} मिनट {seconds} सेकंड'**
+  String voiceTime(int minutes, int seconds);
+
+  /// No description provided for @voiceOn.
+  ///
+  /// In hi, this message translates to:
+  /// **'आवाज़ चालू'**
+  String get voiceOn;
+
+  /// No description provided for @voiceOff.
+  ///
+  /// In hi, this message translates to:
+  /// **'आवाज़ बंद'**
+  String get voiceOff;
 }
 
 class _AppLocalizationsDelegate

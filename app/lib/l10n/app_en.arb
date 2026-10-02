@@ -286,5 +286,19 @@
   "mustPass": "Must pass",
   "countAtLeast": "At least {n}",
   "standardsForAge": "Standards for your age ({age} years)",
-  "examUnconfirmed": "This exam's standards are not yet confirmed from the official notice. They will show here once confirmed, and AI plans, mock PET and rankings will switch on then."
+  "examUnconfirmed": "This exam's standards are not yet confirmed from the official notice. They will show here once confirmed, and AI plans, mock PET and rankings will switch on then.",
+  "voiceStarted": "Off we go! Start easy, the first kilometre is a warm-up, not a race.",
+  "voiceKmDone": "{km} kilometre done. Time {time}.",
+  "voiceHalfway": "Halfway there!",
+  "voiceLastStretch": "Only {metres} metres left! Give it everything!",
+  "voiceAhead": "{seconds} seconds ahead of target.",
+  "voiceBehind": "{seconds} seconds behind target, pick it up!",
+  "voiceCheer1": "Well done, tiger!",
+  "voiceCheer2": "Your legs say stop, your heart says keep going!",
+  "voiceCheer3": "The uniform is waiting for you!",
+  "voiceCheer4": "Watch your breathing, short quick steps.",
+  "voiceFinished": "Run complete! Drink water and walk a little.",
+  "voiceTime": "{minutes} minutes {seconds} seconds",
+  "voiceOn": "Voice on",
+  "voiceOff": "Voice off"
 }
