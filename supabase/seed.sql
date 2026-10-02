@@ -2,55 +2,107 @@
 begin;
 
 insert into public.exams (id, name_hi, name_en, notification_url, data_version)
+values ('agniveer_army_gd', 'अग्निवीर थल सेना (GD)', 'Agniveer Army (GD)', null, '0.1-unverified')
+on conflict (id) do update set name_hi = excluded.name_hi, name_en = excluded.name_en,
+  notification_url = excluded.notification_url, data_version = excluded.data_version;
+delete from public.standards where exam_id = 'agniveer_army_gd';
+insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified, age_min, age_max, reported_value) values
+  ('agniveer_army_gd', 'male', 'all', 'run_1600m', 'time_max_seconds', null, null, false, null, null, 345),
+  ('agniveer_army_gd', 'male', 'all', 'pull_ups', 'count_min', null, null, false, null, null, 6),
+  ('agniveer_army_gd', 'male', 'all', 'ditch_9ft', 'qualify', null, null, false, null, null, null),
+  ('agniveer_army_gd', 'male', 'all', 'zigzag_balance', 'qualify', null, null, false, null, null, null);
+
+insert into public.exams (id, name_hi, name_en, notification_url, data_version)
+values ('delhi_police_constable', 'दिल्ली पुलिस कांस्टेबल', 'Delhi Police Constable', 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', '1.0')
+on conflict (id) do update set name_hi = excluded.name_hi, name_en = excluded.name_en,
+  notification_url = excluded.notification_url, data_version = excluded.data_version;
+delete from public.standards where exam_id = 'delhi_police_constable';
+insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified, age_min, age_max, reported_value) values
+  ('delhi_police_constable', 'male', 'all', 'run_1600m', 'time_max_seconds', 360, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, 30, null),
+  ('delhi_police_constable', 'male', 'all', 'long_jump_ft', 'measure_min', 14, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, 30, null),
+  ('delhi_police_constable', 'male', 'all', 'high_jump_ft', 'measure_min', 3.75, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, 30, null),
+  ('delhi_police_constable', 'female', 'all', 'run_1600m', 'time_max_seconds', 480, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, 30, null),
+  ('delhi_police_constable', 'female', 'all', 'long_jump_ft', 'measure_min', 10, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, 30, null),
+  ('delhi_police_constable', 'female', 'all', 'high_jump_ft', 'measure_min', 3, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, 30, null),
+  ('delhi_police_constable', 'male', 'all', 'run_1600m', 'time_max_seconds', 420, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 31, 40, null),
+  ('delhi_police_constable', 'male', 'all', 'long_jump_ft', 'measure_min', 13, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 31, 40, null),
+  ('delhi_police_constable', 'male', 'all', 'high_jump_ft', 'measure_min', 3.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 31, 40, null),
+  ('delhi_police_constable', 'female', 'all', 'run_1600m', 'time_max_seconds', 540, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 31, 40, null),
+  ('delhi_police_constable', 'female', 'all', 'long_jump_ft', 'measure_min', 9, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 31, 40, null),
+  ('delhi_police_constable', 'female', 'all', 'high_jump_ft', 'measure_min', 2.75, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 31, 40, null),
+  ('delhi_police_constable', 'male', 'all', 'run_1600m', 'time_max_seconds', 480, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 41, null, null),
+  ('delhi_police_constable', 'male', 'all', 'long_jump_ft', 'measure_min', 12, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 41, null, null),
+  ('delhi_police_constable', 'male', 'all', 'high_jump_ft', 'measure_min', 3.25, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 41, null, null),
+  ('delhi_police_constable', 'female', 'all', 'run_1600m', 'time_max_seconds', 600, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 41, null, null),
+  ('delhi_police_constable', 'female', 'all', 'long_jump_ft', 'measure_min', 8, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 41, null, null),
+  ('delhi_police_constable', 'female', 'all', 'high_jump_ft', 'measure_min', 2.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, 41, null, null),
+  ('delhi_police_constable', 'male', 'general', 'height_cm', 'measure_min', 170, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'hill_areas', 'height_cm', 'measure_min', 165, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'st', 'height_cm', 'measure_min', 165, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'police_ward', 'height_cm', 'measure_min', 165, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'general', 'chest_unexpanded_cm', 'measure_min', 81, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'general', 'chest_expansion_cm', 'measure_min', 4, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'hill_areas', 'chest_unexpanded_cm', 'measure_min', 76, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'hill_areas', 'chest_expansion_cm', 'measure_min', 4, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'st', 'chest_unexpanded_cm', 'measure_min', 76, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'st', 'chest_expansion_cm', 'measure_min', 4, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'police_ward', 'chest_unexpanded_cm', 'measure_min', 76, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'male', 'police_ward', 'chest_expansion_cm', 'measure_min', 4, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'female', 'general', 'height_cm', 'measure_min', 157, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'female', 'hill_areas', 'height_cm', 'measure_min', 155, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'female', 'sc_st', 'height_cm', 'measure_min', 155, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null),
+  ('delhi_police_constable', 'female', 'police_ward', 'height_cm', 'measure_min', 152, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', true, null, null, null);
+
+insert into public.exams (id, name_hi, name_en, notification_url, data_version)
 values ('ssc_gd', 'SSC GD कांस्टेबल', 'SSC GD Constable', 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', '1.0')
 on conflict (id) do update set name_hi = excluded.name_hi, name_en = excluded.name_en,
   notification_url = excluded.notification_url, data_version = excluded.data_version;
 delete from public.standards where exam_id = 'ssc_gd';
-insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified) values
-  ('ssc_gd', 'male', 'general', 'height_cm', 'measure_min', 170, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'general', 'height_cm', 'measure_min', 157, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'st', 'height_cm', 'measure_min', 162.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'st', 'height_cm', 'measure_min', 150.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'st_ne_states', 'height_cm', 'measure_min', 157.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'st_ne_states', 'height_cm', 'measure_min', 147.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'st_lwe_districts', 'height_cm', 'measure_min', 160.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'st_lwe_districts', 'height_cm', 'measure_min', 147.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'height_cm', 'measure_min', 165.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'height_cm', 'measure_min', 155.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'ne_states', 'height_cm', 'measure_min', 162.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'ne_states', 'height_cm', 'measure_min', 152.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'gta', 'height_cm', 'measure_min', 157.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'gta', 'height_cm', 'measure_min', 152.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'general', 'chest_unexpanded_cm', 'measure_min', 80, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'general', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'st', 'chest_unexpanded_cm', 'measure_min', 76, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'st', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'chest_unexpanded_cm', 'measure_min', 78, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'ne_states_and_gta', 'chest_unexpanded_cm', 'measure_min', 77, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'ne_states_and_gta', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'general', 'run_5000m', 'time_max_seconds', 1440, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'general', 'run_1600m', 'time_max_seconds', 510, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'male', 'ladakh_region', 'run_1600m', 'time_max_seconds', 420, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true),
-  ('ssc_gd', 'female', 'ladakh_region', 'run_800m', 'time_max_seconds', 300, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true);
+insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified, age_min, age_max, reported_value) values
+  ('ssc_gd', 'male', 'general', 'height_cm', 'measure_min', 170, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'general', 'height_cm', 'measure_min', 157, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'st', 'height_cm', 'measure_min', 162.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'st', 'height_cm', 'measure_min', 150.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'st_ne_states', 'height_cm', 'measure_min', 157.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'st_ne_states', 'height_cm', 'measure_min', 147.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'st_lwe_districts', 'height_cm', 'measure_min', 160.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'st_lwe_districts', 'height_cm', 'measure_min', 147.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'height_cm', 'measure_min', 165.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'height_cm', 'measure_min', 155.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'ne_states', 'height_cm', 'measure_min', 162.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'ne_states', 'height_cm', 'measure_min', 152.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'gta', 'height_cm', 'measure_min', 157.0, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'gta', 'height_cm', 'measure_min', 152.5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'general', 'chest_unexpanded_cm', 'measure_min', 80, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'general', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'st', 'chest_unexpanded_cm', 'measure_min', 76, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'st', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'chest_unexpanded_cm', 'measure_min', 78, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'garhwali_kumaoni_dogra_maratha_assam_hp_jk_ladakh', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'ne_states_and_gta', 'chest_unexpanded_cm', 'measure_min', 77, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'ne_states_and_gta', 'chest_expansion_cm', 'measure_min', 5, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'general', 'run_5000m', 'time_max_seconds', 1440, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'general', 'run_1600m', 'time_max_seconds', 510, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'male', 'ladakh_region', 'run_1600m', 'time_max_seconds', 420, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null),
+  ('ssc_gd', 'female', 'ladakh_region', 'run_800m', 'time_max_seconds', 300, 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_CTGD_2026.pdf', true, null, null, null);
 
 insert into public.exams (id, name_hi, name_en, notification_url, data_version)
 values ('up_police_constable', 'यूपी पुलिस कांस्टेबल', 'UP Police Constable', 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', '1.0')
 on conflict (id) do update set name_hi = excluded.name_hi, name_en = excluded.name_en,
   notification_url = excluded.notification_url, data_version = excluded.data_version;
 delete from public.standards where exam_id = 'up_police_constable';
-insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified) values
-  ('up_police_constable', 'male', 'general_obc_sc', 'height_cm', 'measure_min', 168, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'male', 'st', 'height_cm', 'measure_min', 160, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'male', 'general_obc_sc', 'chest_unexpanded_cm', 'measure_min', 79, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'male', 'general_obc_sc', 'chest_expanded_cm', 'measure_min', 84, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'male', 'st', 'chest_unexpanded_cm', 'measure_min', 77, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'male', 'st', 'chest_expanded_cm', 'measure_min', 82, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'male', 'all', 'chest_expansion_cm', 'measure_min', 5, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'female', 'general_obc_sc', 'height_cm', 'measure_min', 152, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'female', 'st', 'height_cm', 'measure_min', 147, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'female', 'all', 'weight_kg', 'measure_min', 40, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true),
-  ('up_police_constable', 'male', 'all', 'run_4800m', 'time_max_seconds', 1500, 'https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf', true),
-  ('up_police_constable', 'female', 'all', 'run_2400m', 'time_max_seconds', 840, 'https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf', true);
+insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified, age_min, age_max, reported_value) values
+  ('up_police_constable', 'male', 'general_obc_sc', 'height_cm', 'measure_min', 168, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'male', 'st', 'height_cm', 'measure_min', 160, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'male', 'general_obc_sc', 'chest_unexpanded_cm', 'measure_min', 79, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'male', 'general_obc_sc', 'chest_expanded_cm', 'measure_min', 84, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'male', 'st', 'chest_unexpanded_cm', 'measure_min', 77, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'male', 'st', 'chest_expanded_cm', 'measure_min', 82, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'male', 'all', 'chest_expansion_cm', 'measure_min', 5, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'female', 'general_obc_sc', 'height_cm', 'measure_min', 152, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'female', 'st', 'height_cm', 'measure_min', 147, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'female', 'all', 'weight_kg', 'measure_min', 40, 'https://uppbpb.gov.in/FilesUploaded/Notice/DVPST%20DATE%20AND%20INSTRUCTION8728d36f-f7fc-479f-98b7-8d59b3466acf.pdf', true, null, null, null),
+  ('up_police_constable', 'male', 'all', 'run_4800m', 'time_max_seconds', 1500, 'https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf', true, null, null, null),
+  ('up_police_constable', 'female', 'all', 'run_2400m', 'time_max_seconds', 840, 'https://uppbpb.gov.in/FilesUploaded/Notice/IMG_00012c883b76-d826-4ad7-8263-f1fb7cecdcff.pdf', true, null, null, null);
 
 commit;

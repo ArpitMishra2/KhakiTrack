@@ -1747,6 +1747,78 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'आप अभी किसी इलाके या ग्रुप में नहीं हैं। \'सभी\' की रैंकिंग देखें या अपना इलाका जोड़ें।'**
   String get noCommunitiesYet;
+
+  /// No description provided for @catScSt.
+  ///
+  /// In hi, this message translates to:
+  /// **'अनुसूचित जाति / जनजाति (SC/ST)'**
+  String get catScSt;
+
+  /// No description provided for @catHillAreas.
+  ///
+  /// In hi, this message translates to:
+  /// **'पहाड़ी क्षेत्र (गढ़वाली, कुमाऊँनी, गोरखा आदि – प्रमाणपत्र के साथ)'**
+  String get catHillAreas;
+
+  /// No description provided for @catPoliceWard.
+  ///
+  /// In hi, this message translates to:
+  /// **'दिल्ली पुलिस कर्मी के बेटे/बेटी'**
+  String get catPoliceWard;
+
+  /// No description provided for @eventLongJump.
+  ///
+  /// In hi, this message translates to:
+  /// **'लंबी कूद'**
+  String get eventLongJump;
+
+  /// No description provided for @eventHighJump.
+  ///
+  /// In hi, this message translates to:
+  /// **'ऊँची कूद'**
+  String get eventHighJump;
+
+  /// No description provided for @eventPullUps.
+  ///
+  /// In hi, this message translates to:
+  /// **'पुल-अप (बीम)'**
+  String get eventPullUps;
+
+  /// No description provided for @eventDitch.
+  ///
+  /// In hi, this message translates to:
+  /// **'9 फीट गड्ढा कूद'**
+  String get eventDitch;
+
+  /// No description provided for @eventZigzag.
+  ///
+  /// In hi, this message translates to:
+  /// **'ज़िग-ज़ैग बैलेंस'**
+  String get eventZigzag;
+
+  /// No description provided for @mustPass.
+  ///
+  /// In hi, this message translates to:
+  /// **'पास होना ज़रूरी'**
+  String get mustPass;
+
+  /// No description provided for @countAtLeast.
+  ///
+  /// In hi, this message translates to:
+  /// **'कम से कम {n}'**
+  String countAtLeast(int n);
+
+  /// No description provided for @standardsForAge.
+  ///
+  /// In hi, this message translates to:
+  /// **'आपकी उम्र ({age} साल) के हिसाब से मानक'**
+  String standardsForAge(int age);
+
+  /// No description provided for @examUnconfirmed.
+  ///
+  /// In hi, this message translates to:
+  /// **'इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।'**
+  String get examUnconfirmed;
 }
 
 class _AppLocalizationsDelegate

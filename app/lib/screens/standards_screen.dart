@@ -63,8 +63,12 @@ class _StandardsScreenState extends State<StandardsScreen> {
   Widget _body(
     BuildContext context,
     AppLocalizations l10n,
-    List<Standard> all,
+    List<Standard> everyAge,
   ) {
+    final dob = widget.profile.dateOfBirth;
+    final age = dob == null ? null : ageOn(dob, DateTime.now());
+    final all = forAge(everyAge, age);
+    final ageBanded = everyAge.any((s) => s.ageBanded);
     final categories = categoriesFor(all, _gender);
     final fromProfile = standardsCategoryFor(all, widget.profile.category);
     final category = categories.contains(_category)
@@ -73,8 +77,10 @@ class _StandardsScreenState extends State<StandardsScreen> {
         ? fromProfile!
         : (categories.isEmpty ? '' : categories.first);
     final resolved = resolveStandards(all, _gender, category);
-    final pst = resolved.where((s) => !s.isRun).toList();
-    final pet = resolved.where((s) => s.isRun).toList();
+    final pst = resolved.where((s) => s.isMeasurement).toList();
+    final pet = resolved.where((s) => !s.isMeasurement).toList();
+    final unconfirmed =
+        resolved.isNotEmpty && resolved.every((s) => !s.verified);
     final textTheme = Theme.of(context).textTheme;
 
     return ListView(
@@ -109,6 +115,19 @@ class _StandardsScreenState extends State<StandardsScreen> {
           onChanged: (c) => setState(() => _category = c),
         ),
         const SizedBox(height: 16),
+        if (ageBanded && age != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(l10n.standardsForAge(age), style: textTheme.bodySmall),
+          ),
+        if (unconfirmed)
+          Card(
+            color: Theme.of(context).colorScheme.tertiaryContainer,
+            child: ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: Text(l10n.examUnconfirmed),
+            ),
+          ),
         if (resolved.isEmpty) Text(l10n.noStandards),
         if (pst.isNotEmpty) _section(l10n, l10n.sectionPst, pst, textTheme),
         if (pet.isNotEmpty) _section(l10n, l10n.sectionPet, pet, textTheme),

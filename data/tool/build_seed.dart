@@ -6,6 +6,11 @@ import 'dart:io';
 const examNames = {
   'up_police_constable': ('यूपी पुलिस कांस्टेबल', 'UP Police Constable'),
   'ssc_gd': ('SSC GD कांस्टेबल', 'SSC GD Constable'),
+  'delhi_police_constable': (
+    'दिल्ली पुलिस कांस्टेबल',
+    'Delhi Police Constable',
+  ),
+  'agniveer_army_gd': ('अग्निवीर थल सेना (GD)', 'Agniveer Army (GD)'),
 };
 
 String q(Object? v) {
@@ -37,9 +42,10 @@ void main() {
       stderr.writeln('No display names for $id in build_seed.dart');
       exit(1);
     }
-    final sources = exam['sources'] as Map<String, dynamic>;
-    final notificationUrl =
-        (sources.values.first as Map<String, dynamic>)['url'];
+    final sources = exam['sources'] as Map<String, dynamic>?;
+    final notificationUrl = sources == null
+        ? null
+        : (sources.values.first as Map<String, dynamic>)['url'];
 
     out
       ..writeln()
@@ -57,7 +63,7 @@ void main() {
       )
       ..writeln('delete from public.standards where exam_id = ${q(id)};')
       ..writeln(
-        'insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified) values',
+        'insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified, age_min, age_max, reported_value) values',
       );
 
     final rows = (exam['standards'] as List).cast<Map<String, dynamic>>().map((
@@ -69,7 +75,8 @@ void main() {
         exit(1);
       }
       return '  (${q(id)}, ${q(s['gender'])}, ${q(s['category'])}, ${q(s['event'])}, '
-          '${q(s['kind'])}, ${q(s['value'])}, ${q(s['source_url'])}, ${q(s['verified'] == true)})';
+          '${q(s['kind'])}, ${q(s['value'])}, ${q(s['source_url'])}, ${q(s['verified'] == true)}, '
+          '${q(s['age_min'])}, ${q(s['age_max'])}, ${q(s['reported_value'])})';
     });
     out.writeln('${rows.join(',\n')};');
   }

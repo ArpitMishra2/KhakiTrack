@@ -15,6 +15,11 @@ Rules:
   - `event`: `height_cm`, `chest_unexpanded_cm`, `chest_expanded_cm`, `chest_expansion_cm`, `weight_kg`, `run_<metres>m`.
   - `category`: `all` applies to every category. Otherwise the most specific matching category wins; a candidate with no specific match uses `general` (SSC GD) or `general_obc_sc` (UP Police).
 
+## Age bands and event kinds
+- Rows may carry `age_min` / `age_max` (completed years, inclusive) when a notice sets different limits by age (Delhi Police race and jumps).
+- `kind`: `time_max_seconds` (runs), `measure_min` (height, chest, weight, jumps in feet: 3.75 = 3'9"), `count_min` (pull-ups), `qualify` (pass/fail events such as the 9 ft ditch).
+- Unverified rows keep `value: null` and may record `reported_value` from a secondary source; the app shows them as not confirmed and never as fact.
+
 ## Current state
 Version `1.0` of both files is sourced from official notices, retrieved 2026-10-02:
 - UP Police Constable 2025: UPPRPB DV/PST procedure notice (10-08-2026) and PET procedure notice (23-09-2026).
@@ -22,3 +27,7 @@ Version `1.0` of both files is sourced from official notices, retrieved 2026-10-
 
 Arpit reviewed both files against the PDFs on 2026-10-02 (`owner_review.reviewed: true`).
 
+
+Added 2026-10-03:
+- `delhi_police_constable.json` (1.0): SSC notice for Constable (Executive) in Delhi Police Examination 2025, paras 12.13-12.19, all values sourced. Arpit to review.
+- `agniveer_army_gd.json` (0.1-unverified): the official notification on joinindianarmy.nic.in is behind a captcha; events listed, values withheld. Needs the official PDF.

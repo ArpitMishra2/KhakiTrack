@@ -5,6 +5,7 @@ import 'exam_models.dart';
 const categoryOrder = [
   'general',
   'general_obc_sc',
+  'sc_st',
   'st',
   'st_ne_states',
   'st_lwe_districts',
@@ -12,6 +13,8 @@ const categoryOrder = [
   'ladakh_region',
   'ne_states',
   'gta',
+  'hill_areas',
+  'police_ward',
 ];
 
 /// Categories that exist in the data but are never picked directly:
@@ -40,6 +43,11 @@ const _eventOrder = [
   'chest_expanded_cm',
   'chest_expansion_cm',
   'run',
+  'long_jump_ft',
+  'high_jump_ft',
+  'pull_ups',
+  'ditch_9ft',
+  'zigzag_balance',
 ];
 
 String _slot(Standard s) => s.isRun ? 'run' : s.event;
@@ -108,20 +116,38 @@ List<Standard> resolveStandards(
 /// Only ST has its own relaxed standards in both notices; General, OBC, SC and
 /// EWS all use the exam's default. Regional relaxations are picked by hand.
 String? standardsCategoryFor(List<Standard> standards, String? social) {
-  if (social == 'st' && standards.any((s) => s.category == 'st')) return 'st';
+  bool has(String c) => standards.any((s) => s.category == c);
+  // Delhi Police relaxes women's height for SC and ST together.
+  if ((social == 'sc' || social == 'st') && has('sc_st')) return 'sc_st';
+  if (social == 'st' && has('st')) return 'st';
   return defaultCategory(standards);
 }
+
+/// Completed years on [today].
+int ageOn(DateTime dateOfBirth, DateTime today) {
+  var age = today.year - dateOfBirth.year;
+  if (today.month < dateOfBirth.month ||
+      (today.month == dateOfBirth.month && today.day < dateOfBirth.day)) {
+    age--;
+  }
+  return age;
+}
+
+/// Drops rows for other age bands. Rows without a band always apply.
+List<Standard> forAge(List<Standard> standards, int? age) =>
+    standards.where((s) => s.appliesToAge(age)).toList();
 
 /// The confirmed run standard (distance and time limit) for a candidate, or
 /// null if there is none.
 Standard? runStandardFor(
   List<Standard> standards,
   String gender,
-  String? socialCategory,
-) {
-  final category = standardsCategoryFor(standards, socialCategory);
-  if (category == null) return null;
-  for (final s in resolveStandards(standards, gender, category)) {
+  String? socialCategory, {
+  int? age,
+}) {
+  final rows = forAge(standards, age);
+  final category = standardsCategoryFor(rows, socialCategory) ?? 'all';
+  for (final s in resolveStandards(rows, gender, category)) {
     if (s.isRun && s.isConfirmed) return s;
   }
   return null;

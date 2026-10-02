@@ -25,6 +25,7 @@ import {
   WeekDetail,
   weekDetailJsonSchema,
 } from "./types.ts";
+import { ageOn, pickRunStandard } from "./run_standard.ts";
 import { validateOutline, validateWeek } from "./validate.ts";
 
 const WALL_CLOCK_MS = 140_000;
@@ -78,29 +79,22 @@ async function loadCandidate(db: SupabaseClient, userId: string, today: string) 
   const [{ data: exam }, { data: runs }] = await Promise.all([
     db.from("exams").select("name_en").eq("id", profile.exam_id).single(),
     db.from("standards")
-      .select("category, event, value")
+      .select("category, event, value, age_min, age_max")
       .eq("exam_id", profile.exam_id)
       .eq("gender", profile.gender)
       .eq("verified", true)
       .like("event", "run_%"),
   ]);
-  // Same order as the app: the candidate's ST row if any, then the
-  // all-category row, then the exam's default category.
-  const order = [profile.category === "st" ? "st" : "", "all", "general", "general_obc_sc"];
-  const run = order.map((c) => runs?.find((r) => r.category === c)).find(Boolean);
+  const age = ageOn(profile.date_of_birth, today);
+  const run = pickRunStandard(runs ?? [], profile.category, age);
   if (!exam || !run) return null;
-
-  const dob = new Date(profile.date_of_birth);
-  const t = new Date(today);
-  const age = t.getFullYear() - dob.getFullYear() -
-    (t < new Date(t.getFullYear(), dob.getMonth(), dob.getDate()) ? 1 : 0);
 
   const candidate: Candidate = {
     examName: exam.name_en,
     gender: profile.gender,
     age,
-    runDistanceM: Number(run.event.slice(4, -1)),
-    targetSeconds: Number(run.value),
+    runDistanceM: run.metres,
+    targetSeconds: run.seconds,
     language: profile.locale === "en" ? "en" : "hi",
   };
   return { candidate, examId: profile.exam_id as string };
