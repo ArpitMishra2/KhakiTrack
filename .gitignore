@@ -1,0 +1,8 @@
+# Secrets: never commit
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+key.properties
+google-services.json
