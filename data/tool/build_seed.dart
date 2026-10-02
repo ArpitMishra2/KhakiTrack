@@ -74,31 +74,7 @@ void main() {
     out.writeln('${rows.join(',\n')};');
   }
 
-  // Districts, for the leaderboard area picker.
-  final regions = jsonDecode(
-    File('data/regions/up_districts.json').readAsStringSync(),
-  ) as Map<String, dynamic>;
-  final districts = (regions['districts'] as List).cast<Map<String, dynamic>>();
-  out
-    ..writeln()
-    ..writeln(
-      'insert into public.districts (id, state, name_en, name_hi) values',
-    )
-    ..writeln(
-      districts
-          .map(
-            (d) =>
-                '  (${q(d['id'])}, ${q(regions['state'])}, ${q(d['name_en'])}, ${q(d['name_hi'])})',
-          )
-          .join(',\n'),
-    )
-    ..writeln(
-      'on conflict (id) do update set name_en = excluded.name_en, name_hi = excluded.name_hi;',
-    );
-
   out.writeln('\ncommit;');
   File('supabase/seed.sql').writeAsStringSync(out.toString());
-  stdout.writeln(
-    'Wrote supabase/seed.sql from ${files.length} exam files and ${districts.length} districts.',
-  );
+  stdout.writeln('Wrote supabase/seed.sql from ${files.length} exam files.');
 }

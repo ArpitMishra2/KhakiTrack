@@ -1,37 +1,39 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class District {
-  const District({
+/// A user-created region (public) or group (public or private by code).
+class Community {
+  const Community({
     required this.id,
-    required this.nameEn,
-    required this.nameHi,
+    required this.name,
+    required this.kind,
+    required this.isPrivate,
+    required this.members,
+    required this.isMember,
+    required this.isOwner,
+    this.inviteCode,
   });
 
-  factory District.fromRow(Map<String, dynamic> r) => District(
-    id: r['id'] as String,
-    nameEn: r['name_en'] as String,
-    nameHi: r['name_hi'] as String,
+  factory Community.fromRow(Map<String, dynamic> r) => Community(
+    id: r['id'] as int,
+    name: r['name'] as String,
+    kind: r['kind'] as String,
+    isPrivate: r['is_private'] as bool,
+    inviteCode: r['invite_code'] as String?,
+    members: (r['members'] as num).toInt(),
+    isMember: r['is_member'] as bool,
+    isOwner: r['is_owner'] as bool,
   );
 
-  final String id;
-  final String nameEn;
-  final String nameHi;
+  final int id;
+  final String name;
+  final String kind; // region | group
+  final bool isPrivate;
 
-  String nameFor(String languageCode) => languageCode == 'hi' ? nameHi : nameEn;
-}
-
-/// The user's area, used to scope leaderboards.
-class Area {
-  const Area({this.district, this.block, this.village, this.visible = true});
-
-  final String? district;
-  final String? block;
-  final String? village;
-
-  /// Whether the user appears on other people's leaderboards.
-  final bool visible;
-
-  bool get hasDistrict => district != null;
+  /// Only known to members.
+  final String? inviteCode;
+  final int members;
+  final bool isMember;
+  final bool isOwner;
 }
 
 class LeaderboardEntry {
@@ -57,21 +59,39 @@ class LeaderboardEntry {
   final bool isMe;
 }
 
-abstract class LeaderboardRepository {
-  Future<List<District>> districts();
-  Future<Area> myArea();
-  Future<void> saveArea(Area area);
+/// Why a community action failed: name_taken | create_limit | member_limit |
+/// not_found | unknown.
+class CommunityException implements Exception {
+  const CommunityException(this.code);
+  final String code;
 
-  /// [scope]: village | block | district | state; [metric]: pet | distance.
+  @override
+  String toString() => 'CommunityException($code)';
+}
+
+abstract class LeaderboardRepository {
+  Future<List<Community>> myCommunities();
+  Future<List<Community>> search(String query);
+
+  /// Returns the new community's id; the creator joins as owner.
+  Future<int> create(String name, {required bool group, required bool private});
+  Future<void> join(int id);
+  Future<void> joinByCode(String code);
+  Future<void> leave(int id);
+
+  Future<bool> visible();
+  Future<void> setVisible(bool visible);
+
+  /// [communityId] null means everyone. [metric]: pet | distance.
   Future<List<LeaderboardEntry>> fetch(
-    String scope,
+    int? communityId,
     String metric, {
     int weekOffset = 0,
   });
 }
 
-/// Collapses spaces so "Ghatampur " and "Ghatampur" match.
-String? cleanPlace(String? s) {
+/// Collapses spaces, as the server does, so names compare the same.
+String? cleanName(String? s) {
   final t = s?.trim().replaceAll(RegExp(r'\s+'), ' ');
   return t == null || t.isEmpty ? null : t;
 }
@@ -83,53 +103,89 @@ class SupabaseLeaderboardRepository implements LeaderboardRepository {
 
   String get _uid => _client.auth.currentUser!.id;
 
+  Future<T> _rpc<T>(String fn, Map<String, dynamic> params) async {
+    try {
+      return await _client.rpc(fn, params: params) as T;
+    } on PostgrestException catch (e) {
+      const known = {'name_taken', 'create_limit', 'member_limit', 'not_found'};
+      throw CommunityException(
+        known.contains(e.message) ? e.message : 'unknown',
+      );
+    }
+  }
+
+  List<Community> _rows(Object? rows) => (rows as List)
+      .cast<Map<String, dynamic>>()
+      .map(Community.fromRow)
+      .toList();
+
   @override
-  Future<List<District>> districts() async {
-    final rows = await _client
-        .from('districts')
-        .select('id, name_en, name_hi')
-        .order('name_en');
-    return rows.map(District.fromRow).toList();
+  Future<List<Community>> myCommunities() async =>
+      _rows(await _rpc<Object?>('list_communities', {'p_mine': true}));
+
+  @override
+  Future<List<Community>> search(String query) async => _rows(
+    await _rpc<Object?>('list_communities', {
+      'p_query': cleanName(query),
+      'p_mine': false,
+    }),
+  );
+
+  @override
+  Future<int> create(
+    String name, {
+    required bool group,
+    required bool private,
+  }) async => await _rpc<int>('create_community', {
+    'p_name': cleanName(name),
+    'p_kind': group ? 'group' : 'region',
+    'p_private': group && private,
+  });
+
+  @override
+  Future<void> join(int id) => _rpc<Object?>('join_community', {'p_id': id});
+
+  @override
+  Future<void> joinByCode(String code) =>
+      _rpc<Object?>('join_community', {'p_code': code.trim().toUpperCase()});
+
+  @override
+  Future<void> leave(int id) async {
+    await _client
+        .from('community_members')
+        .delete()
+        .eq('community_id', id)
+        .eq('user_id', _uid);
   }
 
   @override
-  Future<Area> myArea() async {
+  Future<bool> visible() async {
     final r = await _client
         .from('profiles')
-        .select('district, block, village, leaderboard_visible')
+        .select('leaderboard_visible')
         .eq('id', _uid)
         .single();
-    return Area(
-      district: r['district'] as String?,
-      block: r['block'] as String?,
-      village: r['village'] as String?,
-      visible: r['leaderboard_visible'] as bool? ?? true,
-    );
+    return r['leaderboard_visible'] as bool? ?? true;
   }
 
   @override
-  Future<void> saveArea(Area area) async {
+  Future<void> setVisible(bool visible) async {
     await _client
         .from('profiles')
-        .update({
-          'district': area.district,
-          'block': cleanPlace(area.block),
-          'village': cleanPlace(area.village),
-          'leaderboard_visible': area.visible,
-        })
+        .update({'leaderboard_visible': visible})
         .eq('id', _uid);
   }
 
   @override
   Future<List<LeaderboardEntry>> fetch(
-    String scope,
+    int? communityId,
     String metric, {
     int weekOffset = 0,
   }) async {
     final rows = await _client.rpc(
       'leaderboard',
       params: {
-        'p_scope': scope,
+        'p_community': communityId,
         'p_metric': metric,
         'p_week_offset': weekOffset,
       },

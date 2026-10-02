@@ -820,49 +820,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabRanking => 'Rankings';
 
   @override
-  String get areaTitle => 'Your area';
-
-  @override
-  String get areaIntro =>
-      'Choose your area to compete with people from your village, block and district.';
-
-  @override
-  String get areaDistrict => 'District';
-
-  @override
-  String get areaChooseDistrict => 'Choose district';
-
-  @override
-  String get areaBlock => 'Block / tehsil';
-
-  @override
-  String get areaVillage => 'Village / locality';
-
-  @override
-  String get areaSpellingHint =>
-      'Spell your village and block the way your friends will, so you land on the same board.';
-
-  @override
   String get areaVisible => 'Show my name on other people\'s rankings';
 
   @override
   String get areaVisibleNote =>
       'Only your first name and the first letter of your surname are shown.';
-
-  @override
-  String get editArea => 'Change area';
-
-  @override
-  String get scopeVillage => 'Village';
-
-  @override
-  String get scopeBlock => 'Block';
-
-  @override
-  String get scopeDistrict => 'District';
-
-  @override
-  String get scopeState => 'State';
 
   @override
   String get metricPet => 'PET time';
@@ -885,13 +847,106 @@ class AppLocalizationsEn extends AppLocalizations {
       'Nobody here yet this week. Run a mock PET and take the top spot!';
 
   @override
-  String get rankingNeedsBlock =>
-      'Add your block and village for this ranking.';
-
-  @override
   String get youLabel => 'You';
 
   @override
   String get errAiBusy =>
       'The AI coach is busy with other plans. Try again in a minute.';
+
+  @override
+  String get boardEveryone => 'Everyone';
+
+  @override
+  String get communitiesTitle => 'My areas and groups';
+
+  @override
+  String get communitiesIntro =>
+      'Join your village, ground or friends\' group and compete with them. Can\'t find it? Create it!';
+
+  @override
+  String get manageCommunities => 'Areas / groups';
+
+  @override
+  String get searchCommunities => 'Search a village, ground or group';
+
+  @override
+  String get noCommunitiesFound => 'Nothing found. Create a new one below.';
+
+  @override
+  String get joinLabel => 'Join';
+
+  @override
+  String get leaveLabel => 'Leave';
+
+  @override
+  String get joinedLabel => 'Joined';
+
+  @override
+  String membersCount(int n) {
+    return '$n members';
+  }
+
+  @override
+  String get kindRegion => 'Area';
+
+  @override
+  String get kindGroup => 'Group';
+
+  @override
+  String get privateLabel => 'Private';
+
+  @override
+  String get createCommunity => 'Create new';
+
+  @override
+  String get communityName => 'Name';
+
+  @override
+  String get communityKindRegion =>
+      'Area (village, locality, ground) – open to all';
+
+  @override
+  String get communityKindGroup => 'Group (friends, batch, academy)';
+
+  @override
+  String get communityPrivate => 'Private – join with the code only';
+
+  @override
+  String get createLabel => 'Create';
+
+  @override
+  String get joinByCode => 'Join with a code';
+
+  @override
+  String get inviteCodeLabel => 'Group code';
+
+  @override
+  String inviteCodeShare(String code) {
+    return 'Send your friends this code: $code';
+  }
+
+  @override
+  String get codeCopied => 'Code copied';
+
+  @override
+  String get errNameTaken =>
+      'This name already exists. Search for it above and join.';
+
+  @override
+  String get errCreateLimit =>
+      'You have created 3 today. Create more tomorrow.';
+
+  @override
+  String get errMemberLimit =>
+      'You are in 15 areas/groups. Leave one to join another.';
+
+  @override
+  String get errCodeNotFound => 'That code was not found. Check it again.';
+
+  @override
+  String get errCommunity => 'Something went wrong. Try again.';
+
+  @override
+  String get noCommunitiesYet =>
+      'You are not in any area or group yet. See the \'Everyone\' ranking or add your area.';
 }
