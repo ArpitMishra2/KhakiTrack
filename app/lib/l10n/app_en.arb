@@ -380,5 +380,8 @@
   "weatherAsk": "See the weather where you are",
   "weatherAllow": "Show weather",
   "weatherFailed": "Couldn't get the weather",
-  "weatherLoad": "Load weather"
+  "weatherLoad": "Load weather",
+  "demoTitle": "Demo data (for pitch)",
+  "demoNote": "Rankings show made-up students. Your real data is untouched.",
+  "demoBadge": "Demo data"
 }

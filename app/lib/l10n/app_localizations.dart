@@ -2388,6 +2388,24 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'मौसम लोड करें'**
   String get weatherLoad;
+
+  /// No description provided for @demoTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'डेमो डेटा (पिच के लिए)'**
+  String get demoTitle;
+
+  /// No description provided for @demoNote.
+  ///
+  /// In hi, this message translates to:
+  /// **'रैंकिंग में नकली छात्र दिखेंगे। असली डेटा नहीं बदलता।'**
+  String get demoNote;
+
+  /// No description provided for @demoBadge.
+  ///
+  /// In hi, this message translates to:
+  /// **'डेमो डेटा'**
+  String get demoBadge;
 }
 
 class _AppLocalizationsDelegate

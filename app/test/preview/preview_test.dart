@@ -31,8 +31,10 @@ import '../fake_profile_repository.dart';
 import '../fake_training_repository.dart';
 
 final _out = Platform.environment['PREVIEW_DIR'];
-AppSettings _settings() =>
-    AppSettings(locale: Locale(Platform.environment['PREVIEW_LANG'] ?? 'hi'));
+AppSettings _settings() => AppSettings(
+  locale: Locale(Platform.environment['PREVIEW_LANG'] ?? 'hi'),
+  demoData: Platform.environment['PREVIEW_DEMO'] == '1',
+);
 final _fonts = Platform.environment['PREVIEW_FONTS'];
 
 Future<void> _font(String family, List<String> paths) async {
