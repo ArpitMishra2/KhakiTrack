@@ -69,6 +69,8 @@ void main() {
     );
     await tester.pumpAndSettle();
     await openStandards(tester);
+    await tester.ensureVisible(find.text('यूपी पुलिस कांस्टेबल'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('यूपी पुलिस कांस्टेबल'));
     await tester.pumpAndSettle();
 
@@ -108,7 +110,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     await openStandards(tester);
-    await tester.ensureVisible(find.text('SSC GD कांस्टेबल'));
+    await tester.scrollUntilVisible(find.text('SSC GD कांस्टेबल'), 100);
     await tester.pumpAndSettle();
     await tester.tap(find.text('SSC GD कांस्टेबल'));
     await tester.pumpAndSettle();

@@ -6,6 +6,7 @@ import '../data/app_settings.dart';
 import '../data/leaderboard_repository.dart';
 import '../data/training_logic.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import 'load_error.dart';
 
 /// Weekly leaderboards: everyone, or one of the user's areas and groups.
@@ -116,27 +117,29 @@ class _RankingTabState extends State<RankingTab> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      ChoiceChip(
-                        avatar: const Icon(Icons.public, size: 18),
-                        label: Text(l10n.boardEveryone),
-                        selected: _community == null,
-                        onSelected: (_) => _change(() => _community = null),
-                      ),
-                      for (final c in mine)
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      spacing: 8,
+                      children: [
                         ChoiceChip(
-                          avatar: Icon(
-                            c.kind == 'group' ? Icons.groups : Icons.place,
-                            size: 18,
-                          ),
-                          label: Text(c.name),
-                          selected: _community == c.id,
-                          onSelected: (_) => _change(() => _community = c.id),
+                          avatar: const Icon(Icons.public, size: 18),
+                          label: Text(l10n.boardEveryone),
+                          selected: _community == null,
+                          onSelected: (_) => _change(() => _community = null),
                         ),
-                    ],
+                        for (final c in mine)
+                          ChoiceChip(
+                            avatar: Icon(
+                              c.kind == 'group' ? Icons.groups : Icons.place,
+                              size: 18,
+                            ),
+                            label: Text(c.name),
+                            selected: _community == c.id,
+                            onSelected: (_) => _change(() => _community = c.id),
+                          ),
+                      ],
+                    ),
                   ),
                   if (snap.hasData && mine.isEmpty)
                     Padding(
@@ -150,36 +153,36 @@ class _RankingTabState extends State<RankingTab> {
               );
             },
           ),
-          const Divider(height: 24),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              ChoiceChip(
-                label: Text(l10n.metricPet),
-                selected: _metric == 'pet',
-                onSelected: (_) => _change(() => _metric = 'pet'),
-              ),
-              ChoiceChip(
-                label: Text(l10n.metricDistance),
-                selected: _metric == 'distance',
-                onSelected: (_) => _change(() => _metric = 'distance'),
-              ),
-              ChoiceChip(
-                label: Text(l10n.thisWeek),
-                selected: _week == 0,
-                onSelected: (_) => _change(() => _week = 0),
-              ),
-              ChoiceChip(
-                label: Text(l10n.lastWeek),
-                selected: _week == 1,
-                onSelected: (_) => _change(() => _week = 1),
-              ),
-            ],
+          const SizedBox(height: 12),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              spacing: 8,
+              children: [
+                ChoiceChip(
+                  label: Text(l10n.metricPet),
+                  selected: _metric == 'pet',
+                  onSelected: (_) => _change(() => _metric = 'pet'),
+                ),
+                ChoiceChip(
+                  label: Text(l10n.metricDistance),
+                  selected: _metric == 'distance',
+                  onSelected: (_) => _change(() => _metric = 'distance'),
+                ),
+                ChoiceChip(
+                  label: Text(l10n.thisWeek),
+                  selected: _week == 0,
+                  onSelected: (_) => _change(() => _week = 0),
+                ),
+                ChoiceChip(
+                  label: Text(l10n.lastWeek),
+                  selected: _week == 1,
+                  onSelected: (_) => _change(() => _week = 1),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 8),
-          Text(l10n.rankingRules, style: textTheme.bodySmall),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           FutureBuilder<List<LeaderboardEntry>>(
             future: _entries,
             builder: (context, snap) {
@@ -196,37 +199,39 @@ class _RankingTabState extends State<RankingTab> {
               if (rows.isEmpty) {
                 return Padding(
                   padding: const EdgeInsets.all(24),
-                  child: Text(l10n.rankingEmpty, textAlign: TextAlign.center),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 88,
+                        height: 88,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Brand.khakiSoft,
+                        ),
+                        child: const Icon(
+                          Icons.emoji_events_outlined,
+                          size: 44,
+                          color: Brand.olive,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(l10n.rankingEmpty, textAlign: TextAlign.center),
+                    ],
+                  ),
                 );
               }
-              final colors = Theme.of(context).colorScheme;
               return Column(
                 children: [
                   for (final e in rows)
-                    Card(
-                      color: e.isMe ? colors.primaryContainer : null,
-                      child: ListTile(
-                        leading: CircleAvatar(child: Text('${e.rank}')),
-                        title: Text(
-                          e.isMe ? '${e.name} (${l10n.youLabel})' : e.name,
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              _valueText(l10n, e),
-                              style: textTheme.titleMedium,
-                            ),
-                            if (e.isMe)
-                              IconButton(
-                                tooltip: l10n.shareButton,
-                                icon: const Icon(Icons.share),
-                                onPressed: () => _share(l10n, e),
-                              ),
-                          ],
-                        ),
-                      ),
+                    _RankRow(
+                      entry: e,
+                      name: e.isMe ? '${e.name} (${l10n.youLabel})' : e.name,
+                      value: _valueText(l10n, e),
+                      shareTooltip: l10n.shareButton,
+                      onShare: e.isMe ? () => _share(l10n, e) : null,
                     ),
+                  const SizedBox(height: 12),
+                  Text(l10n.rankingRules, style: textTheme.bodySmall),
                 ],
               );
             },
@@ -498,6 +503,84 @@ class _CommunitiesScreenState extends State<CommunitiesScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _RankRow extends StatelessWidget {
+  const _RankRow({
+    required this.entry,
+    required this.name,
+    required this.value,
+    required this.shareTooltip,
+    required this.onShare,
+  });
+
+  final LeaderboardEntry entry;
+  final String name;
+  final String value;
+  final String shareTooltip;
+  final VoidCallback? onShare;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+    final medal = switch (entry.rank) {
+      1 => Brand.saffron,
+      2 => Brand.khaki,
+      3 => const Color(0xFFB07A4A),
+      _ => null,
+    };
+    return Card(
+      color: entry.isMe ? colors.primaryContainer : null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: entry.isMe
+            ? const BorderSide(color: Brand.saffron, width: 2)
+            : BorderSide.none,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: medal ?? colors.secondaryContainer,
+              ),
+              child: Text(
+                '${entry.rank}',
+                style: numerals(26, color: Brand.ink),
+              ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(
+                name,
+                style: textTheme.titleMedium,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(value, style: numerals(30)),
+              ),
+            ),
+            if (onShare != null)
+              IconButton(
+                tooltip: shareTooltip,
+                icon: const Icon(Icons.share),
+                onPressed: onShare,
+              ),
+          ],
+        ),
       ),
     );
   }
