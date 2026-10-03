@@ -1062,4 +1062,65 @@ class AppLocalizationsEn extends AppLocalizations {
   String shareRankText(String board, int rank, String value) {
     return 'I am rank #$rank on this week\'s Maidan leaderboard ($board), $value! Can you beat me?';
   }
+
+  @override
+  String streakDays(int n) {
+    return '$n-day streak';
+  }
+
+  @override
+  String get streakStart => 'Run today to start your streak!';
+
+  @override
+  String streakBest(int n) {
+    return 'Longest streak: $n days';
+  }
+
+  @override
+  String get weekdayInitials => 'M,T,W,T,F,S,S';
+
+  @override
+  String get badgesTitle => 'Badges';
+
+  @override
+  String get badgeEarlyBird => 'Morning Lion';
+
+  @override
+  String get badgeEarlyBirdHint => 'Finish a GPS run between 4 and 7 am';
+
+  @override
+  String get badgeComeback => 'Laziness Slayer';
+
+  @override
+  String get badgeComebackHint => 'Come back to training after 4+ days off';
+
+  @override
+  String get badgeStreak3 => 'Three-Day Storm';
+
+  @override
+  String get badgeStreak3Hint => 'Train 3 days in a row';
+
+  @override
+  String get badgeStreak7 => 'Hero of the Week';
+
+  @override
+  String get badgeStreak7Hint => 'Train 7 days in a row';
+
+  @override
+  String get badgeStreak30 => 'Champion of the Month';
+
+  @override
+  String get badgeStreak30Hint => 'Train 30 days in a row';
+
+  @override
+  String get badgeQualified => 'Almost in Uniform';
+
+  @override
+  String get badgeQualifiedHint => 'Finish a mock PET inside the target time';
+
+  @override
+  String get badgeKm50 => '50 km Club';
+
+  @override
+  String get badgeKm50Hint => 'Run 50 km of verified GPS distance in total';
 }

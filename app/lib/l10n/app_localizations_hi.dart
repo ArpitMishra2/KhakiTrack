@@ -1059,4 +1059,66 @@ class AppLocalizationsHi extends AppLocalizations {
   String shareRankText(String board, int rank, String value) {
     return 'मैदान ऐप की इस हफ़्ते की लीडरबोर्ड ($board) में मेरी रैंक #$rank है, $value! क्या तुम मुझे हरा सकते हो?';
   }
+
+  @override
+  String streakDays(int n) {
+    return '$n दिन की लकीर';
+  }
+
+  @override
+  String get streakStart => 'आज दौड़ो और लकीर शुरू करो!';
+
+  @override
+  String streakBest(int n) {
+    return 'सबसे लंबी लकीर: $n दिन';
+  }
+
+  @override
+  String get weekdayInitials => 'सो,मं,बु,गु,शु,श,र';
+
+  @override
+  String get badgesTitle => 'बैज';
+
+  @override
+  String get badgeEarlyBird => 'सुबह का शेर';
+
+  @override
+  String get badgeEarlyBirdHint => 'सुबह 4 से 7 बजे के बीच GPS दौड़ पूरी करो';
+
+  @override
+  String get badgeComeback => 'आलस-विजेता';
+
+  @override
+  String get badgeComebackHint =>
+      '4+ दिन की छुट्टी के बाद फिर से मैदान में लौटो';
+
+  @override
+  String get badgeStreak3 => 'तीन दिन का तूफ़ान';
+
+  @override
+  String get badgeStreak3Hint => 'लगातार 3 दिन ट्रेनिंग करो';
+
+  @override
+  String get badgeStreak7 => 'हफ़्ते का हीरो';
+
+  @override
+  String get badgeStreak7Hint => 'लगातार 7 दिन ट्रेनिंग करो';
+
+  @override
+  String get badgeStreak30 => 'महीने का महारथी';
+
+  @override
+  String get badgeStreak30Hint => 'लगातार 30 दिन ट्रेनिंग करो';
+
+  @override
+  String get badgeQualified => 'वर्दी के क़रीब';
+
+  @override
+  String get badgeQualifiedHint => 'मॉक PET लक्ष्य समय के अंदर पूरी करो';
+
+  @override
+  String get badgeKm50 => '50 किमी क्लब';
+
+  @override
+  String get badgeKm50Hint => 'कुल 50 किमी जाँची गई GPS दौड़ पूरी करो';
 }

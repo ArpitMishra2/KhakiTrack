@@ -158,6 +158,7 @@ class SessionLog {
     this.effort,
     this.pain = false,
     this.note,
+    this.loggedAt,
   });
 
   factory SessionLog.fromRow(Map<String, dynamic> r) => SessionLog(
@@ -169,6 +170,9 @@ class SessionLog {
     effort: (r['effort'] as num?)?.toInt(),
     pain: r['pain'] as bool? ?? false,
     note: r['note'] as String?,
+    loggedAt: r['logged_at'] == null
+        ? null
+        : DateTime.parse(r['logged_at'] as String).toLocal(),
   );
 
   final int week;
@@ -179,6 +183,7 @@ class SessionLog {
   final int? effort;
   final bool pain;
   final String? note;
+  final DateTime? loggedAt;
 
   Map<String, dynamic> toRow(int planId) => {
     'plan_id': planId,
