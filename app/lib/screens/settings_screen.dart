@@ -45,13 +45,40 @@ class SettingsScreen extends StatelessWidget {
           OutlinedButton.icon(
             icon: const Icon(Icons.logout),
             label: Text(l10n.signOut),
-            onPressed: () {
-              Navigator.of(context).pop();
-              auth.signOut();
-            },
+            onPressed: () => confirmSignOut(context, auth, closeScreen: true),
           ),
         ],
       ),
     );
   }
+}
+
+/// Asks first, and says the data is kept: signing out removes nothing.
+Future<void> confirmSignOut(
+  BuildContext context,
+  AuthService auth, {
+  bool closeScreen = false,
+}) async {
+  final l10n = AppLocalizations.of(context);
+  final navigator = Navigator.of(context);
+  final ok = await showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: Text(l10n.signOutConfirmTitle),
+      content: Text(l10n.signOutConfirmBody),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(ctx, false),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.pop(ctx, true),
+          child: Text(l10n.signOut),
+        ),
+      ],
+    ),
+  );
+  if (ok != true) return;
+  if (closeScreen) navigator.pop();
+  await auth.signOut();
 }

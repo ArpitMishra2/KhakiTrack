@@ -12,17 +12,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'Maidan';
 
   @override
-  String get welcomeTitle => 'Prepare for government job physical tests';
+  String get welcomeTitle => 'Physical test prep';
 
   @override
-  String get welcomeSubtitle => 'UP Police Constable and SSC GD';
+  String get welcomeSubtitle => 'UP Police · SSC GD · Delhi Police';
 
   @override
   String get chooseExam => 'Choose your exam';
 
   @override
-  String get loadError =>
-      'Could not load data. Check your internet connection.';
+  String get loadError => 'Couldn\'t load. Check your internet.';
 
   @override
   String get retry => 'Try again';
@@ -103,7 +102,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String sourceNote(String version) {
-    return 'Source: official recruitment notice (data version $version)';
+    return 'Source: official notice · $version';
   }
 
   @override
@@ -136,11 +135,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signInWithGoogle => 'Continue with Google';
 
   @override
-  String get signInFailed =>
-      'Could not sign in. Check your internet and try again.';
+  String get signInFailed => 'Sign-in failed. Try again.';
 
   @override
-  String get adultsOnly => 'This app is only for people aged 18 or over.';
+  String get adultsOnly => '18+ only';
 
   @override
   String get signOut => 'Sign out';
@@ -149,8 +147,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileTitle => 'About you';
 
   @override
-  String get profileIntro =>
-      'We need this to show your exact physical standards.';
+  String get profileIntro => 'So we can show the right standards.';
 
   @override
   String get name => 'Name';
@@ -168,7 +165,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get save => 'Save';
 
   @override
-  String get saveFailed => 'Could not save. Check your internet and try again.';
+  String get saveFailed => 'Couldn\'t save. Try again.';
 
   @override
   String get socialGeneral => 'General';
@@ -199,7 +196,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trainingIntroBody =>
-      'Answer a few questions. AI builds a week-by-week plan from your current level, time and experience, so that by PET day you finish the run comfortably in time.';
+      'Four short questions, then a week-by-week plan built around your level and schedule.';
 
   @override
   String get startQuestionnaire => 'Start building my plan';
@@ -297,7 +294,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qWeeks => 'About how many weeks until your PET?';
 
   @override
-  String get qWeeksUnknown => 'If the date is not announced, choose 12 weeks.';
+  String get qWeeksUnknown => 'Not announced? Pick 12 weeks.';
 
   @override
   String weeksN(int n) {
@@ -402,31 +399,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qHeight => 'Height cm (optional)';
 
   @override
-  String get generatingTitle => 'AI is building your plan';
+  String get generatingTitle => 'Building your plan';
 
   @override
-  String get generatingBody =>
-      'This can take 1-2 minutes. Please keep the app open.';
+  String get generatingBody => 'Takes 1-2 minutes. Keep the app open.';
 
   @override
-  String get errRateLimited =>
-      'You have reached today\'s limit for building plans. Try again tomorrow.';
+  String get errRateLimited => 'Daily limit reached. Try again tomorrow.';
 
   @override
-  String get errAiNotConfigured =>
-      'AI plans are not switched on yet. Try again later.';
+  String get errAiNotConfigured => 'Plan service is off for now. Try later.';
 
   @override
-  String get errGeneration => 'Could not build the plan. Please try again.';
+  String get errGeneration => 'Couldn\'t build the plan. Try again.';
 
   @override
   String errTooEarly(String date) {
-    return 'The next week opens on $date.';
+    return 'Next week opens $date.';
   }
 
   @override
-  String get errNetwork =>
-      'Could not connect. Check your internet and try again.';
+  String get errNetwork => 'No connection. Check your internet.';
 
   @override
   String get readinessOnTrack => 'On track';
@@ -438,7 +431,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readinessBigGap => 'Long way to go';
 
   @override
-  String get seeDoctor => 'Please see a doctor before you start.';
+  String get seeDoctor => 'See a doctor before you start.';
 
   @override
   String weekOf(int week, int total) {
@@ -460,11 +453,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String nextWeekLocked(int week, String date) {
-    return 'Week $week opens on $date, so it can adapt to this week\'s training.';
+    return 'Week $week opens $date.';
   }
 
   @override
-  String get planFinished => 'Plan complete. Best of luck at the PET!';
+  String get planFinished => 'Plan complete. Good luck at the PET.';
 
   @override
   String get fullPlan => 'Full plan';
@@ -476,8 +469,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newPlan => 'Build a new plan';
 
   @override
-  String get newPlanConfirm =>
-      'Building a new plan closes the current one. Continue?';
+  String get newPlanConfirm => 'A new plan replaces the current one.';
 
   @override
   String get cancel => 'Cancel';
@@ -517,7 +509,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get painWarning =>
-      'If it hurts, go easier next time. If pain gets worse or lasts 2-3 days, see a doctor.';
+      'If it hurts, go lighter next session. See a doctor if it gets worse or lasts 2-3 days.';
 
   @override
   String km(String value) {
@@ -564,8 +556,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get progressEmpty =>
-      'No time trials yet. Record your time to see your progress here.';
+  String get progressEmpty => 'No time trials yet. Add your first time.';
 
   @override
   String get addTrial => 'Add time trial';
@@ -591,12 +582,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String gapToCut(String time) {
-    return '$time still to cut';
+    return '$time to cut';
   }
 
   @override
   String underTarget(String time) {
-    return 'You are $time inside the target. Keep it up!';
+    return '$time inside the target';
   }
 
   @override
@@ -604,11 +595,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String estimateNote(String distance) {
-    return 'Trials over other distances are converted to an estimated $distance time.';
+    return '$distance time estimated from other distances.';
   }
 
   @override
-  String get trialSaveFailed => 'Could not save. Try again.';
+  String get trialSaveFailed => 'Couldn\'t save. Try again.';
 
   @override
   String get runTitle => 'Run';
@@ -621,7 +612,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String mockPetIntro(String distance, String time) {
-    return 'Run $distance like the real PET. The app times you by GPS and tells you whether you would qualify within $time.';
+    return 'A $distance run like the real PET. Target $time.';
   }
 
   @override
@@ -629,10 +620,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get runTips =>
-      'Run in the open with the phone in your pocket or hand. On Xiaomi/Redmi phones set the app\'s battery saver to \'No restrictions\' so GPS keeps running with the screen off.';
+      'Run in the open with your phone on you. On Xiaomi/Redmi set battery to \'No restrictions\' or GPS may stop.';
 
   @override
-  String get gpsSearching => 'Looking for GPS signal…';
+  String get gpsSearching => 'Finding GPS…';
 
   @override
   String gpsAccuracy(int metres) {
@@ -643,10 +634,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gpsReady => 'GPS ready';
 
   @override
-  String get gpsDenied => 'Location permission is needed to record runs.';
+  String get gpsDenied => 'Allow location to record runs.';
 
   @override
-  String get gpsOff => 'Turn on your phone\'s location (GPS).';
+  String get gpsOff => 'Turn on location (GPS).';
 
   @override
   String get openSettings => 'Open settings';
@@ -694,7 +685,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resultTitle => 'Result';
 
   @override
-  String get outcomeQualified => 'You would qualify!';
+  String get outcomeQualified => 'You\'d qualify!';
 
   @override
   String get outcomeBorderline => 'Borderline – run a little faster';
@@ -707,7 +698,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get borderlineNote =>
-      'GPS can be off by 2-3%. To be sure, finish at least 3% inside the target.';
+      'GPS can be off by 2-3%. Aim to finish 3% inside the target.';
 
   @override
   String finishTime(String distance, String time) {
@@ -781,18 +772,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get flagTooShort => 'The run was too short.';
 
   @override
-  String get uploading => 'Checking on the server…';
+  String get uploading => 'Checking…';
 
   @override
   String get savedOffline =>
-      'No internet. The run is saved on the phone and will be sent when you are online.';
+      'No internet. Run saved on your phone and sent once you\'re online.';
 
   @override
   String get uploadRefused =>
-      'The server did not accept this run (daily limit or bad data).';
+      'Server rejected the run (daily limit or bad data).';
 
   @override
-  String get serverChecked => 'Checked by the server';
+  String get serverChecked => 'Checked by server';
 
   @override
   String get done => 'Done';
@@ -804,11 +795,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recordRun => 'Record a run';
 
   @override
-  String get recentRuns => 'Recent GPS runs';
+  String get recentRuns => 'Recent runs';
 
   @override
   String pendingRuns(int n) {
-    return '$n runs waiting to upload';
+    return '$n runs waiting to send';
   }
 
   @override
@@ -820,11 +811,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabRanking => 'Rankings';
 
   @override
-  String get areaVisible => 'Show my name on other people\'s rankings';
+  String get areaVisible => 'Show my name in rankings';
 
   @override
-  String get areaVisibleNote =>
-      'Only your first name and the first letter of your surname are shown.';
+  String get areaVisibleNote => 'First name and surname initial only.';
 
   @override
   String get metricPet => 'PET time';
@@ -840,18 +830,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rankingRules =>
-      'Only GPS-verified runs count. For PET time, run a mock PET over the real distance. Rankings restart every Monday.';
+      'Only GPS-verified runs count. Resets every Monday.';
 
   @override
-  String get rankingEmpty =>
-      'Nobody here yet this week. Run a mock PET and take the top spot!';
+  String get rankingEmpty => 'No runs yet this week. Be the first.';
 
   @override
   String get youLabel => 'You';
 
   @override
-  String get errAiBusy =>
-      'The AI coach is busy with other plans. Try again in a minute.';
+  String get errAiBusy => 'Busy right now. Try again in a minute.';
 
   @override
   String get boardEveryone => 'Everyone';
@@ -861,7 +849,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get communitiesIntro =>
-      'Join your village, ground or friends\' group and compete with them. Can\'t find it? Create it!';
+      'Join your village, ground or a group of friends.';
 
   @override
   String get manageCommunities => 'Areas / groups';
@@ -870,7 +858,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchCommunities => 'Search a village, ground or group';
 
   @override
-  String get noCommunitiesFound => 'Nothing found. Create a new one below.';
+  String get noCommunitiesFound => 'Nothing found. Create one.';
 
   @override
   String get joinLabel => 'Join';
@@ -929,16 +917,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get codeCopied => 'Code copied';
 
   @override
-  String get errNameTaken =>
-      'This name already exists. Search for it above and join.';
+  String get errNameTaken => 'That name exists. Search above and join.';
 
   @override
-  String get errCreateLimit =>
-      'You have created 3 today. Create more tomorrow.';
+  String get errCreateLimit => 'You\'ve made 3 today. Try tomorrow.';
 
   @override
   String get errMemberLimit =>
-      'You are in 15 areas/groups. Leave one to join another.';
+      '15 areas/groups is the limit. Leave one to join another.';
 
   @override
   String get errCodeNotFound => 'That code was not found. Check it again.';
@@ -948,7 +934,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noCommunitiesYet =>
-      'You are not in any area or group yet. See the \'Everyone\' ranking or add your area.';
+      'You\'re not in any area or group yet. See Everyone or add your area.';
 
   @override
   String get catScSt => 'Scheduled Caste / Tribe (SC/ST)';
@@ -990,7 +976,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get examUnconfirmed =>
-      'This exam\'s standards are not yet confirmed from the official notice. They will show here once confirmed, and AI plans, mock PET and rankings will switch on then.';
+      'This exam\'s standards aren\'t confirmed yet. Plans, mock PET and rankings open once they are.';
 
   @override
   String get voiceStarted =>
@@ -1055,12 +1041,12 @@ class AppLocalizationsEn extends AppLocalizations {
     String margin,
     String outcome,
   ) {
-    return 'I finished a $distance mock run in $time on Maidan ($margin)! $outcome Check your own recruitment prep too.';
+    return '$distance mock run on Maidan: $time ($margin). $outcome';
   }
 
   @override
   String shareRankText(String board, int rank, String value) {
-    return 'I am rank #$rank on this week\'s Maidan leaderboard ($board), $value! Can you beat me?';
+    return 'I\'m #$rank on Maidan this week ($board): $value. Beat that.';
   }
 
   @override
@@ -1069,7 +1055,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get streakStart => 'Run today to start your streak!';
+  String get streakStart => 'Run today to start a streak';
 
   @override
   String streakBest(int n) {
@@ -1134,17 +1120,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lowDataTitle => 'Low-data mode';
 
   @override
-  String get lowDataNote =>
-      'Rankings and fresh stats load only when you ask. Saves your data.';
+  String get lowDataNote => 'Rankings and fresh stats load only when you ask.';
 
   @override
-  String get lowDataRanking =>
-      'Low-data mode is on. Tap below to see the rankings.';
+  String get lowDataRanking => 'Low-data mode is on.';
 
   @override
   String get loadRanking => 'Load rankings';
 
   @override
   String get heatWarning =>
-      'It is the hot part of the day (10 am to 6 pm). Run before 8 am or after 6 pm, and carry water.';
+      'Hot hours. Run before 8 am or after 6 pm. Carry water.';
+
+  @override
+  String get readMore => 'Read more';
+
+  @override
+  String get readLess => 'Show less';
+
+  @override
+  String get switchLanguage => 'हिन्दी';
+
+  @override
+  String get switchLanguageShort => 'हि';
+
+  @override
+  String get featPlan => 'Plan';
+
+  @override
+  String get featTrack => 'GPS runs';
+
+  @override
+  String get featRank => 'Rankings';
+
+  @override
+  String get signOutConfirmTitle => 'Sign out?';
+
+  @override
+  String get signOutConfirmBody =>
+      'Your data stays saved. Sign in again and everything is back.';
 }

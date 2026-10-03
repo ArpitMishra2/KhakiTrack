@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:maidan/data/app_settings.dart';
 import 'package:maidan/data/leaderboard_repository.dart';
 import 'package:maidan/data/profile.dart';
 import 'package:maidan/data/training_models.dart';
@@ -28,6 +29,8 @@ import '../fake_profile_repository.dart';
 import '../fake_training_repository.dart';
 
 final _out = Platform.environment['PREVIEW_DIR'];
+AppSettings _settings() =>
+    AppSettings(locale: Locale(Platform.environment['PREVIEW_LANG'] ?? 'hi'));
 final _fonts = Platform.environment['PREVIEW_FONTS'];
 
 Future<void> _font(String family, List<String> paths) async {
@@ -114,6 +117,7 @@ void main() {
       RepaintBoundary(
         key: key,
         child: MaidanApp(
+          settings: _settings(),
           boards: boards,
           runs: runs,
           location: (_) => FakeLocationSource(),
@@ -215,6 +219,7 @@ Future<void> _pumpShell(
     RepaintBoundary(
       key: key,
       child: MaidanApp(
+        settings: _settings(),
         boards: FakeLeaderboardRepository(),
         runs: FakeRunRepository(),
         location: (_) => FakeLocationSource(),
@@ -288,6 +293,7 @@ void _secondaryTests() {
       RepaintBoundary(
         key: key,
         child: MaidanApp(
+          settings: _settings(),
           boards: boards,
           runs: FakeRunRepository(),
           location: (_) => FakeLocationSource(),

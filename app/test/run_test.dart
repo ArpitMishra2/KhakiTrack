@@ -118,7 +118,7 @@ void main() {
       ),
     );
     await pumpRun(tester, source: source, runs: runs);
-    expect(find.text('GPS सिग्नल ढूंढ रहे हैं…'), findsOneWidget);
+    expect(find.text('GPS ढूंढ रहे हैं…'), findsOneWidget);
 
     source.emit(tracePoints('good_5000_ssc.json').first);
     await firstFix(tester);

@@ -12,16 +12,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appName => 'मैदान';
 
   @override
-  String get welcomeTitle => 'सरकारी भर्ती की शारीरिक परीक्षा की तैयारी';
+  String get welcomeTitle => 'शारीरिक परीक्षा की तैयारी';
 
   @override
-  String get welcomeSubtitle => 'यूपी पुलिस कांस्टेबल और SSC GD';
+  String get welcomeSubtitle => 'UP Police · SSC GD · Delhi Police';
 
   @override
   String get chooseExam => 'अपनी परीक्षा चुनें';
 
   @override
-  String get loadError => 'डेटा लोड नहीं हो सका। इंटरनेट कनेक्शन जांचें।';
+  String get loadError => 'लोड नहीं हुआ। इंटरनेट जांचें।';
 
   @override
   String get retry => 'फिर कोशिश करें';
@@ -102,7 +102,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String sourceNote(String version) {
-    return 'स्रोत: आधिकारिक भर्ती सूचना (डेटा संस्करण $version)';
+    return 'स्रोत: आधिकारिक सूचना · $version';
   }
 
   @override
@@ -135,12 +135,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get signInWithGoogle => 'Google से जारी रखें';
 
   @override
-  String get signInFailed =>
-      'साइन इन नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।';
+  String get signInFailed => 'साइन इन नहीं हुआ। फिर कोशिश करें।';
 
   @override
-  String get adultsOnly =>
-      'यह ऐप केवल 18 वर्ष या उससे अधिक उम्र के लोगों के लिए है।';
+  String get adultsOnly => 'केवल 18+ के लिए';
 
   @override
   String get signOut => 'साइन आउट';
@@ -149,7 +147,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get profileTitle => 'आपकी जानकारी';
 
   @override
-  String get profileIntro => 'सही शारीरिक मानक दिखाने के लिए यह जानकारी चाहिए।';
+  String get profileIntro => 'सही मानक दिखाने के लिए।';
 
   @override
   String get name => 'नाम';
@@ -167,7 +165,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get save => 'सेव करें';
 
   @override
-  String get saveFailed => 'सेव नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।';
+  String get saveFailed => 'सेव नहीं हो सका। फिर कोशिश करें।';
 
   @override
   String get socialGeneral => 'सामान्य';
@@ -198,7 +196,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get trainingIntroBody =>
-      'कुछ सवालों के जवाब दें। AI आपके अभी के स्तर, समय और अनुभव के हिसाब से हफ्ते-दर-हफ्ते प्लान बनाएगा, ताकि PET के दिन तक आप दौड़ आराम से समय में पूरी कर सकें।';
+      '4 छोटे सवाल, फिर आपके स्तर और समय के हिसाब से हफ्ते-दर-हफ्ते प्लान।';
 
   @override
   String get startQuestionnaire => 'प्लान बनाना शुरू करें';
@@ -296,7 +294,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get qWeeks => 'PET में लगभग कितने हफ्ते बचे हैं?';
 
   @override
-  String get qWeeksUnknown => 'तारीख पता नहीं हो तो 12 हफ्ते चुनें।';
+  String get qWeeksUnknown => 'तारीख पता न हो तो 12 हफ्ते।';
 
   @override
   String weeksN(int n) {
@@ -401,30 +399,27 @@ class AppLocalizationsHi extends AppLocalizations {
   String get qHeight => 'लंबाई सेमी (वैकल्पिक)';
 
   @override
-  String get generatingTitle => 'AI आपका प्लान बना रहा है';
+  String get generatingTitle => 'प्लान बन रहा है';
 
   @override
-  String get generatingBody => 'इसमें 1-2 मिनट लग सकते हैं। ऐप बंद न करें।';
+  String get generatingBody => '1-2 मिनट लगेंगे। ऐप खुला रखें।';
 
   @override
-  String get errRateLimited =>
-      'आज के लिए प्लान बनाने की सीमा पूरी हो गई। कल फिर कोशिश करें।';
+  String get errRateLimited => 'आज की सीमा पूरी हो गई। कल फिर कोशिश करें।';
 
   @override
-  String get errAiNotConfigured =>
-      'AI प्लान अभी चालू नहीं है। थोड़ी देर बाद कोशिश करें।';
+  String get errAiNotConfigured => 'प्लान सेवा अभी बंद है। बाद में कोशिश करें।';
 
   @override
-  String get errGeneration => 'प्लान नहीं बन पाया। फिर कोशिश करें।';
+  String get errGeneration => 'प्लान नहीं बन सका। फिर कोशिश करें।';
 
   @override
   String errTooEarly(String date) {
-    return 'अगला हफ्ता $date से खुलेगा।';
+    return 'अगला हफ्ता $date को खुलेगा।';
   }
 
   @override
-  String get errNetwork =>
-      'इंटरनेट से जुड़ नहीं पाए। कनेक्शन जांचकर फिर कोशिश करें।';
+  String get errNetwork => 'कनेक्शन नहीं मिला। इंटरनेट जांचें।';
 
   @override
   String get readinessOnTrack => 'सही रास्ते पर';
@@ -436,7 +431,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get readinessBigGap => 'लंबा सफ़र';
 
   @override
-  String get seeDoctor => 'शुरू करने से पहले डॉक्टर से सलाह ज़रूर लें।';
+  String get seeDoctor => 'शुरू करने से पहले डॉक्टर से मिलें।';
 
   @override
   String weekOf(int week, int total) {
@@ -458,11 +453,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String nextWeekLocked(int week, String date) {
-    return 'हफ्ता $week का प्लान $date को खुलेगा, ताकि वह आपकी इस हफ्ते की ट्रेनिंग के हिसाब से बने।';
+    return 'हफ्ता $week का प्लान $date को खुलेगा।';
   }
 
   @override
-  String get planFinished => 'प्लान पूरा हुआ। PET के लिए शुभकामनाएं!';
+  String get planFinished => 'प्लान पूरा। PET के लिए शुभकामनाएं।';
 
   @override
   String get fullPlan => 'पूरा प्लान';
@@ -474,8 +469,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get newPlan => 'नया प्लान बनाएं';
 
   @override
-  String get newPlanConfirm =>
-      'नया प्लान बनाने पर अभी वाला प्लान बंद हो जाएगा। आगे बढ़ें?';
+  String get newPlanConfirm => 'नया प्लान बनाने पर मौजूदा प्लान बंद हो जाएगा।';
 
   @override
   String get cancel => 'रद्द करें';
@@ -515,7 +509,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get painWarning =>
-      'दर्द हो तो अगले सेशन धीरे करें। दर्द बढ़े या 2-3 दिन में ठीक न हो तो डॉक्टर को दिखाएं।';
+      'दर्द हो तो अगला सेशन हल्का रखें। बढ़े या 2-3 दिन में ठीक न हो तो डॉक्टर को दिखाएं।';
 
   @override
   String km(String value) {
@@ -562,8 +556,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get progressEmpty =>
-      'अभी कोई टाइम ट्रायल नहीं। अपना समय दर्ज करें और यहाँ अपनी प्रगति देखें।';
+  String get progressEmpty => 'अभी कोई टाइम ट्रायल नहीं। पहला समय जोड़ें।';
 
   @override
   String get addTrial => 'टाइम ट्रायल जोड़ें';
@@ -589,12 +582,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String gapToCut(String time) {
-    return 'अभी $time और कम करना है';
+    return '$time और कम करना है';
   }
 
   @override
   String underTarget(String time) {
-    return 'आप लक्ष्य से $time तेज़ हैं। इसे बनाए रखें!';
+    return 'आप लक्ष्य से $time तेज़ हैं';
   }
 
   @override
@@ -602,11 +595,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String estimateNote(String distance) {
-    return 'दूसरी दूरी के ट्रायल से $distance का समय अनुमान से निकाला गया है।';
+    return '$distance का समय दूसरी दूरी के ट्रायल से अनुमानित।';
   }
 
   @override
-  String get trialSaveFailed => 'सेव नहीं हो सका। फिर कोशिश करें।';
+  String get trialSaveFailed => 'सेव नहीं हुआ। फिर कोशिश करें।';
 
   @override
   String get runTitle => 'दौड़';
@@ -619,18 +612,18 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String mockPetIntro(String distance, String time) {
-    return 'असली PET की तरह $distance दौड़ें। ऐप GPS से समय नापेगा और बताएगा कि आप $time के लक्ष्य में क्वालीफाई करते या नहीं।';
+    return 'असली PET जैसी $distance की दौड़। लक्ष्य $time।';
   }
 
   @override
-  String get freeRunIntro => 'अपनी किसी भी दौड़ को GPS से रिकॉर्ड करें।';
+  String get freeRunIntro => 'किसी भी दौड़ को GPS से रिकॉर्ड करें।';
 
   @override
   String get runTips =>
-      'खुले मैदान में दौड़ें, फोन जेब या हाथ में रखें। Xiaomi/Redmi फोन में ऐप की बैटरी सेटिंग \'No restrictions\' रखें ताकि स्क्रीन बंद होने पर भी GPS चलता रहे।';
+      'खुली जगह दौड़ें, फोन साथ रखें। Xiaomi/Redmi में बैटरी सेटिंग \'No restrictions\' करें, वरना GPS बंद हो सकता है।';
 
   @override
-  String get gpsSearching => 'GPS सिग्नल ढूंढ रहे हैं…';
+  String get gpsSearching => 'GPS ढूंढ रहे हैं…';
 
   @override
   String gpsAccuracy(int metres) {
@@ -641,10 +634,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get gpsReady => 'GPS तैयार है';
 
   @override
-  String get gpsDenied => 'दौड़ रिकॉर्ड करने के लिए लोकेशन की अनुमति चाहिए।';
+  String get gpsDenied => 'दौड़ रिकॉर्ड करने के लिए लोकेशन की अनुमति दें।';
 
   @override
-  String get gpsOff => 'फोन की लोकेशन (GPS) चालू करें।';
+  String get gpsOff => 'लोकेशन (GPS) चालू करें।';
 
   @override
   String get openSettings => 'सेटिंग खोलें';
@@ -705,7 +698,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get borderlineNote =>
-      'GPS में 2-3% तक का फर्क हो सकता है। पक्का क्वालीफाई के लिए लक्ष्य से कम से कम 3% तेज़ दौड़ें।';
+      'GPS में 2-3% फर्क हो सकता है। पक्का होने के लिए 3% तेज़ दौड़ें।';
 
   @override
   String finishTime(String distance, String time) {
@@ -778,15 +771,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get flagTooShort => 'दौड़ बहुत छोटी थी।';
 
   @override
-  String get uploading => 'सर्वर पर जांच हो रही है…';
+  String get uploading => 'जांच हो रही है…';
 
   @override
   String get savedOffline =>
-      'इंटरनेट नहीं है। दौड़ फोन में सेव है और इंटरनेट मिलने पर भेज दी जाएगी।';
+      'इंटरनेट नहीं है। दौड़ फोन में सेव है, नेट मिलते ही चली जाएगी।';
 
   @override
-  String get uploadRefused =>
-      'सर्वर ने यह दौड़ नहीं ली (आज की सीमा पूरी या गलत डेटा)।';
+  String get uploadRefused => 'सर्वर ने दौड़ नहीं ली (आज की सीमा या गलत डेटा)।';
 
   @override
   String get serverChecked => 'सर्वर जांच पूरी';
@@ -801,7 +793,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get recordRun => 'दौड़ रिकॉर्ड करें';
 
   @override
-  String get recentRuns => 'हाल की GPS दौड़ें';
+  String get recentRuns => 'हाल की दौड़ें';
 
   @override
   String pendingRuns(int n) {
@@ -817,11 +809,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tabRanking => 'रैंकिंग';
 
   @override
-  String get areaVisible => 'दूसरों की रैंकिंग में मेरा नाम दिखाएं';
+  String get areaVisible => 'रैंकिंग में मेरा नाम दिखाएं';
 
   @override
-  String get areaVisibleNote =>
-      'केवल पहला नाम और उपनाम का पहला अक्षर दिखता है।';
+  String get areaVisibleNote => 'सिर्फ पहला नाम और उपनाम का पहला अक्षर।';
 
   @override
   String get metricPet => 'PET समय';
@@ -837,18 +828,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get rankingRules =>
-      'केवल GPS से जाँची गई दौड़ें गिनी जाती हैं। PET समय के लिए असली दूरी पर मॉक PET दौड़ें। रैंकिंग हर सोमवार नई शुरू होती है।';
+      'सिर्फ GPS से जाँची दौड़ें गिनी जाती हैं। हर सोमवार नई रैंकिंग।';
 
   @override
-  String get rankingEmpty =>
-      'इस हफ्ते यहाँ अभी कोई नहीं है। मॉक PET दौड़कर पहले नंबर पर आएं!';
+  String get rankingEmpty => 'इस हफ्ते अभी कोई नहीं। पहला नाम आपका हो सकता है।';
 
   @override
   String get youLabel => 'आप';
 
   @override
-  String get errAiBusy =>
-      'AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।';
+  String get errAiBusy => 'अभी बहुत भीड़ है। 1 मिनट बाद कोशिश करें।';
 
   @override
   String get boardEveryone => 'सभी';
@@ -858,7 +847,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get communitiesIntro =>
-      'अपने गाँव, मैदान या दोस्तों के ग्रुप से जुड़ें और उन्हीं से मुकाबला करें। न मिले तो खुद बना लें!';
+      'अपने गाँव, मैदान या दोस्तों के ग्रुप से जुड़ें।';
 
   @override
   String get manageCommunities => 'इलाके / ग्रुप';
@@ -867,7 +856,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get searchCommunities => 'गाँव, मैदान या ग्रुप ढूंढें';
 
   @override
-  String get noCommunitiesFound => 'कुछ नहीं मिला। नीचे से नया बना लें।';
+  String get noCommunitiesFound => 'कुछ नहीं मिला। नया बनाएं।';
 
   @override
   String get joinLabel => 'जुड़ें';
@@ -926,15 +915,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get codeCopied => 'कोड कॉपी हो गया';
 
   @override
-  String get errNameTaken =>
-      'इस नाम का इलाका/ग्रुप पहले से है। ऊपर ढूंढकर उसमें जुड़ जाएं।';
+  String get errNameTaken => 'यह नाम पहले से है। ऊपर ढूंढकर जुड़ें।';
 
   @override
-  String get errCreateLimit => 'आज के लिए आप 3 बना चुके हैं। कल फिर बनाएं।';
+  String get errCreateLimit => 'आज 3 बन चुके हैं। कल फिर बनाएं।';
 
   @override
   String get errMemberLimit =>
-      'आप 15 इलाकों/ग्रुप में हैं। नया जोड़ने के लिए कोई एक छोड़ें।';
+      '15 इलाके/ग्रुप पूरे। नया जोड़ने के लिए एक छोड़ें।';
 
   @override
   String get errCodeNotFound => 'यह कोड नहीं मिला। दोबारा जांचें।';
@@ -944,7 +932,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noCommunitiesYet =>
-      'आप अभी किसी इलाके या ग्रुप में नहीं हैं। \'सभी\' की रैंकिंग देखें या अपना इलाका जोड़ें।';
+      'आप किसी इलाके या ग्रुप में नहीं हैं। \'सभी\' देखें या इलाका जोड़ें।';
 
   @override
   String get catScSt => 'अनुसूचित जाति / जनजाति (SC/ST)';
@@ -986,7 +974,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get examUnconfirmed =>
-      'इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।';
+      'इस परीक्षा के मानक अभी पुष्ट नहीं हुए हैं। पुष्टि के बाद प्लान, मॉक PET और रैंकिंग खुलेंगे।';
 
   @override
   String get voiceStarted =>
@@ -1052,12 +1040,12 @@ class AppLocalizationsHi extends AppLocalizations {
     String margin,
     String outcome,
   ) {
-    return 'मैंने मैदान ऐप में $distance की मॉक दौड़ $time में पूरी की ($margin)! $outcome तुम भी अपनी भर्ती की तैयारी जाँचो।';
+    return 'मैदान ऐप पर $distance की मॉक दौड़: $time ($margin). $outcome';
   }
 
   @override
   String shareRankText(String board, int rank, String value) {
-    return 'मैदान ऐप की इस हफ़्ते की लीडरबोर्ड ($board) में मेरी रैंक #$rank है, $value! क्या तुम मुझे हरा सकते हो?';
+    return 'मैदान पर इस हफ्ते मेरी रैंक #$rank ($board): $value। हरा सकते हो?';
   }
 
   @override
@@ -1066,7 +1054,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get streakStart => 'आज दौड़ो और लकीर शुरू करो!';
+  String get streakStart => 'आज दौड़ो, लकीर शुरू करो';
 
   @override
   String streakBest(int n) {
@@ -1132,17 +1120,43 @@ class AppLocalizationsHi extends AppLocalizations {
   String get lowDataTitle => 'कम डेटा मोड';
 
   @override
-  String get lowDataNote =>
-      'रैंकिंग और ताज़ा आँकड़े तभी लोड होंगे जब आप माँगेंगे। नेट बचेगा।';
+  String get lowDataNote => 'रैंकिंग और ताज़ा आँकड़े माँगने पर ही लोड होंगे।';
 
   @override
-  String get lowDataRanking =>
-      'कम डेटा मोड चालू है। रैंकिंग देखने के लिए नीचे दबाएँ।';
+  String get lowDataRanking => 'कम डेटा मोड चालू है।';
 
   @override
   String get loadRanking => 'रैंकिंग लोड करें';
 
   @override
   String get heatWarning =>
-      'अभी तेज़ गर्मी का समय है (सुबह 10 से शाम 6)। दौड़ सुबह 8 बजे से पहले या शाम 6 के बाद करें, और पानी साथ रखें।';
+      'अभी गर्मी तेज़ है। सुबह 8 से पहले या शाम 6 के बाद दौड़ें। पानी साथ रखें।';
+
+  @override
+  String get readMore => 'और पढ़ें';
+
+  @override
+  String get readLess => 'कम दिखाएं';
+
+  @override
+  String get switchLanguage => 'English';
+
+  @override
+  String get switchLanguageShort => 'EN';
+
+  @override
+  String get featPlan => 'प्लान';
+
+  @override
+  String get featTrack => 'GPS दौड़';
+
+  @override
+  String get featRank => 'रैंकिंग';
+
+  @override
+  String get signOutConfirmTitle => 'साइन आउट करें?';
+
+  @override
+  String get signOutConfirmBody =>
+      'आपका सारा डेटा सुरक्षित रहता है। दोबारा साइन इन करने पर सब वापस मिल जाएगा।';
 }

@@ -186,6 +186,8 @@ class _StandardsScreenState extends State<StandardsScreen> {
                 ),
                 child: Row(
                   children: [
+                    Icon(eventIcon(s), size: 22, color: Brand.olive),
+                    const SizedBox(width: 12),
                     Expanded(child: Text(eventLabel(l10n, s))),
                     const SizedBox(width: 12),
                     Flexible(

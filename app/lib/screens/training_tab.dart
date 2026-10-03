@@ -9,9 +9,12 @@ import '../data/training_logic.dart';
 import '../data/training_models.dart';
 import '../data/training_repository.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/illustrations.dart';
+import '../theme/motion.dart';
 import 'heat_banner.dart';
 import '../theme/app_theme.dart';
 import '../theme/widgets.dart';
+import 'language_button.dart';
 import 'load_error.dart';
 import 'questionnaire_screen.dart';
 import 'session_sheet.dart';
@@ -111,6 +114,7 @@ class _TrainingTabState extends State<TrainingTab> {
           appBar: AppBar(
             title: Text(l10n.tabTraining),
             actions: [
+              const LanguageButton(),
               if (plan != null && run != null)
                 PopupMenuButton<String>(
                   onSelected: (_) => _startQuestionnaire(run, replace: true),
@@ -164,18 +168,9 @@ class _Intro extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
-                    Container(
-                      width: 72,
-                      height: 72,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Brand.saffron,
-                      ),
-                      child: const Icon(
-                        Icons.directions_run,
-                        size: 40,
-                        color: Brand.ink,
-                      ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: const SunriseScene(height: 170),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -392,13 +387,20 @@ class _PlanViewState extends State<_PlanView> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(99),
-                        child: LinearProgressIndicator(
-                          value: progress.total == 0
-                              ? 0
-                              : progress.done / progress.total,
-                          minHeight: 10,
-                          color: Brand.saffron,
-                          backgroundColor: Colors.white24,
+                        child: TweenAnimationBuilder<double>(
+                          tween: Tween<double>(
+                            end: progress.total == 0
+                                ? 0
+                                : progress.done / progress.total,
+                          ),
+                          duration: const Duration(milliseconds: 600),
+                          curve: Curves.easeOut,
+                          builder: (_, v, _) => LinearProgressIndicator(
+                            value: v,
+                            minHeight: 10,
+                            color: Brand.saffron,
+                            backgroundColor: Colors.white24,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -462,19 +464,23 @@ class _PlanViewState extends State<_PlanView> {
               ),
             ),
           for (var i = 0; i < detail.sessions.length; i++)
-            _SessionTile(
-              session: detail.sessions[i],
-              date: sessionDate(plan, _week, detail.sessions[i].day),
-              isToday:
-                  _week == today &&
-                  sessionDate(plan, _week, detail.sessions[i].day) ==
-                      DateTime(
-                        widget.today.year,
-                        widget.today.month,
-                        widget.today.day,
-                      ),
-              log: plan.logFor(_week, i),
-              onTap: () => _openSession(i, detail.sessions[i]),
+            FadeSlideIn(
+              key: ValueKey('$_week-$i'),
+              index: i,
+              child: _SessionTile(
+                session: detail.sessions[i],
+                date: sessionDate(plan, _week, detail.sessions[i].day),
+                isToday:
+                    _week == today &&
+                    sessionDate(plan, _week, detail.sessions[i].day) ==
+                        DateTime(
+                          widget.today.year,
+                          widget.today.month,
+                          widget.today.day,
+                        ),
+                log: plan.logFor(_week, i),
+                onTap: () => _openSession(i, detail.sessions[i]),
+              ),
             ),
         ] else
           _WeekNotReady(
@@ -651,9 +657,21 @@ class _SessionTile extends StatelessWidget {
                       ),
                     Text(session.title, style: textTheme.titleMedium),
                     const SizedBox(height: 2),
-                    Text(
-                      sessionTypeLabel(l10n, session.type),
-                      style: textTheme.bodySmall,
+                    Row(
+                      children: [
+                        Icon(
+                          sessionTypeIcon(session.type),
+                          size: 16,
+                          color: colors.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            sessionTypeLabel(l10n, session.type),
+                            style: textTheme.bodySmall,
+                          ),
+                        ),
+                      ],
                     ),
                     if (summary.isNotEmpty) ...[
                       const SizedBox(height: 4),

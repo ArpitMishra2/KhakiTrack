@@ -15,6 +15,7 @@ import '../gps/voice_coach.dart';
 import '../l10n/app_localizations.dart';
 import 'heat_banner.dart';
 import '../theme/app_theme.dart';
+import '../theme/motion.dart';
 import '../theme/widgets.dart';
 import 'standard_labels.dart';
 
@@ -336,18 +337,21 @@ class _RunScreenState extends State<RunScreen> {
                   padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ready
-                              ? Brand.saffron
-                              : Theme.of(context).colorScheme.outlineVariant,
-                        ),
-                        child: Icon(
-                          ready ? Icons.gps_fixed : Icons.gps_not_fixed,
-                          color: ready ? Brand.ink : null,
+                      PingDot(
+                        active: ready,
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ready
+                                ? Brand.saffron
+                                : Theme.of(context).colorScheme.outlineVariant,
+                          ),
+                          child: Icon(
+                            ready ? Icons.gps_fixed : Icons.gps_not_fixed,
+                            color: ready ? Brand.ink : null,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -435,13 +439,21 @@ class _RunScreenState extends State<RunScreen> {
                           const Spacer(),
                           SizedBox.square(
                             dimension: ring,
-                            child: CustomPaint(
-                              painter: _RingPainter(
-                                progress: widget.mockPet
+                            child: TweenAnimationBuilder<double>(
+                              tween: Tween<double>(
+                                end: widget.mockPet
                                     ? (dist / target).clamp(0.0, 1.0)
-                                    : null,
-                                color: Brand.saffron,
-                                track: colors.outlineVariant,
+                                    : 0,
+                              ),
+                              duration: const Duration(milliseconds: 700),
+                              curve: Curves.easeOut,
+                              builder: (context, v, child) => CustomPaint(
+                                painter: _RingPainter(
+                                  progress: widget.mockPet ? v : null,
+                                  color: Brand.saffron,
+                                  track: colors.outlineVariant,
+                                ),
+                                child: child,
                               ),
                               child: Center(
                                 child: FittedBox(
@@ -555,128 +567,54 @@ class _RunScreenState extends State<RunScreen> {
     final distance = distanceText(l10n, widget.runMetres);
     final outcome = petOutcome(finish, widget.targetSeconds);
 
-    return ListView(
-      padding: const EdgeInsets.all(24),
+    return Stack(
       children: [
-        if (widget.mockPet) ...[
-          Center(
-            child: Container(
-              width: 96,
-              height: 96,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: outcome == PetOutcome.qualified
-                    ? Brand.saffron
-                    : colors.secondaryContainer,
+        ListView(
+          padding: const EdgeInsets.all(24),
+          children: [
+            if (widget.mockPet) ...[
+              Center(
+                child: Container(
+                  width: 96,
+                  height: 96,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: outcome == PetOutcome.qualified
+                        ? Brand.saffron
+                        : colors.secondaryContainer,
+                  ),
+                  child: Icon(
+                    switch (outcome) {
+                      PetOutcome.qualified => Icons.emoji_events,
+                      PetOutcome.borderline => Icons.warning_amber,
+                      _ => Icons.trending_up,
+                    },
+                    size: 52,
+                    color: outcome == PetOutcome.qualified ? Brand.ink : null,
+                  ),
+                ),
               ),
-              child: Icon(
+              const SizedBox(height: 12),
+              Text(
                 switch (outcome) {
-                  PetOutcome.qualified => Icons.emoji_events,
-                  PetOutcome.borderline => Icons.warning_amber,
-                  _ => Icons.trending_up,
+                  PetOutcome.qualified => l10n.outcomeQualified,
+                  PetOutcome.borderline => l10n.outcomeBorderline,
+                  PetOutcome.notQualified => l10n.outcomeNotQualified,
+                  PetOutcome.incomplete => l10n.outcomeIncomplete,
                 },
-                size: 52,
-                color: outcome == PetOutcome.qualified ? Brand.ink : null,
+                style: textTheme.headlineMedium,
+                textAlign: TextAlign.center,
               ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            switch (outcome) {
-              PetOutcome.qualified => l10n.outcomeQualified,
-              PetOutcome.borderline => l10n.outcomeBorderline,
-              PetOutcome.notQualified => l10n.outcomeNotQualified,
-              PetOutcome.incomplete => l10n.outcomeIncomplete,
-            },
-            style: textTheme.headlineMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 12),
-          if (finish != null) ...[
-            Text(
-              l10n.finishTime(distance, formatDuration(finish)),
-              style: textTheme.headlineSmall?.copyWith(color: Brand.saffron),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              finish <= widget.targetSeconds
-                  ? l10n.marginAhead(
-                      formatDuration(widget.targetSeconds - finish),
-                    )
-                  : l10n.marginBehind(
-                      formatDuration(finish - widget.targetSeconds),
-                    ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-          Text(
-            l10n.targetLine(formatDuration(widget.targetSeconds)),
-            textAlign: TextAlign.center,
-          ),
-          if (outcome == PetOutcome.borderline) ...[
-            const SizedBox(height: 8),
-            Text(l10n.borderlineNote, textAlign: TextAlign.center),
-          ],
-          const Divider(height: 32),
-        ],
-        Text(
-          l10n.totalDistance(l10n.km((r.distanceM / 1000).toStringAsFixed(2))),
-        ),
-        Text(l10n.totalTime(formatDuration(r.durationS))),
-        const SizedBox(height: 16),
-        Card(
-          child: ListTile(
-            leading: Icon(
-              switch (verdict) {
-                'verified' => Icons.verified,
-                'rejected' => Icons.block,
-                _ => Icons.help_outline,
-              },
-              color: verdict == 'verified'
-                  ? colors.primary
-                  : verdict == 'rejected'
-                  ? colors.error
-                  : null,
-            ),
-            title: Text(switch (verdict) {
-              'verified' => l10n.verdictVerified,
-              'rejected' => l10n.verdictRejected,
-              _ => l10n.verdictSuspicious,
-            }),
-            subtitle: Text(
-              [
-                for (final f in flags) flagText(l10n, f),
-                if (verdict != 'verified') l10n.verdictNotCounted,
-              ].join('\n'),
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        if (_uploading)
-          Row(
-            children: [
-              const SizedBox.square(
-                dimension: 16,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-              const SizedBox(width: 8),
-              Text(l10n.uploading),
-            ],
-          )
-        else if (_savedOffline)
-          Text(l10n.savedOffline)
-        else if (_refused)
-          Text(l10n.uploadRefused, style: TextStyle(color: colors.error))
-        else if (_server != null)
-          Text(l10n.serverChecked, style: textTheme.bodySmall),
-        const SizedBox(height: 24),
-        if (widget.mockPet && finish != null && verdict == 'verified') ...[
-          OutlinedButton.icon(
-            onPressed: () => SharePlus.instance.share(
-              ShareParams(
-                text: l10n.sharePetText(
-                  distance,
-                  formatDuration(finish),
+              const SizedBox(height: 12),
+              if (finish != null) ...[
+                Text(
+                  l10n.finishTime(distance, formatDuration(finish)),
+                  style: textTheme.headlineSmall?.copyWith(
+                    color: Brand.saffron,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
                   finish <= widget.targetSeconds
                       ? l10n.marginAhead(
                           formatDuration(widget.targetSeconds - finish),
@@ -684,23 +622,107 @@ class _RunScreenState extends State<RunScreen> {
                       : l10n.marginBehind(
                           formatDuration(finish - widget.targetSeconds),
                         ),
-                  switch (outcome) {
-                    PetOutcome.qualified => l10n.outcomeQualified,
-                    PetOutcome.borderline => l10n.outcomeBorderline,
-                    _ => '',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+              Text(
+                l10n.targetLine(formatDuration(widget.targetSeconds)),
+                textAlign: TextAlign.center,
+              ),
+              if (outcome == PetOutcome.borderline) ...[
+                const SizedBox(height: 8),
+                Text(l10n.borderlineNote, textAlign: TextAlign.center),
+              ],
+              const Divider(height: 32),
+            ],
+            Text(
+              l10n.totalDistance(
+                l10n.km((r.distanceM / 1000).toStringAsFixed(2)),
+              ),
+            ),
+            Text(l10n.totalTime(formatDuration(r.durationS))),
+            const SizedBox(height: 16),
+            Card(
+              child: ListTile(
+                leading: Icon(
+                  switch (verdict) {
+                    'verified' => Icons.verified,
+                    'rejected' => Icons.block,
+                    _ => Icons.help_outline,
                   },
+                  color: verdict == 'verified'
+                      ? colors.primary
+                      : verdict == 'rejected'
+                      ? colors.error
+                      : null,
+                ),
+                title: Text(switch (verdict) {
+                  'verified' => l10n.verdictVerified,
+                  'rejected' => l10n.verdictRejected,
+                  _ => l10n.verdictSuspicious,
+                }),
+                subtitle: Text(
+                  [
+                    for (final f in flags) flagText(l10n, f),
+                    if (verdict != 'verified') l10n.verdictNotCounted,
+                  ].join('\n'),
                 ),
               ),
             ),
-            icon: const Icon(Icons.share),
-            label: Text(l10n.shareButton),
-          ),
-          const SizedBox(height: 8),
-        ],
-        FilledButton(
-          onPressed: _uploading ? null : () => Navigator.pop(context, true),
-          child: Text(l10n.done),
+            const SizedBox(height: 8),
+            if (_uploading)
+              Row(
+                children: [
+                  const SizedBox.square(
+                    dimension: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(l10n.uploading),
+                ],
+              )
+            else if (_savedOffline)
+              Text(l10n.savedOffline)
+            else if (_refused)
+              Text(l10n.uploadRefused, style: TextStyle(color: colors.error))
+            else if (_server != null)
+              Text(l10n.serverChecked, style: textTheme.bodySmall),
+            const SizedBox(height: 24),
+            if (widget.mockPet && finish != null && verdict == 'verified') ...[
+              OutlinedButton.icon(
+                onPressed: () => SharePlus.instance.share(
+                  ShareParams(
+                    text: l10n.sharePetText(
+                      distance,
+                      formatDuration(finish),
+                      finish <= widget.targetSeconds
+                          ? l10n.marginAhead(
+                              formatDuration(widget.targetSeconds - finish),
+                            )
+                          : l10n.marginBehind(
+                              formatDuration(finish - widget.targetSeconds),
+                            ),
+                      switch (outcome) {
+                        PetOutcome.qualified => l10n.outcomeQualified,
+                        PetOutcome.borderline => l10n.outcomeBorderline,
+                        _ => '',
+                      },
+                    ),
+                  ),
+                ),
+                icon: const Icon(Icons.share),
+                label: Text(l10n.shareButton),
+              ),
+              const SizedBox(height: 8),
+            ],
+            FilledButton(
+              onPressed: _uploading ? null : () => Navigator.pop(context, true),
+              child: Text(l10n.done),
+            ),
+          ],
         ),
+        if (widget.mockPet && outcome == PetOutcome.qualified)
+          const Positioned.fill(child: ConfettiBurst()),
       ],
     );
   }

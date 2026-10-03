@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../data/exam_models.dart';
 import '../l10n/app_localizations.dart';
 
@@ -69,4 +71,22 @@ String valueLabel(AppLocalizations l10n, Standard s) {
   return s.event.endsWith('_kg')
       ? l10n.valueKg(_number(v))
       : l10n.valueCm(_number(v));
+}
+
+/// Icon for a standard's row.
+IconData eventIcon(Standard s) {
+  if (s.isRun) return Icons.directions_run;
+  return switch (s.event) {
+    'height_cm' => Icons.height,
+    'weight_kg' => Icons.monitor_weight_outlined,
+    'chest_unexpanded_cm' ||
+    'chest_expanded_cm' ||
+    'chest_expansion_cm' => Icons.accessibility_new,
+    'long_jump_ft' => Icons.sports_gymnastics,
+    'high_jump_ft' => Icons.north,
+    'pull_ups' => Icons.fitness_center,
+    'ditch_9ft' => Icons.swap_horiz,
+    'zigzag_balance' => Icons.timeline,
+    _ => Icons.rule,
+  };
 }
