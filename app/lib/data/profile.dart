@@ -69,6 +69,10 @@ abstract class ProfileRepository {
 
   /// Name from the Google account, to pre-fill the form.
   String? get suggestedName;
+
+  /// Remembers the app language on the profile, so plans are written in it.
+  /// Best effort: never throws.
+  Future<void> saveLocale(String code);
 }
 
 class SupabaseProfileRepository implements ProfileRepository {
@@ -92,6 +96,16 @@ class SupabaseProfileRepository implements ProfileRepository {
         .eq('id', _uid)
         .maybeSingle();
     return row == null ? const Profile() : Profile.fromJson(row);
+  }
+
+  @override
+  Future<void> saveLocale(String code) async {
+    try {
+      if (_client.auth.currentUser == null) return;
+      await _client.from('profiles').update({'locale': code}).eq('id', _uid);
+    } on Object {
+      // Not worth interrupting anything for.
+    }
   }
 
   @override

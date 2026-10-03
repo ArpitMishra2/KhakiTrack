@@ -29,6 +29,13 @@ Deno.test("UP Police and SSC GD are unchanged", () => {
   assertEquals(pickRunStandard(rows("ssc_gd", "female"), "obc", 20), { metres: 1600, seconds: 510 });
 });
 
-Deno.test("an unconfirmed exam has no run standard", () => {
-  assertEquals(pickRunStandard(rows("agniveer_army_gd", "male"), "general", 19), null);
+Deno.test("Agniveer men have the sourced 1.6 km limit, women have none", () => {
+  assertEquals(pickRunStandard(rows("agniveer_army_gd", "male"), "general", 19), { metres: 1600, seconds: 375 });
+  // Agniveer Women (Military Police) is a different notice and is not loaded.
+  assertEquals(pickRunStandard(rows("agniveer_army_gd", "female"), "general", 19), null);
+});
+
+Deno.test("an unverified row gives no run standard", () => {
+  const unverified = [{ category: "all", event: "run_1600m", value: null, age_min: null, age_max: null }];
+  assertEquals(pickRunStandard(unverified as RunRow[], "general", 19), null);
 });

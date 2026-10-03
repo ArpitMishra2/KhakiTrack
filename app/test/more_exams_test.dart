@@ -63,10 +63,14 @@ void main() {
     expect(resolvedAt(dp, 'female', 'general', 45)['run_1600m'], 600);
   });
 
-  test('run standard follows age; unconfirmed exams have none', () {
+  test('run standard follows age; Agniveer has men only (sourced)', () {
     expect(runStandardFor(dp, 'male', 'general', age: 35)!.value, 420);
     expect(runStandardFor(dp, 'female', 'sc', age: 22)!.value, 480);
-    expect(runStandardFor(ag, 'male', 'general', age: 19), isNull);
+    final army = runStandardFor(ag, 'male', 'general', age: 19)!;
+    expect(army.value, 375);
+    expect(army.runMetres, 1600);
+    // Women's Agniveer GD (Military Police) is a different notice: not loaded.
+    expect(runStandardFor(ag, 'female', 'general', age: 19), isNull);
   });
 
   test('age in completed years', () {
@@ -115,7 +119,7 @@ void main() {
     expect(find.text('लंबी कूद'), findsOneWidget);
   });
 
-  testWidgets('Agniveer shows events but no unconfirmed numbers', (
+  testWidgets('Agniveer shows the sourced Physical Fitness Test', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(400, 1600);
@@ -136,9 +140,12 @@ void main() {
     await openStandards(tester);
     await tester.tap(find.text('अग्निवीर थल सेना (GD)'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('पुष्ट नहीं हुए'), findsOneWidget);
+    expect(find.textContaining('पुष्ट नहीं हुए'), findsNothing);
+    expect(find.text('पुष्टि बाकी'), findsNothing);
+    expect(find.text('1.6 किमी दौड़'), findsOneWidget);
+    expect(find.text('6 मिनट 15 सेकंड में'), findsOneWidget);
     expect(find.text('पुल-अप (बीम)'), findsOneWidget);
-    expect(find.text('पुष्टि बाकी'), findsNWidgets(4));
-    expect(find.textContaining('345'), findsNothing);
+    expect(find.text('कम से कम 6'), findsOneWidget);
+    expect(find.text('पास होना ज़रूरी'), findsNWidgets(2));
   });
 }

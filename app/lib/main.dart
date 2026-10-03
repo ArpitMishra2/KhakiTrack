@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'config.dart';
 import 'data/cached_exam_repository.dart';
+import 'data/cached_profile_repository.dart';
 import 'data/app_settings.dart';
 import 'data/auth_service.dart';
 import 'data/exam_repository.dart';
@@ -40,8 +41,15 @@ Future<void> main() async {
         getApplicationDocumentsDirectory,
       ),
       auth: SupabaseAuthService(Supabase.instance.client),
-      profiles: SupabaseProfileRepository(Supabase.instance.client),
-      training: SupabaseTrainingRepository(Supabase.instance.client),
+      profiles: CachedProfileRepository(
+        SupabaseProfileRepository(Supabase.instance.client),
+        getApplicationDocumentsDirectory,
+        () => Supabase.instance.client.auth.currentUser?.id,
+      ),
+      training: SupabaseTrainingRepository(
+        Supabase.instance.client,
+        getApplicationDocumentsDirectory,
+      ),
       runs: SupabaseRunRepository(Supabase.instance.client),
       boards: SupabaseLeaderboardRepository(Supabase.instance.client),
       location: (l10n) => GeolocatorSource(
@@ -80,7 +88,8 @@ class MaidanApp extends StatefulWidget {
 }
 
 class _MaidanAppState extends State<MaidanApp> {
-  late final AppSettings _settings = widget.settings ?? AppSettings();
+  late final AppSettings _settings = (widget.settings ?? AppSettings())
+    ..onLanguageChanged = (code) => widget.profiles.saveLocale(code);
 
   @override
   Widget build(BuildContext context) {

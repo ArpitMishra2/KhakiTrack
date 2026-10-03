@@ -30,4 +30,4 @@ Arpit reviewed both files against the PDFs on 2026-10-02 (`owner_review.reviewed
 
 Added 2026-10-03:
 - `delhi_police_constable.json` (1.0): SSC notice for Constable (Executive) in Delhi Police Examination 2025, paras 12.13-12.19, all values sourced. Arpit to review.
-- `agniveer_army_gd.json` (0.1-unverified): the official notification on joinindianarmy.nic.in is behind a captcha; events listed, values withheld. Needs the official PDF.
+- `agniveer_army_gd.json` (1.0, 2026-10-03): Physical Fitness Test read from official Army Recruiting Office notices (Secunderabad 2027, Tiruchirappalli 2025-26, Dehradun 2022: the same table in all three). joinindianarmy.nic.in itself is behind a captcha and was not used. Run limit 6:15 is the slowest time that earns marks (the notice does not call it a pass mark); pull-ups 6 is the lowest count with marks; ditch and zig-zag balance are 'need to qualify'. Height, chest and weight are region based and not included. Arpit to review.
