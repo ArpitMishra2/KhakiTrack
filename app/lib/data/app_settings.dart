@@ -28,6 +28,9 @@ class AppSettings extends ChangeNotifier {
     return s;
   }
 
+  /// Called after the user changes language (to keep the profile in step).
+  void Function(String code)? onLanguageChanged;
+
   Future<File> Function()? _file;
   Locale _locale;
   bool _lowData;
@@ -40,6 +43,7 @@ class AppSettings extends ChangeNotifier {
     _locale = Locale(code);
     _save();
     notifyListeners();
+    onLanguageChanged?.call(code);
   }
 
   void setLowData(bool value) {

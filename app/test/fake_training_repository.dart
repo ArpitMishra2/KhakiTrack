@@ -81,6 +81,17 @@ class FakeTrainingRepository implements TrainingRepository {
   final List<SessionLog> savedLogs = [];
   int nextWeekCalls = 0;
 
+  TrainingAnswers? draft;
+
+  @override
+  Future<TrainingAnswers?> loadDraft() async => draft;
+
+  @override
+  Future<void> saveDraft(TrainingAnswers answers) async => draft = answers;
+
+  @override
+  Future<void> clearDraft() async => draft = null;
+
   @override
   Future<TrainingPlan?> fetchActivePlan() async => plan;
 

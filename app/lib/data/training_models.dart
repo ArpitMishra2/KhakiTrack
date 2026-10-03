@@ -29,6 +29,32 @@ class TrainingAnswers {
   bool get experienceComplete => runningExperience != null;
   bool get scheduleComplete => weeksToPet != null;
 
+  /// Restores a saved draft; unknown or missing fields keep their defaults.
+  factory TrainingAnswers.fromJson(Map<String, dynamic> j) {
+    final a = TrainingAnswers();
+    a.canCompleteDistance = j['can_complete_distance'] as bool?;
+    a.currentTimeSeconds = (j['current_time_seconds'] as num?)?.toInt();
+    a.longestContinuousKm = (j['longest_continuous_km'] as num?)?.toDouble();
+    a.runningExperience = j['running_experience'] as String?;
+    a.runsPerWeek = (j['runs_per_week'] as num?)?.toInt() ?? a.runsPerWeek;
+    a.weeklyKm = (j['weekly_km'] as num?)?.toDouble() ?? a.weeklyKm;
+    a.background = {...?(j['background'] as List?)?.cast<String>()};
+    a.daysPerWeek = (j['days_per_week'] as num?)?.toInt() ?? a.daysPerWeek;
+    a.minutesPerSession =
+        (j['minutes_per_session'] as num?)?.toInt() ?? a.minutesPerSession;
+    a.weeksToPet = (j['weeks_to_pet'] as num?)?.toInt();
+    a.trainingTime = j['training_time'] as String? ?? a.trainingTime;
+    a.surface = j['surface'] as String? ?? a.surface;
+    a.pain = {...?(j['pain'] as List?)?.cast<String>()};
+    if (a.pain.isEmpty) a.pain = {'none'};
+    a.painNote = j['pain_note'] as String? ?? '';
+    a.medical = {...?(j['medical'] as List?)?.cast<String>()};
+    if (a.medical.isEmpty) a.medical = {'none'};
+    a.weightKg = (j['weight_kg'] as num?)?.toDouble();
+    a.heightCm = (j['height_cm'] as num?)?.toDouble();
+    return a;
+  }
+
   Map<String, dynamic> toJson() => {
     'can_complete_distance': canCompleteDistance,
     'current_time_seconds': canCompleteDistance == true

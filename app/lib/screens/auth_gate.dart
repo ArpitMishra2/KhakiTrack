@@ -80,6 +80,7 @@ class _ProfileGate extends StatefulWidget {
 
 class _ProfileGateState extends State<_ProfileGate> {
   late Future<Profile> _profile = widget.profiles.fetchMine();
+  bool _localeSynced = false;
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +113,18 @@ class _ProfileGateState extends State<_ProfileGate> {
               _profile = Future.value(saved);
             }),
           );
+        }
+        if (!_localeSynced) {
+          // Plans are written in the language the profile says; keep it in
+          // step with the language the app is showing.
+          _localeSynced = true;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              widget.profiles.saveLocale(
+                Localizations.localeOf(context).languageCode,
+              );
+            }
+          });
         }
         return HomeShell(
           exams: widget.repository,

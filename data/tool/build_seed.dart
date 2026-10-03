@@ -69,8 +69,10 @@ void main() {
     final rows = (exam['standards'] as List).cast<Map<String, dynamic>>().map((
       s,
     ) {
+      // Pass/fail events (kind 'qualify') have no number, only a source.
       if (s['verified'] == true &&
-          (s['value'] == null || s['source_url'] == null)) {
+          ((s['value'] == null && s['kind'] != 'qualify') ||
+              s['source_url'] == null)) {
         stderr.writeln('$id: verified row without value or source_url: $s');
         exit(1);
       }

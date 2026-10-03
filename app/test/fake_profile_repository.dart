@@ -21,6 +21,11 @@ class FakeProfileRepository implements ProfileRepository {
   @override
   String? get suggestedName => 'Ramesh Kumar';
 
+  String? lastLocale;
+
+  @override
+  Future<void> saveLocale(String code) async => lastLocale = code;
+
   @override
   Future<Profile> fetchMine() async => stored;
 

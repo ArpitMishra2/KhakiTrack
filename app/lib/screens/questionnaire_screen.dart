@@ -27,7 +27,7 @@ class QuestionnaireScreen extends StatefulWidget {
 
 class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   static const _steps = 4;
-  final _a = TrainingAnswers();
+  TrainingAnswers _a = TrainingAnswers();
   final _time = TextEditingController();
   final _painNote = TextEditingController();
   final _weight = TextEditingController();
@@ -35,6 +35,37 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   int _step = 0;
   bool _generating = false;
   String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    // Pick up answers from an earlier attempt that did not finish.
+    widget.training.loadDraft().then((d) {
+      if (d == null || !mounted) return;
+      setState(() {
+        _a = d;
+        _time.text = d.currentTimeSeconds == null
+            ? ''
+            : formatDuration(d.currentTimeSeconds!);
+        _painNote.text = d.painNote;
+        _weight.text = d.weightKg?.toString() ?? '';
+        _height.text = d.heightCm?.toString() ?? '';
+      });
+    });
+  }
+
+  /// Copies the text fields into the answers and keeps them on the phone.
+  void _keepDraft() {
+    _a.painNote = _painNote.text;
+    _a.weightKg = double.tryParse(_weight.text);
+    _a.heightCm = double.tryParse(_height.text);
+    widget.training.saveDraft(_a);
+  }
+
+  void _go(int by) {
+    _keepDraft();
+    setState(() => _step += by);
+  }
 
   @override
   void dispose() {
@@ -52,6 +83,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   };
 
   Future<void> _create() async {
+    _keepDraft();
     _a.painNote = _painNote.text;
     // Out-of-range optional values are dropped rather than rejected.
     final w = double.tryParse(_weight.text);
@@ -64,6 +96,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     });
     try {
       await widget.training.createPlan(_a);
+      await widget.training.clearDraft();
       if (mounted) Navigator.pop(context, true);
     } on TrainingException catch (e) {
       if (mounted) {
@@ -163,7 +196,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
             children: [
               if (_step > 0)
                 OutlinedButton(
-                  onPressed: () => setState(() => _step--),
+                  onPressed: () => _go(-1),
                   child: Text(l10n.qBack),
                 ),
               const Spacer(),
@@ -173,7 +206,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                     ? null
                     : last
                     ? _create
-                    : () => setState(() => _step++),
+                    : () => _go(1),
                 child: Text(last ? l10n.qCreate : l10n.qNext),
               ),
             ],

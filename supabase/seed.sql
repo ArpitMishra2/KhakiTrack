@@ -2,15 +2,15 @@
 begin;
 
 insert into public.exams (id, name_hi, name_en, notification_url, data_version)
-values ('agniveer_army_gd', 'अग्निवीर थल सेना (GD)', 'Agniveer Army (GD)', null, '0.1-unverified')
+values ('agniveer_army_gd', 'अग्निवीर थल सेना (GD)', 'Agniveer Army (GD)', 'https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf', '1.0')
 on conflict (id) do update set name_hi = excluded.name_hi, name_en = excluded.name_en,
   notification_url = excluded.notification_url, data_version = excluded.data_version;
 delete from public.standards where exam_id = 'agniveer_army_gd';
 insert into public.standards (exam_id, gender, category, event, kind, value, source_url, verified, age_min, age_max, reported_value) values
-  ('agniveer_army_gd', 'male', 'all', 'run_1600m', 'time_max_seconds', null, null, false, null, null, 345),
-  ('agniveer_army_gd', 'male', 'all', 'pull_ups', 'count_min', null, null, false, null, null, 6),
-  ('agniveer_army_gd', 'male', 'all', 'ditch_9ft', 'qualify', null, null, false, null, null, null),
-  ('agniveer_army_gd', 'male', 'all', 'zigzag_balance', 'qualify', null, null, false, null, null, null);
+  ('agniveer_army_gd', 'male', 'all', 'run_1600m', 'time_max_seconds', 375, 'https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf', true, null, null, null),
+  ('agniveer_army_gd', 'male', 'all', 'pull_ups', 'count_min', 6, 'https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf', true, null, null, null),
+  ('agniveer_army_gd', 'male', 'all', 'ditch_9ft', 'qualify', null, 'https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf', true, null, null, null),
+  ('agniveer_army_gd', 'male', 'all', 'zigzag_balance', 'qualify', null, 'https://www.telangana.gov.in/wp-content/uploads/2026/02/Recruitment-Notification-for-AGNIVEER-2027.pdf', true, null, null, null);
 
 insert into public.exams (id, name_hi, name_en, notification_url, data_version)
 values ('delhi_police_constable', 'दिल्ली पुलिस कांस्टेबल', 'Delhi Police Constable', 'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_DPCE_2025.pdf', '1.0')

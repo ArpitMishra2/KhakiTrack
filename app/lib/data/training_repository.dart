@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'training_models.dart';
@@ -16,6 +19,12 @@ class TrainingException implements Exception {
 }
 
 abstract class TrainingRepository {
+  /// Answers typed into the questionnaire but not yet turned into a plan, so
+  /// a failed or abandoned attempt does not mean typing them all again.
+  Future<TrainingAnswers?> loadDraft();
+  Future<void> saveDraft(TrainingAnswers answers);
+  Future<void> clearDraft();
+
   Future<TrainingPlan?> fetchActivePlan();
 
   /// Generates a new plan with AI; can take a minute or two.
@@ -30,9 +39,50 @@ abstract class TrainingRepository {
 }
 
 class SupabaseTrainingRepository implements TrainingRepository {
-  SupabaseTrainingRepository(this._client);
+  SupabaseTrainingRepository(this._client, [this._dir]);
 
   final SupabaseClient _client;
+  final Future<Directory> Function()? _dir;
+
+  Future<File?> _draftFile() async {
+    final dir = _dir;
+    final id = _client.auth.currentUser?.id;
+    if (dir == null || id == null) return null;
+    return File('${(await dir()).path}/plan_draft_$id.json');
+  }
+
+  @override
+  Future<TrainingAnswers?> loadDraft() async {
+    try {
+      final f = await _draftFile();
+      if (f == null || !await f.exists()) return null;
+      return TrainingAnswers.fromJson(
+        jsonDecode(await f.readAsString()) as Map<String, dynamic>,
+      );
+    } on Object {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> saveDraft(TrainingAnswers answers) async {
+    try {
+      final f = await _draftFile();
+      if (f != null) await f.writeAsString(jsonEncode(answers.toJson()));
+    } on Object {
+      // Best effort.
+    }
+  }
+
+  @override
+  Future<void> clearDraft() async {
+    try {
+      final f = await _draftFile();
+      if (f != null && await f.exists()) await f.delete();
+    } on Object {
+      // Best effort.
+    }
+  }
 
   String get _uid => _client.auth.currentUser!.id;
 
