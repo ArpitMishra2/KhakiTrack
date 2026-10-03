@@ -14,6 +14,8 @@ import '../data/training_repository.dart';
 import '../gps/location_source.dart';
 import '../gps/run_repository.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
+import '../theme/widgets.dart';
 import 'load_error.dart';
 import 'run_screen.dart';
 import 'standard_labels.dart';
@@ -93,13 +95,16 @@ class _ProgressTabState extends State<ProgressTab> {
   Future<void> _openRun(Standard run, {required bool mockPet}) async {
     final recorded = await Navigator.of(context).push<bool>(
       MaterialPageRoute(
-        builder: (c) => RunScreen(
-          examId: widget.profile.examId!,
-          runMetres: run.runMetres!,
-          targetSeconds: run.value!.round(),
-          mockPet: mockPet,
-          source: widget.location(AppLocalizations.of(c)),
-          runs: widget.runs,
+        builder: (c) => Theme(
+          data: AppTheme.dark(),
+          child: RunScreen(
+            examId: widget.profile.examId!,
+            runMetres: run.runMetres!,
+            targetSeconds: run.value!.round(),
+            mockPet: mockPet,
+            source: widget.location(AppLocalizations.of(c)),
+            runs: widget.runs,
+          ),
         ),
       ),
     );
@@ -230,79 +235,106 @@ class _ProgressTabState extends State<ProgressTab> {
             ),
           ),
         ),
-        const SizedBox(height: 16),
-        Text(l10n.progressTitle(distance), style: textTheme.titleLarge),
-        Text(l10n.targetTime(formatDuration(target))),
-        const SizedBox(height: 12),
-        if (latest == null)
-          Text(l10n.progressEmpty)
-        else ...[
-          Text(
-            l10n.latestTime(formatDuration(latest.seconds)) +
-                (latest.estimated ? ' (${l10n.estimated})' : ''),
-            style: textTheme.titleMedium,
-          ),
-          Text(
-            latest.seconds > target
-                ? l10n.gapToCut(formatDuration(latest.seconds - target))
-                : l10n.underTarget(formatDuration(target - latest.seconds)),
-            style: textTheme.titleSmall?.copyWith(
-              color: latest.seconds > target
-                  ? Theme.of(context).colorScheme.error
-                  : Theme.of(context).colorScheme.primary,
-            ),
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 200,
-            child: CustomPaint(
-              painter: _TrialChart(
-                points: [for (final p in series) p.seconds],
-                target: target,
-                lineColor: Theme.of(context).colorScheme.primary,
-                targetColor: Theme.of(context).colorScheme.error,
-                gridColor: Theme.of(context).colorScheme.outlineVariant,
-              ),
-              child: const SizedBox.expand(),
-            ),
-          ),
-          const SizedBox(height: 16),
-          for (final (i, t) in trials.reversed.indexed)
-            ListTile(
-              dense: true,
-              title: Text(
-                '${distanceText(l10n, t.distanceM)} · ${formatDuration(t.durationSeconds)}',
-              ),
-              subtitle: Text(shortDate(l10n, t.recordedOn)),
-              trailing: t.distanceM == metres
-                  ? null
-                  : Text(
-                      '≈ ${formatDuration(series[series.length - 1 - i].seconds)}',
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(l10n.progressTitle(distance), style: textTheme.titleLarge),
+                Text(
+                  l10n.targetTime(formatDuration(target)),
+                  style: textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 12),
+                if (latest == null)
+                  Text(l10n.progressEmpty)
+                else ...[
+                  Text(
+                    l10n.latestTime(formatDuration(latest.seconds)) +
+                        (latest.estimated ? ' (${l10n.estimated})' : ''),
+                    style: textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: 6),
+                  Pill(
+                    latest.seconds > target
+                        ? l10n.gapToCut(formatDuration(latest.seconds - target))
+                        : l10n.underTarget(
+                            formatDuration(target - latest.seconds),
+                          ),
+                    icon: latest.seconds > target
+                        ? Icons.trending_down
+                        : Icons.check_circle,
+                    background: latest.seconds > target
+                        ? Theme.of(context).colorScheme.errorContainer
+                        : const Color(0xFFD7EBD8),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 200,
+                    child: CustomPaint(
+                      painter: _TrialChart(
+                        points: [for (final p in series) p.seconds],
+                        target: target,
+                        lineColor: Theme.of(context).colorScheme.primary,
+                        targetColor: Brand.olive,
+                        gridColor: Theme.of(context).colorScheme.outlineVariant,
+                      ),
+                      child: const SizedBox.expand(),
                     ),
+                  ),
+                  const SizedBox(height: 8),
+                  for (final (i, t) in trials.reversed.indexed)
+                    ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        '${distanceText(l10n, t.distanceM)} · ${formatDuration(t.durationSeconds)}',
+                      ),
+                      subtitle: Text(shortDate(l10n, t.recordedOn)),
+                      trailing: t.distanceM == metres
+                          ? null
+                          : Text(
+                              '≈ ${formatDuration(series[series.length - 1 - i].seconds)}',
+                            ),
+                    ),
+                  if (series.any((p) => p.estimated))
+                    Text(
+                      l10n.estimateNote(distance),
+                      style: textTheme.bodySmall,
+                    ),
+                ],
+              ],
             ),
-          if (series.any((p) => p.estimated))
-            Text(l10n.estimateNote(distance), style: textTheme.bodySmall),
-        ],
+          ),
+        ),
         if (data.gpsRuns.isNotEmpty) ...[
-          const SizedBox(height: 16),
-          Text(l10n.recentRuns, style: textTheme.titleMedium),
-          for (final g in data.gpsRuns.take(10))
-            ListTile(
-              dense: true,
-              leading: Icon(switch (g.verdict) {
-                'verified' => Icons.verified,
-                'rejected' => Icons.block,
-                _ => Icons.help_outline,
-              }),
-              title: Text(
-                [
-                  g.mode == 'mock_pet' ? l10n.mockPetTitle : l10n.freeRunTitle,
-                  l10n.km((g.distanceM / 1000).toStringAsFixed(2)),
-                  formatDuration(g.finishSeconds ?? g.durationS),
-                ].join(' · '),
-              ),
-              subtitle: Text(shortDate(l10n, g.startedAt)),
+          SectionTitle(l10n.recentRuns),
+          Card(
+            child: Column(
+              children: [
+                for (final g in data.gpsRuns.take(10))
+                  ListTile(
+                    dense: true,
+                    leading: Icon(switch (g.verdict) {
+                      'verified' => Icons.verified,
+                      'rejected' => Icons.block,
+                      _ => Icons.help_outline,
+                    }, color: g.verdict == 'verified' ? Brand.good : null),
+                    title: Text(
+                      [
+                        g.mode == 'mock_pet'
+                            ? l10n.mockPetTitle
+                            : l10n.freeRunTitle,
+                        l10n.km((g.distanceM / 1000).toStringAsFixed(2)),
+                        formatDuration(g.finishSeconds ?? g.durationS),
+                      ].join(' · '),
+                    ),
+                    subtitle: Text(shortDate(l10n, g.startedAt)),
+                  ),
+              ],
             ),
+          ),
         ],
       ],
     );
@@ -336,89 +368,183 @@ class _StreakCard extends StatelessWidget {
       targetSeconds: targetSeconds,
     );
     final initials = l10n.weekdayInitials.split(',');
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.local_fire_department,
-                  size: 40,
-                  color: streak.current > 0
-                      ? Colors.deepOrange
-                      : colors.outline,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.streakDays(streak.current),
-                        style: textTheme.titleLarge,
-                      ),
-                      Text(
-                        streak.current == 0
-                            ? l10n.streakStart
-                            : l10n.streakBest(streak.best),
-                        style: textTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                for (var i = 0; i < 7; i++)
-                  Column(
-                    children: [
-                      Text(initials[i], style: textTheme.bodySmall),
-                      Icon(
-                        dots[i] ? Icons.check_circle : Icons.circle_outlined,
-                        color: dots[i] ? colors.primary : colors.outline,
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-            const Divider(height: 24),
-            Text(l10n.badgesTitle, style: textTheme.titleSmall),
-            const SizedBox(height: 4),
-            Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              children: [
-                for (final b in BadgeKind.values)
-                  Tooltip(
-                    message: badgeHint(l10n, b),
-                    triggerMode: TooltipTriggerMode.tap,
-                    child: Chip(
-                      avatar: Icon(
-                        badges.earned.contains(b)
-                            ? Icons.emoji_events
-                            : Icons.lock,
-                        size: 18,
-                        color: badges.earned.contains(b)
-                            ? Colors.amber.shade800
-                            : colors.outline,
-                      ),
-                      label: Text(
-                        badgeName(l10n, b),
-                        style: TextStyle(
-                          color: badges.earned.contains(b)
-                              ? null
-                              : colors.outline,
-                        ),
-                      ),
+    final todayIndex = DateTime(today.year, today.month, today.day).weekday - 1;
+    final lit = streak.current > 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        HeroCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: lit ? Brand.saffron : Colors.white12,
+                    ),
+                    child: Icon(
+                      Icons.local_fire_department,
+                      size: 32,
+                      color: lit ? Brand.ink : Brand.khaki,
                     ),
                   ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.streakDays(streak.current),
+                          style: textTheme.headlineSmall?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          streak.current == 0
+                              ? l10n.streakStart
+                              : l10n.streakBest(streak.best),
+                          style: textTheme.bodySmall?.copyWith(
+                            color: Brand.khaki,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  for (var i = 0; i < 7; i++)
+                    Column(
+                      children: [
+                        Text(
+                          initials[i],
+                          style: textTheme.labelSmall?.copyWith(
+                            color: Brand.khaki,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Container(
+                          width: 34,
+                          height: 34,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: dots[i] ? Brand.saffron : Colors.white12,
+                            border: i == todayIndex && !dots[i]
+                                ? Border.all(color: Brand.saffron, width: 2)
+                                : null,
+                          ),
+                          child: dots[i]
+                              ? const Icon(
+                                  Icons.check,
+                                  size: 20,
+                                  color: Brand.ink,
+                                )
+                              : null,
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.badgesTitle,
+                        style: textTheme.titleMedium,
+                      ),
+                    ),
+                    Text(
+                      '${badges.earned.length} / ${BadgeKind.values.length}',
+                      style: textTheme.labelLarge?.copyWith(
+                        color: colors.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 16,
+                  children: [
+                    for (final b in BadgeKind.values)
+                      _Medal(
+                        name: badgeName(l10n, b),
+                        hint: badgeHint(l10n, b),
+                        earned: badges.earned.contains(b),
+                      ),
+                  ],
+                ),
               ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _Medal extends StatelessWidget {
+  const _Medal({required this.name, required this.hint, required this.earned});
+
+  final String name;
+  final String hint;
+  final bool earned;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return Tooltip(
+      message: hint,
+      triggerMode: TooltipTriggerMode.tap,
+      child: SizedBox(
+        width: 72,
+        child: Column(
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: earned
+                    ? const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Color(0xFFFFB347), Brand.saffron],
+                      )
+                    : null,
+                color: earned ? null : colors.secondaryContainer,
+              ),
+              child: Icon(
+                earned ? Icons.emoji_events : Icons.lock_outline,
+                color: earned ? Brand.ink : colors.outline,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              name,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: earned ? colors.onSurface : colors.outline,
+              ),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
@@ -13,6 +14,8 @@ import '../gps/run_repository.dart';
 import '../gps/voice_coach.dart';
 import '../l10n/app_localizations.dart';
 import 'heat_banner.dart';
+import '../theme/app_theme.dart';
+import '../theme/widgets.dart';
 import 'standard_labels.dart';
 
 /// Records a GPS run: waits for a GPS fix, shows live numbers, then the
@@ -324,6 +327,7 @@ class _RunScreenState extends State<RunScreen> {
   Widget _runningView(AppLocalizations l10n) {
     final r = _recorder!;
     final textTheme = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
     final dist = r.live?.distanceM ?? 0;
     final elapsed = r.elapsedS;
     final speed = r.recentSpeed();
@@ -331,89 +335,155 @@ class _RunScreenState extends State<RunScreen> {
     final delta = widget.mockPet
         ? paceDelta(dist, elapsed, target, widget.targetSeconds)
         : null;
-    final colors = Theme.of(context).colorScheme;
+    final km = (dist / 1000).toStringAsFixed(2);
+    final pace = speed == null || speed < 0.5
+        ? '–'
+        : formatDuration(1000 / speed);
 
-    Widget stat(String label, String value) => Expanded(
-      child: Column(
-        children: [
-          Text(label, style: textTheme.labelLarge),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(value, style: textTheme.headlineMedium),
-          ),
-        ],
-      ),
-    );
-
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          Text(l10n.elapsed, style: textTheme.titleMedium),
-          FittedBox(
-            child: Text(
-              formatDuration(elapsed),
-              style: textTheme.displayLarge?.copyWith(
-                fontFeatures: const [FontFeature.tabularFigures()],
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              stat(
-                l10n.distanceLabel,
-                l10n.km((dist / 1000).toStringAsFixed(2)),
-              ),
-              stat(
-                l10n.paceLabel,
-                speed == null || speed < 0.5
-                    ? '–'
-                    : l10n.minPerKm(formatDuration(1000 / speed)),
-              ),
-            ],
-          ),
-          if (widget.mockPet) ...[
-            const SizedBox(height: 24),
-            LinearProgressIndicator(
-              value: (dist / target).clamp(0.0, 1.0),
-              minHeight: 10,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              l10n.remaining(
-                distanceText(l10n, (target - dist).clamp(0, target).round()),
-              ),
-            ),
-            if (delta != null && dist > 50)
-              Text(
-                delta >= 0
-                    ? l10n.aheadBy(formatDuration(delta))
-                    : l10n.behindBy(formatDuration(-delta)),
-                style: textTheme.titleLarge?.copyWith(
-                  color: delta >= 0 ? colors.primary : colors.error,
+    // The numbers scroll on very short screens; the stop button never does.
+    return Column(
+      children: [
+        Expanded(
+          child: LayoutBuilder(
+            builder: (context, box) {
+              final compact = box.maxHeight < 520;
+              final ring = (box.maxHeight * (compact ? 0.42 : 0.4)).clamp(
+                120.0,
+                300.0,
+              );
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: box.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
+                      child: Column(
+                        children: [
+                          Text(
+                            l10n.elapsed,
+                            style: textTheme.labelLarge?.copyWith(
+                              color: colors.onSurfaceVariant,
+                            ),
+                          ),
+                          FittedBox(
+                            child: Text(
+                              formatDuration(elapsed),
+                              style: numerals(
+                                compact ? 56 : 104,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          SizedBox.square(
+                            dimension: ring,
+                            child: CustomPaint(
+                              painter: _RingPainter(
+                                progress: widget.mockPet
+                                    ? (dist / target).clamp(0.0, 1.0)
+                                    : null,
+                                color: Brand.saffron,
+                                track: colors.outlineVariant,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        km,
+                                        style: numerals(
+                                          ring * 0.34,
+                                          color: Brand.saffron,
+                                        ),
+                                      ),
+                                      Text(
+                                        l10n.distanceLabel,
+                                        style: textTheme.labelLarge?.copyWith(
+                                          color: colors.onSurfaceVariant,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          if (widget.mockPet) ...[
+                            Text(
+                              l10n.remaining(
+                                distanceText(
+                                  l10n,
+                                  (target - dist).clamp(0, target).round(),
+                                ),
+                              ),
+                              style: textTheme.titleMedium,
+                            ),
+                            const SizedBox(height: 8),
+                            if (delta != null && dist > 50)
+                              Pill(
+                                delta >= 0
+                                    ? l10n.aheadBy(formatDuration(delta))
+                                    : l10n.behindBy(formatDuration(-delta)),
+                                icon: delta >= 0
+                                    ? Icons.trending_up
+                                    : Icons.trending_down,
+                                background: delta >= 0
+                                    ? const Color(0xFF2E7D32)
+                                    : const Color(0xFFC62828),
+                                foreground: Colors.white,
+                              ),
+                          ],
+                          const Spacer(),
+                          BigStat(
+                            value: pace,
+                            label:
+                                '${l10n.paceLabel} ${l10n.minPerKm('').trim()}',
+                            size: compact ? 34 : 48,
+                            color: Colors.white,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-          ],
-          const Spacer(),
-          GestureDetector(
+              );
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
+          child: GestureDetector(
             onLongPress: _finish,
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 18),
               decoration: BoxDecoration(
-                color: colors.errorContainer,
-                borderRadius: BorderRadius.circular(32),
+                color: colors.secondaryContainer,
+                borderRadius: BorderRadius.circular(40),
+                border: Border.all(color: colors.outline),
               ),
-              child: Text(
-                l10n.holdToStop,
-                textAlign: TextAlign.center,
-                style: textTheme.titleMedium,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.stop_circle_outlined),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      l10n.holdToStop,
+                      textAlign: TextAlign.center,
+                      style: textTheme.titleMedium,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -431,15 +501,28 @@ class _RunScreenState extends State<RunScreen> {
       padding: const EdgeInsets.all(24),
       children: [
         if (widget.mockPet) ...[
-          Icon(
-            switch (outcome) {
-              PetOutcome.qualified => Icons.emoji_events,
-              PetOutcome.borderline => Icons.warning_amber,
-              _ => Icons.trending_up,
-            },
-            size: 56,
-            color: outcome == PetOutcome.qualified ? colors.primary : null,
+          Center(
+            child: Container(
+              width: 96,
+              height: 96,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: outcome == PetOutcome.qualified
+                    ? Brand.saffron
+                    : colors.secondaryContainer,
+              ),
+              child: Icon(
+                switch (outcome) {
+                  PetOutcome.qualified => Icons.emoji_events,
+                  PetOutcome.borderline => Icons.warning_amber,
+                  _ => Icons.trending_up,
+                },
+                size: 52,
+                color: outcome == PetOutcome.qualified ? Brand.ink : null,
+              ),
+            ),
           ),
+          const SizedBox(height: 12),
           Text(
             switch (outcome) {
               PetOutcome.qualified => l10n.outcomeQualified,
@@ -447,14 +530,14 @@ class _RunScreenState extends State<RunScreen> {
               PetOutcome.notQualified => l10n.outcomeNotQualified,
               PetOutcome.incomplete => l10n.outcomeIncomplete,
             },
-            style: textTheme.headlineSmall,
+            style: textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 12),
           if (finish != null) ...[
             Text(
               l10n.finishTime(distance, formatDuration(finish)),
-              style: textTheme.titleLarge,
+              style: textTheme.headlineSmall?.copyWith(color: Brand.saffron),
               textAlign: TextAlign.center,
             ),
             Text(
@@ -577,3 +660,52 @@ String flagText(AppLocalizations l10n, String flag) => switch (flag) {
   'too_short' => l10n.flagTooShort,
   _ => flag,
 };
+
+/// Progress ring: an arc from the top, or a plain dim ring when [progress]
+/// is null (free run, no target).
+class _RingPainter extends CustomPainter {
+  _RingPainter({
+    required this.progress,
+    required this.color,
+    required this.track,
+  });
+
+  final double? progress;
+  final Color color;
+  final Color track;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const width = 14.0;
+    final rect = Offset.zero & size;
+    final arc = rect.deflate(width / 2);
+    canvas.drawArc(
+      arc,
+      0,
+      2 * pi,
+      false,
+      Paint()
+        ..color = track
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = width,
+    );
+    final p = progress;
+    if (p != null && p > 0) {
+      canvas.drawArc(
+        arc,
+        -pi / 2,
+        2 * pi * p,
+        false,
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round
+          ..strokeWidth = width,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_RingPainter old) =>
+      old.progress != progress || old.color != color || old.track != track;
+}

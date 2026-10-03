@@ -5,6 +5,7 @@ import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../data/standards_logic.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import 'load_error.dart';
 import 'standard_labels.dart';
 
@@ -153,8 +154,28 @@ class _StandardsScreenState extends State<StandardsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-              child: Text(title, style: textTheme.titleMedium),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+              child: Row(
+                children: [
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Brand.saffron,
+                    ),
+                    child: Icon(
+                      items.first.isMeasurement
+                          ? Icons.straighten
+                          : Icons.directions_run,
+                      size: 20,
+                      color: Brand.ink,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(child: Text(title, style: textTheme.titleMedium)),
+                ],
+              ),
             ),
             // A Row rather than ListTile so long values wrap on small phones.
             for (final s in items)
@@ -168,10 +189,20 @@ class _StandardsScreenState extends State<StandardsScreen> {
                     Expanded(child: Text(eventLabel(l10n, s))),
                     const SizedBox(width: 12),
                     Flexible(
-                      child: Text(
-                        valueLabel(l10n, s),
-                        style: textTheme.titleMedium,
-                        textAlign: TextAlign.end,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Brand.khakiSoft,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          valueLabel(l10n, s),
+                          style: textTheme.titleMedium,
+                          textAlign: TextAlign.end,
+                        ),
                       ),
                     ),
                   ],

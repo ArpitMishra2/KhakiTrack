@@ -5,6 +5,8 @@ import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
+import '../theme/widgets.dart';
 import 'load_error.dart';
 import 'settings_screen.dart';
 import 'standards_screen.dart';
@@ -55,15 +57,27 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text(
-            l10n.welcomeTitle,
-            style: Theme.of(context).textTheme.headlineSmall,
+          HeroCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.welcomeTitle,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.welcomeSubtitle,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Brand.khaki),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 8),
-          Text(l10n.welcomeSubtitle),
-          const SizedBox(height: 24),
-          Text(l10n.chooseExam, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
+          SectionTitle(l10n.chooseExam),
           FutureBuilder<List<Exam>>(
             future: _exams,
             builder: (context, snapshot) {
@@ -85,7 +99,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   for (final exam in snapshot.data!)
                     Card(
                       child: ListTile(
-                        title: Text(exam.nameFor(language)),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        leading: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Brand.olive,
+                          ),
+                          child: const Icon(
+                            Icons.military_tech,
+                            color: Brand.khaki,
+                          ),
+                        ),
+                        title: Text(
+                          exam.nameFor(language),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute<void>(

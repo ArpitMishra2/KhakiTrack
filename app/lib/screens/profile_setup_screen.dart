@@ -4,6 +4,7 @@ import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import 'load_error.dart';
 
 /// First-run form: name, gender, date of birth (18+), exam and category.
@@ -103,7 +104,20 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text(l10n.profileIntro),
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: Brand.khakiSoft,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.badge_outlined, color: Brand.olive),
+                const SizedBox(width: 12),
+                Expanded(child: Text(l10n.profileIntro)),
+              ],
+            ),
+          ),
           const SizedBox(height: 16),
           TextField(
             controller: _name,
@@ -143,15 +157,30 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
           ),
           const SizedBox(height: 16),
           Text(l10n.category, style: textTheme.titleSmall),
-          DropdownButton<String>(
-            isExpanded: true,
-            hint: Text(l10n.chooseCategory),
-            value: _category,
-            items: [
-              for (final c in socialCategories)
-                DropdownMenuItem(value: c, child: Text(_socialLabel(l10n, c))),
-            ],
-            onChanged: (c) => setState(() => _category = c),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
+            ),
+            child: DropdownButton<String>(
+              underline: const SizedBox.shrink(),
+              isExpanded: true,
+              hint: Text(l10n.chooseCategory),
+              value: _category,
+              items: [
+                for (final c in socialCategories)
+                  DropdownMenuItem(
+                    value: c,
+                    child: Text(_socialLabel(l10n, c)),
+                  ),
+              ],
+              onChanged: (c) => setState(() => _category = c),
+            ),
           ),
           const SizedBox(height: 16),
           Text(l10n.chooseExam, style: textTheme.titleSmall),
@@ -174,14 +203,17 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
               return RadioGroup<String>(
                 groupValue: _examId,
                 onChanged: (v) => setState(() => _examId = v),
-                child: Column(
-                  children: [
-                    for (final e in snapshot.data!)
-                      RadioListTile<String>(
-                        value: e.id,
-                        title: Text(e.nameFor(language)),
-                      ),
-                  ],
+                child: Card(
+                  child: Column(
+                    children: [
+                      for (final e in snapshot.data!)
+                        RadioListTile<String>(
+                          value: e.id,
+                          activeColor: Brand.olive,
+                          title: Text(e.nameFor(language)),
+                        ),
+                    ],
+                  ),
                 ),
               );
             },

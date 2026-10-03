@@ -18,6 +18,7 @@ import 'gps/location_source.dart';
 import 'gps/run_repository.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/auth_gate.dart';
+import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,12 +90,7 @@ class _MaidanAppState extends State<MaidanApp> {
         settings: _settings,
         child: MaterialApp(
           onGenerateTitle: (context) => AppLocalizations.of(context).appName,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color(0xFF8B7B4B),
-            ),
-            useMaterial3: true,
-          ),
+          theme: AppTheme.light(),
           // Hindi is the default; the user can switch to English in settings.
           locale: _settings.locale,
           supportedLocales: AppLocalizations.supportedLocales,
