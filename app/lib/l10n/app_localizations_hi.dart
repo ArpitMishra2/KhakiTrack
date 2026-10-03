@@ -1301,4 +1301,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get weatherLoad => 'मौसम लोड करें';
+
+  @override
+  String get demoTitle => 'डेमो डेटा (पिच के लिए)';
+
+  @override
+  String get demoNote =>
+      'रैंकिंग में नकली छात्र दिखेंगे। असली डेटा नहीं बदलता।';
+
+  @override
+  String get demoBadge => 'डेमो डेटा';
 }

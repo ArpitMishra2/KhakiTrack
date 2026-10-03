@@ -42,6 +42,14 @@ class SettingsScreen extends StatelessWidget {
             onChanged: settings?.setLowData,
           ),
           const Divider(height: 32),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(l10n.demoTitle),
+            subtitle: Text(l10n.demoNote),
+            value: settings?.demoData ?? false,
+            onChanged: settings?.setDemoData,
+          ),
+          const Divider(height: 32),
           OutlinedButton.icon(
             icon: const Icon(Icons.logout),
             label: Text(l10n.signOut),

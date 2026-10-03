@@ -8,6 +8,7 @@ import '../data/training_logic.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../theme/motion.dart';
+import '../theme/widgets.dart';
 import 'language_button.dart';
 import 'load_error.dart';
 
@@ -27,6 +28,7 @@ class _RankingTabState extends State<RankingTab> {
   List<Community> _mineLoaded = const [];
   String _metric = 'pet';
   int _week = 0;
+  bool? _demoSeen;
   bool _loadRequested = false;
   late Future<List<LeaderboardEntry>> _entries = _fetch();
 
@@ -73,6 +75,19 @@ class _RankingTabState extends State<RankingTab> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final demo = SettingsScope.demoOf(context);
+    // Switching demo mode swaps the data underneath: start over.
+    if (_demoSeen != null && _demoSeen != demo) {
+      _community = null;
+      _mine = widget.boards.myCommunities();
+      _entries = _fetch();
+    }
+    _demoSeen = demo;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
@@ -114,6 +129,15 @@ class _RankingTabState extends State<RankingTab> {
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(16),
           children: [
+            if (SettingsScope.demoOf(context))
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Pill(
+                  l10n.demoBadge,
+                  icon: Icons.science,
+                  background: Brand.saffronSoft,
+                ),
+              ),
             Align(
               alignment: AlignmentDirectional.centerEnd,
               child: TextButton.icon(

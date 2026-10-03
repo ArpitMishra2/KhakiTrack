@@ -102,7 +102,7 @@ void main() {
     await tester.tap(find.text('English'));
     await tester.pumpAndSettle();
     expect(find.text('Settings'), findsOneWidget);
-    await tester.tap(find.byType(Switch));
+    await tester.tap(find.byType(Switch).first);
     await tester.pump();
     expect(settings.lowData, isTrue);
   });

@@ -1301,4 +1301,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weatherLoad => 'Load weather';
+
+  @override
+  String get demoTitle => 'Demo data (for pitch)';
+
+  @override
+  String get demoNote =>
+      'Rankings show made-up students. Your real data is untouched.';
+
+  @override
+  String get demoBadge => 'Demo data';
 }

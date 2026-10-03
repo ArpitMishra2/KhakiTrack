@@ -12,6 +12,7 @@ import 'data/cached_profile_repository.dart';
 import 'data/app_settings.dart';
 import 'data/auth_service.dart';
 import 'data/exam_repository.dart';
+import 'data/demo_leaderboard.dart';
 import 'data/leaderboard_repository.dart';
 import 'data/profile.dart';
 import 'data/training_repository.dart';
@@ -97,6 +98,20 @@ class MaidanApp extends StatefulWidget {
 }
 
 class _MaidanAppState extends State<MaidanApp> {
+  late final LeaderboardRepository _boards = SwitchableLeaderboards(
+    real: widget.boards,
+    demo: DemoLeaderboardRepository(
+      myName: () async {
+        try {
+          return shortName((await widget.profiles.fetchMine()).displayName);
+        } on Object {
+          return 'You';
+        }
+      },
+    ),
+    isDemo: () => _settings.demoData,
+  );
+
   late final AppSettings _settings = (widget.settings ?? AppSettings())
     ..onLanguageChanged = (code) => widget.profiles.saveLocale(code);
 
@@ -126,7 +141,7 @@ class _MaidanAppState extends State<MaidanApp> {
               training: widget.training,
               runs: widget.runs,
               location: widget.location,
-              boards: widget.boards,
+              boards: _boards,
             ),
           ),
         ),
