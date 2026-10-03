@@ -10,6 +10,12 @@ enum LocationAccess { granted, denied, deniedForever, serviceOff }
 abstract class LocationSource {
   Future<LocationAccess> ensureAccess();
 
+  /// Like [ensureAccess] but never shows the permission prompt.
+  Future<LocationAccess> checkAccess();
+
+  /// A rough position (last known, or a quick low-accuracy fix), or null.
+  Future<({double lat, double lon})?> coarsePosition();
+
   /// Fixes from now on, with [TrackPoint.tMs] relative to [start].
   Stream<TrackPoint> track(DateTime start);
 
@@ -40,6 +46,36 @@ class GeolocatorSource implements LocationSource {
       LocationPermission.deniedForever => LocationAccess.deniedForever,
       _ => LocationAccess.denied,
     };
+  }
+
+  @override
+  Future<LocationAccess> checkAccess() async {
+    if (!await Geolocator.isLocationServiceEnabled()) {
+      return LocationAccess.serviceOff;
+    }
+    return switch (await Geolocator.checkPermission()) {
+      LocationPermission.always ||
+      LocationPermission.whileInUse => LocationAccess.granted,
+      LocationPermission.deniedForever => LocationAccess.deniedForever,
+      _ => LocationAccess.denied,
+    };
+  }
+
+  @override
+  Future<({double lat, double lon})?> coarsePosition() async {
+    try {
+      final p =
+          await Geolocator.getLastKnownPosition() ??
+          await Geolocator.getCurrentPosition(
+            locationSettings: const LocationSettings(
+              accuracy: LocationAccuracy.low,
+              timeLimit: Duration(seconds: 12),
+            ),
+          );
+      return (lat: p.latitude, lon: p.longitude);
+    } on Object {
+      return null;
+    }
   }
 
   @override

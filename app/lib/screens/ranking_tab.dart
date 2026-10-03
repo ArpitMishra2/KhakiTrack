@@ -105,148 +105,158 @@ class _RankingTabState extends State<RankingTab> {
         title: Text(l10n.tabRanking),
         actions: const [LanguageButton()],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: TextButton.icon(
-              onPressed: _manage,
-              icon: const Icon(Icons.groups),
-              label: Text(l10n.manageCommunities),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          _change(() {});
+          await _entries;
+        },
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(16),
+          children: [
+            Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: TextButton.icon(
+                onPressed: _manage,
+                icon: const Icon(Icons.groups),
+                label: Text(l10n.manageCommunities),
+              ),
             ),
-          ),
-          FutureBuilder<List<Community>>(
-            future: _mine,
-            builder: (context, snap) {
-              final mine = snap.data ?? const <Community>[];
-              _mineLoaded = mine;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      spacing: 8,
-                      children: [
-                        ChoiceChip(
-                          avatar: const Icon(Icons.public, size: 18),
-                          label: Text(l10n.boardEveryone),
-                          selected: _community == null,
-                          onSelected: (_) => _change(() => _community = null),
-                        ),
-                        for (final c in mine)
+            FutureBuilder<List<Community>>(
+              future: _mine,
+              builder: (context, snap) {
+                final mine = snap.data ?? const <Community>[];
+                _mineLoaded = mine;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        spacing: 8,
+                        children: [
                           ChoiceChip(
-                            avatar: Icon(
-                              c.kind == 'group' ? Icons.groups : Icons.place,
-                              size: 18,
-                            ),
-                            label: Text(c.name),
-                            selected: _community == c.id,
-                            onSelected: (_) => _change(() => _community = c.id),
+                            avatar: const Icon(Icons.public, size: 18),
+                            label: Text(l10n.boardEveryone),
+                            selected: _community == null,
+                            onSelected: (_) => _change(() => _community = null),
                           ),
+                          for (final c in mine)
+                            ChoiceChip(
+                              avatar: Icon(
+                                c.kind == 'group' ? Icons.groups : Icons.place,
+                                size: 18,
+                              ),
+                              label: Text(c.name),
+                              selected: _community == c.id,
+                              onSelected: (_) =>
+                                  _change(() => _community = c.id),
+                            ),
+                        ],
+                      ),
+                    ),
+                    if (snap.hasData && mine.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(
+                          l10n.noCommunitiesYet,
+                          style: textTheme.bodySmall,
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                spacing: 8,
+                children: [
+                  ChoiceChip(
+                    label: Text(l10n.metricPet),
+                    selected: _metric == 'pet',
+                    onSelected: (_) => _change(() => _metric = 'pet'),
+                  ),
+                  ChoiceChip(
+                    label: Text(l10n.metricDistance),
+                    selected: _metric == 'distance',
+                    onSelected: (_) => _change(() => _metric = 'distance'),
+                  ),
+                  ChoiceChip(
+                    label: Text(l10n.thisWeek),
+                    selected: _week == 0,
+                    onSelected: (_) => _change(() => _week = 0),
+                  ),
+                  ChoiceChip(
+                    label: Text(l10n.lastWeek),
+                    selected: _week == 1,
+                    onSelected: (_) => _change(() => _week = 1),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 4),
+            FutureBuilder<List<LeaderboardEntry>>(
+              future: _entries,
+              builder: (context, snap) {
+                if (snap.hasError) {
+                  return LoadError(onRetry: () => _change(() {}));
+                }
+                final rows = snap.data;
+                if (rows == null) {
+                  return const Padding(
+                    padding: EdgeInsets.all(24),
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
+                if (rows.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 88,
+                          height: 88,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Brand.khakiSoft,
+                          ),
+                          child: const Icon(
+                            Icons.emoji_events_outlined,
+                            size: 44,
+                            color: Brand.olive,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(l10n.rankingEmpty, textAlign: TextAlign.center),
                       ],
                     ),
-                  ),
-                  if (snap.hasData && mine.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text(
-                        l10n.noCommunitiesYet,
-                        style: textTheme.bodySmall,
+                  );
+                }
+                return Column(
+                  children: [
+                    for (final (i, e) in rows.indexed)
+                      FadeSlideIn(
+                        index: i,
+                        child: _RankRow(
+                          entry: e,
+                          name: e.isMe
+                              ? '${e.name} (${l10n.youLabel})'
+                              : e.name,
+                          value: _valueText(l10n, e),
+                          shareTooltip: l10n.shareButton,
+                          onShare: e.isMe ? () => _share(l10n, e) : null,
+                        ),
                       ),
-                    ),
-                ],
-              );
-            },
-          ),
-          const SizedBox(height: 12),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              spacing: 8,
-              children: [
-                ChoiceChip(
-                  label: Text(l10n.metricPet),
-                  selected: _metric == 'pet',
-                  onSelected: (_) => _change(() => _metric = 'pet'),
-                ),
-                ChoiceChip(
-                  label: Text(l10n.metricDistance),
-                  selected: _metric == 'distance',
-                  onSelected: (_) => _change(() => _metric = 'distance'),
-                ),
-                ChoiceChip(
-                  label: Text(l10n.thisWeek),
-                  selected: _week == 0,
-                  onSelected: (_) => _change(() => _week = 0),
-                ),
-                ChoiceChip(
-                  label: Text(l10n.lastWeek),
-                  selected: _week == 1,
-                  onSelected: (_) => _change(() => _week = 1),
-                ),
-              ],
+                    const SizedBox(height: 12),
+                    Text(l10n.rankingRules, style: textTheme.bodySmall),
+                  ],
+                );
+              },
             ),
-          ),
-          const SizedBox(height: 4),
-          FutureBuilder<List<LeaderboardEntry>>(
-            future: _entries,
-            builder: (context, snap) {
-              if (snap.hasError) {
-                return LoadError(onRetry: () => _change(() {}));
-              }
-              final rows = snap.data;
-              if (rows == null) {
-                return const Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
-              if (rows.isEmpty) {
-                return Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 88,
-                        height: 88,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Brand.khakiSoft,
-                        ),
-                        child: const Icon(
-                          Icons.emoji_events_outlined,
-                          size: 44,
-                          color: Brand.olive,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(l10n.rankingEmpty, textAlign: TextAlign.center),
-                    ],
-                  ),
-                );
-              }
-              return Column(
-                children: [
-                  for (final (i, e) in rows.indexed)
-                    FadeSlideIn(
-                      index: i,
-                      child: _RankRow(
-                        entry: e,
-                        name: e.isMe ? '${e.name} (${l10n.youLabel})' : e.name,
-                        value: _valueText(l10n, e),
-                        shareTooltip: l10n.shareButton,
-                        onShare: e.isMe ? () => _share(l10n, e) : null,
-                      ),
-                    ),
-                  const SizedBox(height: 12),
-                  Text(l10n.rankingRules, style: textTheme.bodySmall),
-                ],
-              );
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

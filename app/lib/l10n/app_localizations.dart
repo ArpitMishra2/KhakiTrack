@@ -2136,6 +2136,258 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'आपका सारा डेटा सुरक्षित रहता है। दोबारा साइन इन करने पर सब वापस मिल जाएगा।'**
   String get signOutConfirmBody;
+
+  /// No description provided for @weatherFeels.
+  ///
+  /// In hi, this message translates to:
+  /// **'महसूस {t}°'**
+  String weatherFeels(String t);
+
+  /// No description provided for @weatherHumidity.
+  ///
+  /// In hi, this message translates to:
+  /// **'नमी {n}%'**
+  String weatherHumidity(int n);
+
+  /// No description provided for @weatherAqi.
+  ///
+  /// In hi, this message translates to:
+  /// **'AQI {n}'**
+  String weatherAqi(int n);
+
+  /// No description provided for @condClear.
+  ///
+  /// In hi, this message translates to:
+  /// **'साफ़ आसमान'**
+  String get condClear;
+
+  /// No description provided for @condClearNight.
+  ///
+  /// In hi, this message translates to:
+  /// **'साफ़ रात'**
+  String get condClearNight;
+
+  /// No description provided for @condCloudy.
+  ///
+  /// In hi, this message translates to:
+  /// **'बादल'**
+  String get condCloudy;
+
+  /// No description provided for @condFog.
+  ///
+  /// In hi, this message translates to:
+  /// **'कोहरा'**
+  String get condFog;
+
+  /// No description provided for @condRain.
+  ///
+  /// In hi, this message translates to:
+  /// **'बारिश'**
+  String get condRain;
+
+  /// No description provided for @condStorm.
+  ///
+  /// In hi, this message translates to:
+  /// **'आँधी-तूफ़ान'**
+  String get condStorm;
+
+  /// No description provided for @condOther.
+  ///
+  /// In hi, this message translates to:
+  /// **'मौसम'**
+  String get condOther;
+
+  /// No description provided for @verdictGood.
+  ///
+  /// In hi, this message translates to:
+  /// **'दौड़ने के लिए अच्छा मौसम'**
+  String get verdictGood;
+
+  /// No description provided for @verdictCaution.
+  ///
+  /// In hi, this message translates to:
+  /// **'संभलकर दौड़ें'**
+  String get verdictCaution;
+
+  /// No description provided for @verdictAvoid.
+  ///
+  /// In hi, this message translates to:
+  /// **'अभी बाहर न दौड़ें'**
+  String get verdictAvoid;
+
+  /// No description provided for @reasonFine.
+  ///
+  /// In hi, this message translates to:
+  /// **'हवा और तापमान ठीक हैं'**
+  String get reasonFine;
+
+  /// No description provided for @reasonHeat.
+  ///
+  /// In hi, this message translates to:
+  /// **'गर्मी और उमस ज़्यादा है'**
+  String get reasonHeat;
+
+  /// No description provided for @reasonStorm.
+  ///
+  /// In hi, this message translates to:
+  /// **'बिजली गिरने का खतरा'**
+  String get reasonStorm;
+
+  /// No description provided for @reasonRain.
+  ///
+  /// In hi, this message translates to:
+  /// **'बारिश है, ज़मीन फिसलन भरी'**
+  String get reasonRain;
+
+  /// No description provided for @reasonSmog.
+  ///
+  /// In hi, this message translates to:
+  /// **'हवा खराब है (AQI {n})'**
+  String reasonSmog(int n);
+
+  /// No description provided for @reasonCold.
+  ///
+  /// In hi, this message translates to:
+  /// **'ठंड ज़्यादा है'**
+  String get reasonCold;
+
+  /// No description provided for @reasonFog.
+  ///
+  /// In hi, this message translates to:
+  /// **'कोहरे में कम दिखता है'**
+  String get reasonFog;
+
+  /// No description provided for @reasonSun.
+  ///
+  /// In hi, this message translates to:
+  /// **'तेज़ धूप (UV ज़्यादा)'**
+  String get reasonSun;
+
+  /// No description provided for @tipWater.
+  ///
+  /// In hi, this message translates to:
+  /// **'पानी साथ रखें'**
+  String get tipWater;
+
+  /// No description provided for @tipOrs.
+  ///
+  /// In hi, this message translates to:
+  /// **'ORS या नींबू-पानी'**
+  String get tipOrs;
+
+  /// No description provided for @tipCap.
+  ///
+  /// In hi, this message translates to:
+  /// **'टोपी पहनें'**
+  String get tipCap;
+
+  /// No description provided for @tipLight.
+  ///
+  /// In hi, this message translates to:
+  /// **'हल्के सूती कपड़े'**
+  String get tipLight;
+
+  /// No description provided for @tipWarm.
+  ///
+  /// In hi, this message translates to:
+  /// **'ऊपर गर्म कपड़ा'**
+  String get tipWarm;
+
+  /// No description provided for @tipWarmup.
+  ///
+  /// In hi, this message translates to:
+  /// **'वार्म-अप लंबा करें'**
+  String get tipWarmup;
+
+  /// No description provided for @tipGrip.
+  ///
+  /// In hi, this message translates to:
+  /// **'पकड़ वाले जूते'**
+  String get tipGrip;
+
+  /// No description provided for @tipBright.
+  ///
+  /// In hi, this message translates to:
+  /// **'चमकीले कपड़े पहनें'**
+  String get tipBright;
+
+  /// No description provided for @tipEasy.
+  ///
+  /// In hi, this message translates to:
+  /// **'हल्की दौड़ रखें'**
+  String get tipEasy;
+
+  /// No description provided for @tipIndoors.
+  ///
+  /// In hi, this message translates to:
+  /// **'घर में कसरत करें'**
+  String get tipIndoors;
+
+  /// No description provided for @bestNow.
+  ///
+  /// In hi, this message translates to:
+  /// **'अभी का समय सबसे ठीक है'**
+  String get bestNow;
+
+  /// No description provided for @bestAt.
+  ///
+  /// In hi, this message translates to:
+  /// **'सबसे अच्छा समय: {day} {time}'**
+  String bestAt(String day, String time);
+
+  /// No description provided for @dayToday.
+  ///
+  /// In hi, this message translates to:
+  /// **'आज'**
+  String get dayToday;
+
+  /// No description provided for @dayTomorrow.
+  ///
+  /// In hi, this message translates to:
+  /// **'कल'**
+  String get dayTomorrow;
+
+  /// No description provided for @hourMorning.
+  ///
+  /// In hi, this message translates to:
+  /// **'सुबह {h} बजे'**
+  String hourMorning(int h);
+
+  /// No description provided for @hourDay.
+  ///
+  /// In hi, this message translates to:
+  /// **'दोपहर {h} बजे'**
+  String hourDay(int h);
+
+  /// No description provided for @hourEvening.
+  ///
+  /// In hi, this message translates to:
+  /// **'शाम {h} बजे'**
+  String hourEvening(int h);
+
+  /// No description provided for @weatherAsk.
+  ///
+  /// In hi, this message translates to:
+  /// **'अपने इलाके का मौसम देखें'**
+  String get weatherAsk;
+
+  /// No description provided for @weatherAllow.
+  ///
+  /// In hi, this message translates to:
+  /// **'मौसम देखें'**
+  String get weatherAllow;
+
+  /// No description provided for @weatherFailed.
+  ///
+  /// In hi, this message translates to:
+  /// **'मौसम नहीं मिला'**
+  String get weatherFailed;
+
+  /// No description provided for @weatherLoad.
+  ///
+  /// In hi, this message translates to:
+  /// **'मौसम लोड करें'**
+  String get weatherLoad;
 }
 
 class _AppLocalizationsDelegate

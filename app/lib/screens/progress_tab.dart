@@ -201,149 +201,164 @@ class _ProgressTabState extends State<ProgressTab> {
     final series = trialSeries(trials, metres);
     final latest = series.isEmpty ? null : series.last;
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
-      children: [
-        FadeSlideIn(
-          child: _StreakCard(
-            days: activityDays(data.logs, data.gpsRuns),
-            runs: data.gpsRuns,
-            today: widget.today ?? DateTime.now(),
-            targetSeconds: target,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                FilledButton.icon(
-                  onPressed: () => _openRun(run, mockPet: true),
-                  icon: const Icon(Icons.timer),
-                  label: Text(l10n.mockPetCta),
-                ),
-                const SizedBox(height: 8),
-                OutlinedButton.icon(
-                  onPressed: () => _openRun(run, mockPet: false),
-                  icon: const Icon(Icons.directions_run),
-                  label: Text(l10n.recordRun),
-                ),
-                if (data.pending > 0)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text(
-                      l10n.pendingRuns(data.pending),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-              ],
+    return RefreshIndicator(
+      onRefresh: () async {
+        final f = _load();
+        setState(() => _data = f);
+        await f;
+      },
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
+        children: [
+          FadeSlideIn(
+            child: _StreakCard(
+              days: activityDays(data.logs, data.gpsRuns),
+              runs: data.gpsRuns,
+              today: widget.today ?? DateTime.now(),
+              targetSeconds: target,
             ),
           ),
-        ),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.progressTitle(distance), style: textTheme.titleLarge),
-                Text(
-                  l10n.targetTime(formatDuration(target)),
-                  style: textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 12),
-                if (latest == null)
-                  Text(l10n.progressEmpty)
-                else ...[
-                  Text(
-                    l10n.latestTime(formatDuration(latest.seconds)) +
-                        (latest.estimated ? ' (${l10n.estimated})' : ''),
-                    style: textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 6),
-                  Pill(
-                    latest.seconds > target
-                        ? l10n.gapToCut(formatDuration(latest.seconds - target))
-                        : l10n.underTarget(
-                            formatDuration(target - latest.seconds),
-                          ),
-                    icon: latest.seconds > target
-                        ? Icons.trending_down
-                        : Icons.check_circle,
-                    background: latest.seconds > target
-                        ? Theme.of(context).colorScheme.errorContainer
-                        : const Color(0xFFD7EBD8),
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 200,
-                    child: CustomPaint(
-                      painter: _TrialChart(
-                        points: [for (final p in series) p.seconds],
-                        target: target,
-                        lineColor: Theme.of(context).colorScheme.primary,
-                        targetColor: Brand.olive,
-                        gridColor: Theme.of(context).colorScheme.outlineVariant,
-                      ),
-                      child: const SizedBox.expand(),
-                    ),
+          const SizedBox(height: 8),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  FilledButton.icon(
+                    onPressed: () => _openRun(run, mockPet: true),
+                    icon: const Icon(Icons.timer),
+                    label: Text(l10n.mockPetCta),
                   ),
                   const SizedBox(height: 8),
-                  for (final (i, t) in trials.reversed.indexed)
-                    ListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        '${distanceText(l10n, t.distanceM)} · ${formatDuration(t.durationSeconds)}',
+                  OutlinedButton.icon(
+                    onPressed: () => _openRun(run, mockPet: false),
+                    icon: const Icon(Icons.directions_run),
+                    label: Text(l10n.recordRun),
+                  ),
+                  if (data.pending > 0)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(
+                        l10n.pendingRuns(data.pending),
+                        textAlign: TextAlign.center,
                       ),
-                      subtitle: Text(shortDate(l10n, t.recordedOn)),
-                      trailing: t.distanceM == metres
-                          ? null
-                          : Text(
-                              '≈ ${formatDuration(series[series.length - 1 - i].seconds)}',
-                            ),
-                    ),
-                  if (series.any((p) => p.estimated))
-                    Text(
-                      l10n.estimateNote(distance),
-                      style: textTheme.bodySmall,
                     ),
                 ],
-              ],
+              ),
             ),
           ),
-        ),
-        if (data.gpsRuns.isNotEmpty) ...[
-          SectionTitle(l10n.recentRuns),
           Card(
-            child: Column(
-              children: [
-                for (final g in data.gpsRuns.take(10))
-                  ListTile(
-                    dense: true,
-                    leading: Icon(switch (g.verdict) {
-                      'verified' => Icons.verified,
-                      'rejected' => Icons.block,
-                      _ => Icons.help_outline,
-                    }, color: g.verdict == 'verified' ? Brand.good : null),
-                    title: Text(
-                      [
-                        g.mode == 'mock_pet'
-                            ? l10n.mockPetTitle
-                            : l10n.freeRunTitle,
-                        l10n.km((g.distanceM / 1000).toStringAsFixed(2)),
-                        formatDuration(g.finishSeconds ?? g.durationS),
-                      ].join(' · '),
-                    ),
-                    subtitle: Text(shortDate(l10n, g.startedAt)),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.progressTitle(distance),
+                    style: textTheme.titleLarge,
                   ),
-              ],
+                  Text(
+                    l10n.targetTime(formatDuration(target)),
+                    style: textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  if (latest == null)
+                    Text(l10n.progressEmpty)
+                  else ...[
+                    Text(
+                      l10n.latestTime(formatDuration(latest.seconds)) +
+                          (latest.estimated ? ' (${l10n.estimated})' : ''),
+                      style: textTheme.headlineSmall,
+                    ),
+                    const SizedBox(height: 6),
+                    Pill(
+                      latest.seconds > target
+                          ? l10n.gapToCut(
+                              formatDuration(latest.seconds - target),
+                            )
+                          : l10n.underTarget(
+                              formatDuration(target - latest.seconds),
+                            ),
+                      icon: latest.seconds > target
+                          ? Icons.trending_down
+                          : Icons.check_circle,
+                      background: latest.seconds > target
+                          ? Theme.of(context).colorScheme.errorContainer
+                          : const Color(0xFFD7EBD8),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: 200,
+                      child: CustomPaint(
+                        painter: _TrialChart(
+                          points: [for (final p in series) p.seconds],
+                          target: target,
+                          lineColor: Theme.of(context).colorScheme.primary,
+                          targetColor: Brand.olive,
+                          gridColor: Theme.of(
+                            context,
+                          ).colorScheme.outlineVariant,
+                        ),
+                        child: const SizedBox.expand(),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    for (final (i, t) in trials.reversed.indexed)
+                      ListTile(
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          '${distanceText(l10n, t.distanceM)} · ${formatDuration(t.durationSeconds)}',
+                        ),
+                        subtitle: Text(shortDate(l10n, t.recordedOn)),
+                        trailing: t.distanceM == metres
+                            ? null
+                            : Text(
+                                '≈ ${formatDuration(series[series.length - 1 - i].seconds)}',
+                              ),
+                      ),
+                    if (series.any((p) => p.estimated))
+                      Text(
+                        l10n.estimateNote(distance),
+                        style: textTheme.bodySmall,
+                      ),
+                  ],
+                ],
+              ),
             ),
           ),
+          if (data.gpsRuns.isNotEmpty) ...[
+            SectionTitle(l10n.recentRuns),
+            Card(
+              child: Column(
+                children: [
+                  for (final g in data.gpsRuns.take(10))
+                    ListTile(
+                      dense: true,
+                      leading: Icon(switch (g.verdict) {
+                        'verified' => Icons.verified,
+                        'rejected' => Icons.block,
+                        _ => Icons.help_outline,
+                      }, color: g.verdict == 'verified' ? Brand.good : null),
+                      title: Text(
+                        [
+                          g.mode == 'mock_pet'
+                              ? l10n.mockPetTitle
+                              : l10n.freeRunTitle,
+                          l10n.km((g.distanceM / 1000).toStringAsFixed(2)),
+                          formatDuration(g.finishSeconds ?? g.durationS),
+                        ].join(' · '),
+                      ),
+                      subtitle: Text(shortDate(l10n, g.startedAt)),
+                    ),
+                ],
+              ),
+            ),
+          ],
         ],
-      ],
+      ),
     );
   }
 }
@@ -610,12 +625,16 @@ class _TrialChart extends CustomPainter {
         ? size.width / 2
         : i / (points.length - 1) * size.width;
 
-    canvas.drawRect(
-      Offset.zero & size,
-      Paint()
-        ..color = gridColor
-        ..style = PaintingStyle.stroke,
-    );
+    for (var i = 1; i < 4; i++) {
+      final gy = size.height * i / 4;
+      canvas.drawLine(
+        Offset(0, gy),
+        Offset(size.width, gy),
+        Paint()
+          ..color = gridColor
+          ..strokeWidth = 1,
+      );
+    }
 
     final ty = y(target);
     final dash = Paint()
@@ -639,7 +658,31 @@ class _TrialChart extends CustomPainter {
       i == 0 ? path.moveTo(o.dx, o.dy) : path.lineTo(o.dx, o.dy);
       canvas.drawCircle(o, 4, Paint()..color = lineColor);
     }
-    canvas.drawPath(path, line);
+    // Soft fill under the line, then the line, then a ring on the latest point.
+    final fill = Path.from(path)
+      ..lineTo(x(points.length - 1), size.height)
+      ..lineTo(x(0), size.height)
+      ..close();
+    canvas.drawPath(
+      fill,
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            lineColor.withValues(alpha: 0.28),
+            lineColor.withValues(alpha: 0),
+          ],
+        ).createShader(Offset.zero & size),
+    );
+    canvas.drawPath(path, line..strokeJoin = StrokeJoin.round);
+    final last = Offset(x(points.length - 1), y(points.last));
+    canvas.drawCircle(
+      last,
+      9,
+      Paint()..color = lineColor.withValues(alpha: 0.25),
+    );
+    canvas.drawCircle(last, 5, Paint()..color = lineColor);
   }
 
   @override

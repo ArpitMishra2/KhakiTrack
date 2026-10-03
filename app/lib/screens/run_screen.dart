@@ -13,7 +13,7 @@ import '../gps/run_recorder.dart';
 import '../gps/run_repository.dart';
 import '../gps/voice_coach.dart';
 import '../l10n/app_localizations.dart';
-import 'heat_banner.dart';
+import '../weather/weather_card.dart';
 import '../theme/app_theme.dart';
 import '../theme/motion.dart';
 import '../theme/widgets.dart';
@@ -285,7 +285,7 @@ class _RunScreenState extends State<RunScreen> {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              HeatBanner(now: widget.now ?? DateTime.now()),
+              WeatherCard(now: widget.now ?? DateTime.now()),
               if (widget.mockPet)
                 Card(
                   child: Padding(
@@ -635,12 +635,39 @@ class _RunScreenState extends State<RunScreen> {
               ],
               const Divider(height: 32),
             ],
-            Text(
-              l10n.totalDistance(
-                l10n.km((r.distanceM / 1000).toStringAsFixed(2)),
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: BigStat(
+                    value: (r.distanceM / 1000).toStringAsFixed(2),
+                    label: '${l10n.distanceLabel} (${l10n.km('').trim()})',
+                    size: 40,
+                    color: Colors.white,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                ),
+                Expanded(
+                  child: BigStat(
+                    value: formatDuration(r.durationS),
+                    label: l10n.elapsed,
+                    size: 40,
+                    color: Colors.white,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                ),
+                Expanded(
+                  child: BigStat(
+                    value: r.distanceM > 0
+                        ? formatDuration(r.durationS / (r.distanceM / 1000))
+                        : '–',
+                    label: '${l10n.paceLabel} ${l10n.minPerKm('').trim()}',
+                    size: 40,
+                    color: Colors.white,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                ),
+              ],
             ),
-            Text(l10n.totalTime(formatDuration(r.durationS))),
             const SizedBox(height: 16),
             Card(
               child: ListTile(

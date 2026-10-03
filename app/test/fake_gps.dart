@@ -30,6 +30,13 @@ class FakeLocationSource implements LocationSource {
   Future<LocationAccess> ensureAccess() async => access;
 
   @override
+  Future<LocationAccess> checkAccess() async => access;
+
+  @override
+  Future<({double lat, double lon})?> coarsePosition() async =>
+      (lat: 26.85, lon: 80.95);
+
+  @override
   Stream<TrackPoint> track(DateTime start) {
     tracks++;
     current = StreamController<TrackPoint>();

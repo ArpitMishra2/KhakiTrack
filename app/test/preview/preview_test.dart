@@ -18,6 +18,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:maidan/gps/pacer.dart';
 import 'package:maidan/l10n/app_localizations.dart';
 import 'package:maidan/main.dart';
+import 'package:maidan/weather/weather_models.dart';
+import 'package:maidan/weather/weather_service.dart';
 import 'package:maidan/screens/run_screen.dart';
 import 'package:maidan/theme/app_theme.dart';
 
@@ -117,6 +119,7 @@ void main() {
       RepaintBoundary(
         key: key,
         child: MaidanApp(
+          weather: _PreviewWeather(),
           settings: _settings(),
           boards: boards,
           runs: runs,
@@ -344,6 +347,42 @@ void _secondaryTests() {
     await tester.pumpAndSettle();
     await _shot(tester, key, '14_questionnaire_yes');
   }, skip: _out == null);
+}
+
+class _PreviewWeather implements WeatherService {
+  @override
+  Future<WeatherResult> load({bool askPermission = false}) async {
+    final now = DateTime.now();
+    final start = DateTime(now.year, now.month, now.day);
+    return WeatherResult(
+      WeatherStatus.ready,
+      Weather(
+        now: DateTime(now.year, now.month, now.day, 15, 40),
+        tempC: 31,
+        feelsC: 36,
+        humidity: 67,
+        rainMm: 0,
+        code: 1,
+        isDay: true,
+        uv: 7,
+        aqi: 156,
+        hours: [
+          for (var i = 0; i < 48; i++)
+            HourPoint(
+              time: start.add(Duration(hours: i)),
+              feelsC: switch (start.add(Duration(hours: i)).hour) {
+                <= 6 => 25,
+                <= 9 => 29,
+                <= 17 => 36,
+                _ => 30,
+              }.toDouble(),
+              rainChance: 0,
+              uv: 3,
+            ),
+        ],
+      ),
+    );
+  }
 }
 
 class _NoBuzz implements Buzzer {

@@ -1159,4 +1159,146 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get signOutConfirmBody =>
       'आपका सारा डेटा सुरक्षित रहता है। दोबारा साइन इन करने पर सब वापस मिल जाएगा।';
+
+  @override
+  String weatherFeels(String t) {
+    return 'महसूस $t°';
+  }
+
+  @override
+  String weatherHumidity(int n) {
+    return 'नमी $n%';
+  }
+
+  @override
+  String weatherAqi(int n) {
+    return 'AQI $n';
+  }
+
+  @override
+  String get condClear => 'साफ़ आसमान';
+
+  @override
+  String get condClearNight => 'साफ़ रात';
+
+  @override
+  String get condCloudy => 'बादल';
+
+  @override
+  String get condFog => 'कोहरा';
+
+  @override
+  String get condRain => 'बारिश';
+
+  @override
+  String get condStorm => 'आँधी-तूफ़ान';
+
+  @override
+  String get condOther => 'मौसम';
+
+  @override
+  String get verdictGood => 'दौड़ने के लिए अच्छा मौसम';
+
+  @override
+  String get verdictCaution => 'संभलकर दौड़ें';
+
+  @override
+  String get verdictAvoid => 'अभी बाहर न दौड़ें';
+
+  @override
+  String get reasonFine => 'हवा और तापमान ठीक हैं';
+
+  @override
+  String get reasonHeat => 'गर्मी और उमस ज़्यादा है';
+
+  @override
+  String get reasonStorm => 'बिजली गिरने का खतरा';
+
+  @override
+  String get reasonRain => 'बारिश है, ज़मीन फिसलन भरी';
+
+  @override
+  String reasonSmog(int n) {
+    return 'हवा खराब है (AQI $n)';
+  }
+
+  @override
+  String get reasonCold => 'ठंड ज़्यादा है';
+
+  @override
+  String get reasonFog => 'कोहरे में कम दिखता है';
+
+  @override
+  String get reasonSun => 'तेज़ धूप (UV ज़्यादा)';
+
+  @override
+  String get tipWater => 'पानी साथ रखें';
+
+  @override
+  String get tipOrs => 'ORS या नींबू-पानी';
+
+  @override
+  String get tipCap => 'टोपी पहनें';
+
+  @override
+  String get tipLight => 'हल्के सूती कपड़े';
+
+  @override
+  String get tipWarm => 'ऊपर गर्म कपड़ा';
+
+  @override
+  String get tipWarmup => 'वार्म-अप लंबा करें';
+
+  @override
+  String get tipGrip => 'पकड़ वाले जूते';
+
+  @override
+  String get tipBright => 'चमकीले कपड़े पहनें';
+
+  @override
+  String get tipEasy => 'हल्की दौड़ रखें';
+
+  @override
+  String get tipIndoors => 'घर में कसरत करें';
+
+  @override
+  String get bestNow => 'अभी का समय सबसे ठीक है';
+
+  @override
+  String bestAt(String day, String time) {
+    return 'सबसे अच्छा समय: $day $time';
+  }
+
+  @override
+  String get dayToday => 'आज';
+
+  @override
+  String get dayTomorrow => 'कल';
+
+  @override
+  String hourMorning(int h) {
+    return 'सुबह $h बजे';
+  }
+
+  @override
+  String hourDay(int h) {
+    return 'दोपहर $h बजे';
+  }
+
+  @override
+  String hourEvening(int h) {
+    return 'शाम $h बजे';
+  }
+
+  @override
+  String get weatherAsk => 'अपने इलाके का मौसम देखें';
+
+  @override
+  String get weatherAllow => 'मौसम देखें';
+
+  @override
+  String get weatherFailed => 'मौसम नहीं मिला';
+
+  @override
+  String get weatherLoad => 'मौसम लोड करें';
 }

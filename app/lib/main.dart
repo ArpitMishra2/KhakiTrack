@@ -19,6 +19,7 @@ import 'gps/location_source.dart';
 import 'gps/run_repository.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/auth_gate.dart';
+import 'weather/weather_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -56,6 +57,9 @@ Future<void> main() async {
         notificationTitle: l10n.trackingNotificationTitle,
         notificationText: l10n.trackingNotificationText,
       ),
+      weather: OpenMeteoWeatherService(
+        const GeolocatorSource(notificationTitle: '', notificationText: ''),
+      ),
     ),
   );
 }
@@ -64,6 +68,7 @@ class MaidanApp extends StatefulWidget {
   const MaidanApp({
     super.key,
     this.settings,
+    this.weather,
     required this.repository,
     required this.auth,
     required this.profiles,
@@ -75,6 +80,10 @@ class MaidanApp extends StatefulWidget {
 
   /// Language and low-data mode; defaults to Hindi, normal data.
   final AppSettings? settings;
+
+  /// Live weather for the weather cards; without it they show the clock-based
+  /// hot-hours nudge.
+  final WeatherService? weather;
   final ExamRepository repository;
   final AuthService auth;
   final ProfileRepository profiles;
@@ -95,31 +104,38 @@ class _MaidanAppState extends State<MaidanApp> {
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: _settings,
-      builder: (context, _) => SettingsScope(
-        settings: _settings,
-        child: MaterialApp(
-          onGenerateTitle: (context) => AppLocalizations.of(context).appName,
-          theme: AppTheme.light(),
-          // Hindi is the default; the user can switch to English in settings.
-          locale: _settings.locale,
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          home: AuthGate(
-            auth: widget.auth,
-            repository: widget.repository,
-            profiles: widget.profiles,
-            training: widget.training,
-            runs: widget.runs,
-            location: widget.location,
-            boards: widget.boards,
+      builder: (context, _) => _withWeather(
+        SettingsScope(
+          settings: _settings,
+          child: MaterialApp(
+            onGenerateTitle: (context) => AppLocalizations.of(context).appName,
+            theme: AppTheme.light(),
+            // Hindi is the default; the user can switch to English in settings.
+            locale: _settings.locale,
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            home: AuthGate(
+              auth: widget.auth,
+              repository: widget.repository,
+              profiles: widget.profiles,
+              training: widget.training,
+              runs: widget.runs,
+              location: widget.location,
+              boards: widget.boards,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _withWeather(Widget child) {
+    final w = widget.weather;
+    return w == null ? child : WeatherScope(service: w, child: child);
   }
 }
