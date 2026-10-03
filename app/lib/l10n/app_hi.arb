@@ -687,5 +687,23 @@
     }
   },
   "voiceOn": "आवाज़ चालू",
-  "voiceOff": "आवाज़ बंद"
+  "voiceOff": "आवाज़ बंद",
+  "shareButton": "WhatsApp पर शेयर करें",
+  "sharePetText": "मैंने मैदान ऐप में {distance} की मॉक दौड़ {time} में पूरी की ({margin})! {outcome} तुम भी अपनी भर्ती की तैयारी जाँचो।",
+  "@sharePetText": {
+    "placeholders": {
+      "distance": {"type": "String"},
+      "time": {"type": "String"},
+      "margin": {"type": "String"},
+      "outcome": {"type": "String"}
+    }
+  },
+  "shareRankText": "मैदान ऐप की इस हफ़्ते की लीडरबोर्ड ({board}) में मेरी रैंक #{rank} है, {value}! क्या तुम मुझे हरा सकते हो?",
+  "@shareRankText": {
+    "placeholders": {
+      "board": {"type": "String"},
+      "rank": {"type": "int"},
+      "value": {"type": "String"}
+    }
+  }
 }

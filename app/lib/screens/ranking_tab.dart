@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../data/leaderboard_repository.dart';
 import '../data/training_logic.dart';
@@ -19,6 +20,7 @@ class RankingTab extends StatefulWidget {
 class _RankingTabState extends State<RankingTab> {
   late Future<List<Community>> _mine = widget.boards.myCommunities();
   int? _community; // null: everyone
+  List<Community> _mineLoaded = const [];
   String _metric = 'pet';
   int _week = 0;
   late Future<List<LeaderboardEntry>> _entries = _fetch();
@@ -30,6 +32,24 @@ class _RankingTabState extends State<RankingTab> {
     f();
     _entries = _fetch();
   });
+
+  String _valueText(AppLocalizations l10n, LeaderboardEntry e) =>
+      _metric == 'pet'
+      ? formatDuration(e.value)
+      : l10n.km(e.value.toStringAsFixed(1));
+
+  void _share(AppLocalizations l10n, LeaderboardEntry e) {
+    final name = _mineLoaded.where((c) => c.id == _community).firstOrNull?.name;
+    SharePlus.instance.share(
+      ShareParams(
+        text: l10n.shareRankText(
+          name ?? l10n.boardEveryone,
+          e.rank,
+          _valueText(l10n, e),
+        ),
+      ),
+    );
+  }
 
   Future<void> _manage() async {
     await Navigator.of(context).push<void>(
@@ -69,6 +89,7 @@ class _RankingTabState extends State<RankingTab> {
             future: _mine,
             builder: (context, snap) {
               final mine = snap.data ?? const <Community>[];
+              _mineLoaded = mine;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -166,11 +187,20 @@ class _RankingTabState extends State<RankingTab> {
                         title: Text(
                           e.isMe ? '${e.name} (${l10n.youLabel})' : e.name,
                         ),
-                        trailing: Text(
-                          _metric == 'pet'
-                              ? formatDuration(e.value)
-                              : l10n.km(e.value.toStringAsFixed(1)),
-                          style: textTheme.titleMedium,
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              _valueText(l10n, e),
+                              style: textTheme.titleMedium,
+                            ),
+                            if (e.isMe)
+                              IconButton(
+                                tooltip: l10n.shareButton,
+                                icon: const Icon(Icons.share),
+                                onPressed: () => _share(l10n, e),
+                              ),
+                          ],
                         ),
                       ),
                     ),

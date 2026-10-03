@@ -1041,4 +1041,22 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get voiceOff => 'आवाज़ बंद';
+
+  @override
+  String get shareButton => 'WhatsApp पर शेयर करें';
+
+  @override
+  String sharePetText(
+    String distance,
+    String time,
+    String margin,
+    String outcome,
+  ) {
+    return 'मैंने मैदान ऐप में $distance की मॉक दौड़ $time में पूरी की ($margin)! $outcome तुम भी अपनी भर्ती की तैयारी जाँचो।';
+  }
+
+  @override
+  String shareRankText(String board, int rank, String value) {
+    return 'मैदान ऐप की इस हफ़्ते की लीडरबोर्ड ($board) में मेरी रैंक #$rank है, $value! क्या तुम मुझे हरा सकते हो?';
+  }
 }
