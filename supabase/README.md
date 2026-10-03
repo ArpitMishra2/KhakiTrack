@@ -17,7 +17,9 @@ Then run `seed.sql` in the SQL editor, or through the Management API (`POST /v1/
 Needs the Supabase secret `GROQ_API_KEY` or `ANTHROPIC_API_KEY` (Dashboard > Edge Functions > Secrets).
 
     cd supabase/functions/training-plan && deno test --config deno.json --allow-env .
+    # from the repository root (not from inside supabase/):
     SUPABASE_ACCESS_TOKEN=... npx supabase functions deploy training-plan --project-ref <ref> --use-api
+    SUPABASE_ACCESS_TOKEN=... npx supabase functions deploy submit-run --project-ref <ref> --use-api
 
 ## Database tests
 `tests/*.sql` run against the dev project and leave no data behind: each test is a DO block that ends by raising `PASS ...` or `FAIL ...`, which rolls back everything it created.
@@ -25,3 +27,6 @@ Needs the Supabase secret `GROQ_API_KEY` or `ANTHROPIC_API_KEY` (Dashboard > Edg
     SUPABASE_ACCESS_TOKEN=... bash supabase/tests/run.sh communities_test.sql
 
 They are not in CI yet because CI has no database access token.
+
+## Security
+`migrations/20261003000007_security_hardening.sql` and `tests/security_test.sql` hold the protections from the audit in `docs/SECURITY.md`: least-privilege table grants, the `ai_usage` ledger behind the plan limits, invite-code brute-force protection. Run every file in `tests/` after changing a migration. A new table needs explicit grants and RLS policies: signed-out users and (for server-written tables) signed-in users get nothing by default.

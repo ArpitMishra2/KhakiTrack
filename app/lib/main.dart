@@ -36,6 +36,7 @@ Future<void> main() async {
       '${(await getApplicationDocumentsDirectory()).path}/settings.json',
     ),
   );
+  final runs = SupabaseRunRepository(Supabase.instance.client);
   runApp(
     MaidanApp(
       settings: settings,
@@ -46,6 +47,7 @@ Future<void> main() async {
       auth: SupabaseAuthService(
         Supabase.instance.client,
         onDeleted: (id) async {
+          await runs.forgetUser(id);
           // Wipe this user's saved profile and plan draft from the phone.
           final dir = await getApplicationDocumentsDirectory();
           for (final name in ['profile_$id.json', 'plan_draft_$id.json']) {
@@ -63,7 +65,7 @@ Future<void> main() async {
         Supabase.instance.client,
         getApplicationDocumentsDirectory,
       ),
-      runs: SupabaseRunRepository(Supabase.instance.client),
+      runs: runs,
       boards: SupabaseLeaderboardRepository(Supabase.instance.client),
       location: (l10n) => GeolocatorSource(
         notificationTitle: l10n.trackingNotificationTitle,

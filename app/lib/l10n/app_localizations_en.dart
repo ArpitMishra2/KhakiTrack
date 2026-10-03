@@ -1359,4 +1359,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aboutSafety =>
       'Plans and weather tips are general guidance, not medical advice. See a doctor if you have pain or a health condition.';
+
+  @override
+  String get errTooManyTries => 'Too many wrong codes. Try again in a while.';
 }

@@ -397,5 +397,6 @@
   "aboutDataTitle": "Your data",
   "aboutData": "Name, date of birth, gender, category, your runs (GPS routes), plans and logs. Weather uses a rough location that is not saved. Deleting your account erases it all.",
   "aboutSafetyTitle": "Health",
-  "aboutSafety": "Plans and weather tips are general guidance, not medical advice. See a doctor if you have pain or a health condition."
+  "aboutSafety": "Plans and weather tips are general guidance, not medical advice. See a doctor if you have pain or a health condition.",
+  "errTooManyTries": "Too many wrong codes. Try again in a while."
 }

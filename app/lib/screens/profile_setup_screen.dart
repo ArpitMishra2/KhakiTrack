@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
@@ -127,6 +128,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             controller: _name,
             decoration: InputDecoration(labelText: l10n.name),
             textCapitalization: TextCapitalization.words,
+            inputFormatters: [LengthLimitingTextInputFormatter(60)],
             onChanged: (_) => setState(() {}),
           ),
           const SizedBox(height: 16),

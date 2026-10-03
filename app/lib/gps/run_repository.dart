@@ -1,10 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'run_analysis.dart';
+import 'run_queue.dart';
 
 /// A finished run waiting to be sent to the server.
 class RunSubmission {
@@ -115,32 +115,21 @@ abstract class RunRepository {
 
 class SupabaseRunRepository implements RunRepository {
   SupabaseRunRepository(this._client, {Future<Directory> Function()? dir})
-    : _dir = dir ?? getApplicationDocumentsDirectory;
+    : _queue = RunQueue(dir ?? getApplicationDocumentsDirectory);
 
   final SupabaseClient _client;
-  final Future<Directory> Function() _dir;
+  final RunQueue _queue;
 
-  Future<File> get _pendingFile async =>
-      File('${(await _dir()).path}/pending_runs.json');
+  String? get _uid => _client.auth.currentUser?.id;
 
-  Future<List<Map<String, dynamic>>> _readPending() async {
-    final f = await _pendingFile;
-    if (!await f.exists()) return [];
-    try {
-      return (jsonDecode(await f.readAsString()) as List)
-          .cast<Map<String, dynamic>>();
-    } on FormatException {
-      return [];
-    }
-  }
-
-  Future<void> _writePending(List<Map<String, dynamic>> runs) async {
-    final f = await _pendingFile;
-    await f.writeAsString(jsonEncode(runs));
-  }
+  /// Wipes the offline queue of an account that was deleted.
+  Future<void> forgetUser(String userId) => _queue.forget(userId);
 
   Future<ServerVerdict> _send(Map<String, dynamic> body) async {
-    final res = await _client.functions.invoke('submit-run', body: body);
+    final res = await _client.functions.invoke(
+      'submit-run',
+      body: {...body}..remove('queued_for'),
+    );
     final data = res.data as Map<String, dynamic>;
     return ServerVerdict(
       verdict: data['verdict'] as String,
@@ -149,42 +138,61 @@ class SupabaseRunRepository implements RunRepository {
     );
   }
 
+  /// Statuses that mean "not now", not "never": signed out or token expired
+  /// (401), timeout (408), busy or daily limit (429).
+  static bool _tryAgainLater(int status) =>
+      status < 400 ||
+      status >= 500 ||
+      status == 401 ||
+      status == 408 ||
+      status == 429;
+
   @override
   Future<ServerVerdict?> submit(RunSubmission run) async {
     final body = run.toJson();
     try {
       return await _send(body);
     } on FunctionException catch (e) {
-      // The server refused it (bad data or daily limit): do not retry.
-      if (e.status >= 400 && e.status < 500) rethrow;
+      // The server refused it (bad data, duplicate, daily limit): do not
+      // keep it. A signed-out or timed-out try is kept for later.
+      if (e.status >= 400 &&
+          e.status < 500 &&
+          e.status != 401 &&
+          e.status != 408) {
+        rethrow;
+      }
     } on Exception {
       // Network trouble: keep it for later.
     }
-    await _writePending([...await _readPending(), body]);
+    final id = _uid;
+    if (id == null) throw StateError('not signed in');
+    await _queue.add(body, id);
     return null;
   }
 
   @override
   Future<int> flushPending() async {
-    final pending = await _readPending();
-    final left = <Map<String, dynamic>>[];
-    var sent = 0;
-    for (final body in pending) {
+    final id = _uid;
+    if (id == null) return 0;
+    return _queue.flush(id, (body) async {
       try {
         await _send(body);
-        sent++;
+        return SendOutcome.sent;
       } on FunctionException catch (e) {
-        if (e.status < 400 || e.status >= 500) left.add(body);
+        return _tryAgainLater(e.status)
+            ? SendOutcome.keep
+            : SendOutcome.dropped;
       } on Exception {
-        left.add(body);
+        return SendOutcome.keep;
       }
-    }
-    if (pending.isNotEmpty) await _writePending(left);
-    return sent;
+    });
   }
 
   @override
-  Future<int> pendingCount() async => (await _readPending()).length;
+  Future<int> pendingCount() async {
+    final id = _uid;
+    return id == null ? 0 : _queue.count(id);
+  }
 
   @override
   Future<List<GpsRunSummary>> recentRuns() async {

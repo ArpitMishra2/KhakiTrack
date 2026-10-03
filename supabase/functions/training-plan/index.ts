@@ -100,12 +100,29 @@ async function loadCandidate(db: SupabaseClient, userId: string, today: string) 
   return { candidate, examId: profile.exam_id as string };
 }
 
-async function countSince(db: SupabaseClient, table: string, userId: string, since: Date) {
-  const { count } = await db.from(table)
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", userId)
-    .gte("created_at", since.toISOString());
-  return count ?? 0;
+/**
+ * Takes one of the user's AI slots for the day, or returns null when they are
+ * used up. The count lives in a ledger users cannot edit (ai_usage), unlike
+ * the plan rows they own and could delete or back-date.
+ */
+export async function claimSlot(db: SupabaseClient, kind: "plan" | "week", max: number) {
+  const { data, error } = await db.rpc("claim_ai_slot", { p_kind: kind, p_max: max });
+  if (error) throw error;
+  return (data as string | null) ?? null;
+}
+
+/** Marks a slot as used for good; best effort, the slot is counted anyway. */
+export async function finishSlot(db: SupabaseClient, id: string) {
+  await db.rpc("finish_ai_slot", { p_id: id });
+}
+
+/** Gives a slot back when generation failed, so a failure costs the user nothing. */
+export async function releaseSlot(db: SupabaseClient, id: string) {
+  try {
+    await db.rpc("release_ai_slot", { p_id: id });
+  } catch {
+    // The slot frees itself after ten minutes anyway.
+  }
 }
 
 async function createPlan(
@@ -121,11 +138,28 @@ async function createPlan(
   if (!loaded) return fail(409, "profile_incomplete");
   const { candidate, examId } = loaded;
 
-  const dayAgo = new Date(Date.now() - 86_400_000);
-  if (await countSince(db, "training_plans", userId, dayAgo) >= MAX_PLANS_PER_DAY) {
-    return fail(429, "rate_limited");
+  const slot = await claimSlot(db, "plan", MAX_PLANS_PER_DAY);
+  if (!slot) return fail(429, "rate_limited");
+  try {
+    const response = await buildPlan(db, userId, model, today, started, answers, candidate, examId);
+    await finishSlot(db, slot);
+    return response;
+  } catch (e) {
+    await releaseSlot(db, slot);
+    throw e;
   }
+}
 
+async function buildPlan(
+  db: SupabaseClient,
+  userId: string,
+  model: JsonModel,
+  today: string,
+  started: number,
+  answers: Answers,
+  candidate: Candidate,
+  examId: string,
+) {
   const weeksTotal = answers.weeks_to_pet;
   const { value: outline, model: modelName } = await generate({
     model,
@@ -212,13 +246,33 @@ async function nextWeek(
     return fail(409, "too_early", { unlocks_on: unlock.toISOString().slice(0, 10) });
   }
 
-  const dayAgo = new Date(Date.now() - 86_400_000);
-  if (await countSince(db, "plan_weeks", userId, dayAgo) >= MAX_WEEKS_PER_DAY) {
-    return fail(429, "rate_limited");
-  }
-
   const loaded = await loadCandidate(db, userId, today);
   if (!loaded) return fail(409, "profile_incomplete");
+
+  const slot = await claimSlot(db, "week", MAX_WEEKS_PER_DAY);
+  if (!slot) return fail(429, "rate_limited");
+  try {
+    const response = await buildWeek(db, userId, model, today, started, plan, planId, n, weeks ?? [], loaded);
+    await finishSlot(db, slot);
+    return response;
+  } catch (e) {
+    await releaseSlot(db, slot);
+    throw e;
+  }
+}
+
+async function buildWeek(
+  db: SupabaseClient,
+  userId: string,
+  model: JsonModel,
+  today: string,
+  started: number,
+  plan: { exam_id: string; assessment_id: number; weeks_total: number; outline: unknown },
+  planId: number,
+  n: number,
+  weeks: Array<{ week_number: number; sessions: { sessions: WeekDetail["sessions"] } }>,
+  loaded: { candidate: Candidate; examId: string },
+) {
   const [{ data: assessment }, { data: logs }, { data: trial }] = await Promise.all([
     db.from("training_assessments").select("answers").eq("id", plan.assessment_id).single(),
     db.from("session_logs")
@@ -232,7 +286,7 @@ async function nextWeek(
   const outline = PlanOutline.omit({ first_weeks: true }).parse(plan.outline);
   const outlineWeek = outline.weeks.find((w) => w.week === n)!;
 
-  const history: WeekHistory[] = (weeks ?? []).map((w) => ({
+  const history: WeekHistory[] = weeks.map((w) => ({
     week: w.week_number,
     sessions: w.sessions.sessions,
     logs: (logs ?? []).filter((l) => l.week_number === w.week_number),

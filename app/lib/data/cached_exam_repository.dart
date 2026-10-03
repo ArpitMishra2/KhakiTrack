@@ -14,8 +14,9 @@ class CachedExamRepository implements ExamRepository {
   final ExamRepository _inner;
   final Future<Directory> Function() _dir;
 
-  Future<File> _file(String name) async =>
-      File('${(await _dir()).path}/cache_$name.json');
+  Future<File> _file(String name) async => File(
+    '${(await _dir()).path}/cache_${name.replaceAll(RegExp(r'[^A-Za-z0-9_-]'), '_')}.json',
+  );
 
   Future<T> _cached<T>(
     String name,

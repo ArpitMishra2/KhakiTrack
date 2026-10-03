@@ -1358,4 +1358,8 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get aboutSafety =>
       'प्लान और मौसम की सलाह आम जानकारी है, डॉक्टर की सलाह नहीं। दर्द या बीमारी हो तो डॉक्टर से मिलें।';
+
+  @override
+  String get errTooManyTries =>
+      'कई बार गलत कोड डाला। थोड़ी देर बाद कोशिश करें।';
 }
