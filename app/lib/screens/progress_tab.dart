@@ -17,6 +17,7 @@ import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../theme/motion.dart';
 import '../theme/widgets.dart';
+import 'demo_badge.dart';
 import 'language_button.dart';
 import 'load_error.dart';
 import 'run_screen.dart';
@@ -117,6 +118,16 @@ class _ProgressTabState extends State<ProgressTab> {
     }
   }
 
+  bool? _demoSeen;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final demo = SettingsScope.demoOf(context);
+    if (_demoSeen != null && _demoSeen != demo) _data = _load();
+    _demoSeen = demo;
+  }
+
   @override
   void didUpdateWidget(ProgressTab old) {
     super.didUpdateWidget(old);
@@ -211,6 +222,7 @@ class _ProgressTabState extends State<ProgressTab> {
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
         children: [
+          const DemoBadge(),
           FadeSlideIn(
             child: _StreakCard(
               days: activityDays(data.logs, data.gpsRuns),

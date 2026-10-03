@@ -25,6 +25,16 @@ class FakeAuthService implements AuthService {
     return nextResult;
   }
 
+  bool deleted = false;
+  bool failDelete = false;
+
+  @override
+  Future<void> deleteAccount() async {
+    if (failDelete) throw Exception('offline');
+    deleted = true;
+    await signOut();
+  }
+
   @override
   Future<void> signOut() async {
     _signedIn = false;

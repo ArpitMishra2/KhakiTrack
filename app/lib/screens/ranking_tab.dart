@@ -8,7 +8,7 @@ import '../data/training_logic.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../theme/motion.dart';
-import '../theme/widgets.dart';
+import 'demo_badge.dart';
 import 'language_button.dart';
 import 'load_error.dart';
 
@@ -129,15 +129,7 @@ class _RankingTabState extends State<RankingTab> {
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(16),
           children: [
-            if (SettingsScope.demoOf(context))
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: Pill(
-                  l10n.demoBadge,
-                  icon: Icons.science,
-                  background: Brand.saffronSoft,
-                ),
-              ),
+            const DemoBadge(),
             Align(
               alignment: AlignmentDirectional.centerEnd,
               child: TextButton.icon(

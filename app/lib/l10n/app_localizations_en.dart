@@ -1307,8 +1307,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get demoNote =>
-      'Rankings show made-up students. Your real data is untouched.';
+      'Shows sample rankings, plan, progress and runs. Your real data is untouched.';
 
   @override
   String get demoBadge => 'Demo data';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get deleteTitle => 'Delete your account for good?';
+
+  @override
+  String get deleteBody =>
+      'Your profile, plans, runs and rankings are erased. This cannot be undone.';
+
+  @override
+  String get deleteConfirm => 'Delete for good';
+
+  @override
+  String get deleteFailed =>
+      'Couldn\'t delete the account. Check your internet and try again.';
+
+  @override
+  String get aboutTitle => 'About';
+
+  @override
+  String get aboutIndependentTitle => 'Independent app';
+
+  @override
+  String get aboutIndependent =>
+      'Maidan is not connected to any government department or recruitment board. Always check the official notice before you apply.';
+
+  @override
+  String get aboutSourcesTitle => 'Where the standards come from';
+
+  @override
+  String get aboutSources =>
+      'Every standard is read from the official recruitment notice, with page and paragraph. Anything unconfirmed shows as \'Not yet confirmed\'.';
+
+  @override
+  String get aboutDataTitle => 'Your data';
+
+  @override
+  String get aboutData =>
+      'Name, date of birth, gender, category, your runs (GPS routes), plans and logs. Weather uses a rough location that is not saved. Deleting your account erases it all.';
+
+  @override
+  String get aboutSafetyTitle => 'Health';
+
+  @override
+  String get aboutSafety =>
+      'Plans and weather tips are general guidance, not medical advice. See a doctor if you have pain or a health condition.';
 }

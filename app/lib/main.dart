@@ -13,6 +13,7 @@ import 'data/app_settings.dart';
 import 'data/auth_service.dart';
 import 'data/exam_repository.dart';
 import 'data/demo_leaderboard.dart';
+import 'data/demo_repositories.dart';
 import 'data/leaderboard_repository.dart';
 import 'data/profile.dart';
 import 'data/training_repository.dart';
@@ -42,7 +43,17 @@ Future<void> main() async {
         SupabaseExamRepository(Supabase.instance.client),
         getApplicationDocumentsDirectory,
       ),
-      auth: SupabaseAuthService(Supabase.instance.client),
+      auth: SupabaseAuthService(
+        Supabase.instance.client,
+        onDeleted: (id) async {
+          // Wipe this user's saved profile and plan draft from the phone.
+          final dir = await getApplicationDocumentsDirectory();
+          for (final name in ['profile_$id.json', 'plan_draft_$id.json']) {
+            final f = File('${dir.path}/$name');
+            if (await f.exists()) await f.delete();
+          }
+        },
+      ),
       profiles: CachedProfileRepository(
         SupabaseProfileRepository(Supabase.instance.client),
         getApplicationDocumentsDirectory,
@@ -112,6 +123,18 @@ class _MaidanAppState extends State<MaidanApp> {
     isDemo: () => _settings.demoData,
   );
 
+  late final TrainingRepository _training = SwitchableTraining(
+    real: widget.training,
+    demo: DemoTrainingRepository(language: () => _settings.locale.languageCode),
+    isDemo: () => _settings.demoData,
+  );
+
+  late final RunRepository _runs = SwitchableRuns(
+    real: widget.runs,
+    demo: DemoRunRepository(),
+    isDemo: () => _settings.demoData,
+  );
+
   late final AppSettings _settings = (widget.settings ?? AppSettings())
     ..onLanguageChanged = (code) => widget.profiles.saveLocale(code);
 
@@ -123,6 +146,7 @@ class _MaidanAppState extends State<MaidanApp> {
         SettingsScope(
           settings: _settings,
           child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             onGenerateTitle: (context) => AppLocalizations.of(context).appName,
             theme: AppTheme.light(),
             // Hindi is the default; the user can switch to English in settings.
@@ -138,8 +162,8 @@ class _MaidanAppState extends State<MaidanApp> {
               auth: widget.auth,
               repository: widget.repository,
               profiles: widget.profiles,
-              training: widget.training,
-              runs: widget.runs,
+              training: _training,
+              runs: _runs,
               location: widget.location,
               boards: _boards,
             ),

@@ -13,15 +13,22 @@ abstract class AuthService {
 
   Future<SignInResult> signInWithGoogle();
   Future<void> signOut();
+
+  /// Erases the account and all its data on the server, then signs out.
+  /// Throws if that fails (for example offline): nothing is removed then.
+  Future<void> deleteAccount();
 }
 
 /// Native Google sign-in (Android Credential Manager) exchanged for a
 /// Supabase session with signInWithIdToken. The ID token is issued for the
 /// Web client ID, which is the client ID configured in Supabase.
 class SupabaseAuthService implements AuthService {
-  SupabaseAuthService(this._client);
+  SupabaseAuthService(this._client, {this.onDeleted});
 
   final SupabaseClient _client;
+
+  /// Called with the user id once the account is gone, to wipe local copies.
+  final Future<void> Function(String userId)? onDeleted;
   Future<void>? _googleInit;
 
   @override
@@ -53,6 +60,20 @@ class SupabaseAuthService implements AuthService {
     } on AuthException {
       return SignInResult.failed;
     }
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    final id = _client.auth.currentUser?.id;
+    // The server removes the account and, through cascades, all its data.
+    await _client.rpc('delete_my_account');
+    if (id != null) await onDeleted?.call(id);
+    try {
+      await _client.auth.signOut(scope: SignOutScope.local);
+    } on Object {
+      // The session died with the account; the local sign-out still counts.
+    }
+    if (_googleInit != null) await GoogleSignIn.instance.signOut();
   }
 
   @override
