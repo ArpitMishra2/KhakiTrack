@@ -5,6 +5,7 @@ import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
+import 'language_button.dart';
 import 'load_error.dart';
 
 /// First-run form: name, gender, date of birth (18+), exam and category.
@@ -100,7 +101,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     final dob = _dob;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.profileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.profileTitle),
+        actions: const [LanguageButton()],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [

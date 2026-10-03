@@ -7,6 +7,7 @@ import '../data/profile.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../theme/widgets.dart';
+import 'language_button.dart';
 import 'load_error.dart';
 import 'settings_screen.dart';
 import 'standards_screen.dart';
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(l10n.appName),
         actions: [
+          const LanguageButton(),
           IconButton(
             tooltip: l10n.settingsTitle,
             icon: const Icon(Icons.settings),
@@ -50,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             tooltip: l10n.signOut,
             icon: const Icon(Icons.logout),
-            onPressed: widget.auth.signOut,
+            onPressed: () => confirmSignOut(context, widget.auth),
           ),
         ],
       ),
@@ -110,10 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: BoxShape.circle,
                             color: Brand.olive,
                           ),
-                          child: const Icon(
-                            Icons.military_tech,
-                            color: Brand.khaki,
-                          ),
+                          child: Icon(examIcon(exam.id), color: Brand.khaki),
                         ),
                         title: Text(
                           exam.nameFor(language),
@@ -139,4 +138,17 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+IconData examIcon(String id) {
+  if (id.contains('police')) {
+    return Icons.local_police;
+  }
+  if (id.contains('agniveer') || id.contains('army')) {
+    return Icons.military_tech;
+  }
+  if (id.contains('ssc')) {
+    return Icons.shield;
+  }
+  return Icons.military_tech;
 }

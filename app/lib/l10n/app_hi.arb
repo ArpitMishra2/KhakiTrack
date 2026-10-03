@@ -1,10 +1,10 @@
 {
   "@@locale": "hi",
   "appName": "मैदान",
-  "welcomeTitle": "सरकारी भर्ती की शारीरिक परीक्षा की तैयारी",
-  "welcomeSubtitle": "यूपी पुलिस कांस्टेबल और SSC GD",
+  "welcomeTitle": "शारीरिक परीक्षा की तैयारी",
+  "welcomeSubtitle": "UP Police · SSC GD · Delhi Police",
   "chooseExam": "अपनी परीक्षा चुनें",
-  "loadError": "डेटा लोड नहीं हो सका। इंटरनेट कनेक्शन जांचें।",
+  "loadError": "लोड नहीं हुआ। इंटरनेट जांचें।",
   "retry": "फिर कोशिश करें",
   "gender": "लिंग",
   "male": "पुरुष",
@@ -78,7 +78,7 @@
   },
   "notConfirmed": "पुष्टि बाकी",
   "noStandards": "इस चयन के लिए कोई मानक नहीं मिला।",
-  "sourceNote": "स्रोत: आधिकारिक भर्ती सूचना (डेटा संस्करण {version})",
+  "sourceNote": "स्रोत: आधिकारिक सूचना · {version}",
   "@sourceNote": {
     "placeholders": {
       "version": {
@@ -95,17 +95,17 @@
   "catNeStates": "पूर्वोत्तर राज्य (अरुणाचल, मणिपुर, मेघालय, मिज़ोरम, नागालैंड, सिक्किम, त्रिपुरा)",
   "catGta": "गोरखा क्षेत्रीय प्रशासन (दार्जिलिंग)",
   "signInWithGoogle": "Google से जारी रखें",
-  "signInFailed": "साइन इन नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।",
-  "adultsOnly": "यह ऐप केवल 18 वर्ष या उससे अधिक उम्र के लोगों के लिए है।",
+  "signInFailed": "साइन इन नहीं हुआ। फिर कोशिश करें।",
+  "adultsOnly": "केवल 18+ के लिए",
   "signOut": "साइन आउट",
   "profileTitle": "आपकी जानकारी",
-  "profileIntro": "सही शारीरिक मानक दिखाने के लिए यह जानकारी चाहिए।",
+  "profileIntro": "सही मानक दिखाने के लिए।",
   "name": "नाम",
   "dateOfBirth": "जन्म तिथि",
   "chooseDate": "तारीख चुनें",
   "chooseCategory": "श्रेणी चुनें",
   "save": "सेव करें",
-  "saveFailed": "सेव नहीं हो सका। इंटरनेट जांचकर फिर कोशिश करें।",
+  "saveFailed": "सेव नहीं हो सका। फिर कोशिश करें।",
   "socialGeneral": "सामान्य",
   "socialObc": "अन्य पिछड़ा वर्ग (OBC)",
   "socialSc": "अनुसूचित जाति (SC)",
@@ -115,7 +115,7 @@
   "tabStandards": "मानक",
   "tabProgress": "प्रगति",
   "trainingIntroTitle": "आपका अपना रनिंग प्लान",
-  "trainingIntroBody": "कुछ सवालों के जवाब दें। AI आपके अभी के स्तर, समय और अनुभव के हिसाब से हफ्ते-दर-हफ्ते प्लान बनाएगा, ताकि PET के दिन तक आप दौड़ आराम से समय में पूरी कर सकें।",
+  "trainingIntroBody": "4 छोटे सवाल, फिर आपके स्तर और समय के हिसाब से हफ्ते-दर-हफ्ते प्लान।",
   "startQuestionnaire": "प्लान बनाना शुरू करें",
   "qTitle": "आपके बारे में",
   "qStep": "चरण {step} / {total}",
@@ -179,7 +179,7 @@
   "bgGym": "जिम / कसरत",
   "qScheduleTitle": "समय और दिन",
   "qWeeks": "PET में लगभग कितने हफ्ते बचे हैं?",
-  "qWeeksUnknown": "तारीख पता नहीं हो तो 12 हफ्ते चुनें।",
+  "qWeeksUnknown": "तारीख पता न हो तो 12 हफ्ते।",
   "weeksN": "{n} हफ्ते",
   "@weeksN": {
     "placeholders": {
@@ -233,12 +233,12 @@
   "medOther": "कुछ और",
   "qWeight": "वज़न किग्रा (वैकल्पिक)",
   "qHeight": "लंबाई सेमी (वैकल्पिक)",
-  "generatingTitle": "AI आपका प्लान बना रहा है",
-  "generatingBody": "इसमें 1-2 मिनट लग सकते हैं। ऐप बंद न करें।",
-  "errRateLimited": "आज के लिए प्लान बनाने की सीमा पूरी हो गई। कल फिर कोशिश करें।",
-  "errAiNotConfigured": "AI प्लान अभी चालू नहीं है। थोड़ी देर बाद कोशिश करें।",
-  "errGeneration": "प्लान नहीं बन पाया। फिर कोशिश करें।",
-  "errTooEarly": "अगला हफ्ता {date} से खुलेगा।",
+  "generatingTitle": "प्लान बन रहा है",
+  "generatingBody": "1-2 मिनट लगेंगे। ऐप खुला रखें।",
+  "errRateLimited": "आज की सीमा पूरी हो गई। कल फिर कोशिश करें।",
+  "errAiNotConfigured": "प्लान सेवा अभी बंद है। बाद में कोशिश करें।",
+  "errGeneration": "प्लान नहीं बन सका। फिर कोशिश करें।",
+  "errTooEarly": "अगला हफ्ता {date} को खुलेगा।",
   "@errTooEarly": {
     "placeholders": {
       "date": {
@@ -246,11 +246,11 @@
       }
     }
   },
-  "errNetwork": "इंटरनेट से जुड़ नहीं पाए। कनेक्शन जांचकर फिर कोशिश करें।",
+  "errNetwork": "कनेक्शन नहीं मिला। इंटरनेट जांचें।",
   "readinessOnTrack": "सही रास्ते पर",
   "readinessNeedsWork": "मेहनत की ज़रूरत",
   "readinessBigGap": "लंबा सफ़र",
-  "seeDoctor": "शुरू करने से पहले डॉक्टर से सलाह ज़रूर लें।",
+  "seeDoctor": "शुरू करने से पहले डॉक्टर से मिलें।",
   "weekOf": "हफ्ता {week} / {total}",
   "@weekOf": {
     "placeholders": {
@@ -282,7 +282,7 @@
       }
     }
   },
-  "nextWeekLocked": "हफ्ता {week} का प्लान {date} को खुलेगा, ताकि वह आपकी इस हफ्ते की ट्रेनिंग के हिसाब से बने।",
+  "nextWeekLocked": "हफ्ता {week} का प्लान {date} को खुलेगा।",
   "@nextWeekLocked": {
     "placeholders": {
       "week": {
@@ -293,11 +293,11 @@
       }
     }
   },
-  "planFinished": "प्लान पूरा हुआ। PET के लिए शुभकामनाएं!",
+  "planFinished": "प्लान पूरा। PET के लिए शुभकामनाएं।",
   "fullPlan": "पूरा प्लान",
   "safetyNotes": "ध्यान रखें",
   "newPlan": "नया प्लान बनाएं",
-  "newPlanConfirm": "नया प्लान बनाने पर अभी वाला प्लान बंद हो जाएगा। आगे बढ़ें?",
+  "newPlanConfirm": "नया प्लान बनाने पर मौजूदा प्लान बंद हो जाएगा।",
   "cancel": "रद्द करें",
   "continueLabel": "आगे बढ़ें",
   "sessionToday": "आज",
@@ -310,7 +310,7 @@
   "logEffort": "कितना मुश्किल लगा? (1 आसान – 5 बहुत मुश्किल)",
   "logPain": "दौड़ते समय या बाद में दर्द हुआ",
   "logNote": "नोट (वैकल्पिक)",
-  "painWarning": "दर्द हो तो अगले सेशन धीरे करें। दर्द बढ़े या 2-3 दिन में ठीक न हो तो डॉक्टर को दिखाएं।",
+  "painWarning": "दर्द हो तो अगला सेशन हल्का रखें। बढ़े या 2-3 दिन में ठीक न हो तो डॉक्टर को दिखाएं।",
   "km": "{value} किमी",
   "@km": {
     "placeholders": {
@@ -351,7 +351,7 @@
       }
     }
   },
-  "progressEmpty": "अभी कोई टाइम ट्रायल नहीं। अपना समय दर्ज करें और यहाँ अपनी प्रगति देखें।",
+  "progressEmpty": "अभी कोई टाइम ट्रायल नहीं। पहला समय जोड़ें।",
   "addTrial": "टाइम ट्रायल जोड़ें",
   "trialDistance": "दूरी (मीटर)",
   "trialTime": "समय (मिनट:सेकंड)",
@@ -372,7 +372,7 @@
       }
     }
   },
-  "gapToCut": "अभी {time} और कम करना है",
+  "gapToCut": "{time} और कम करना है",
   "@gapToCut": {
     "placeholders": {
       "time": {
@@ -380,7 +380,7 @@
       }
     }
   },
-  "underTarget": "आप लक्ष्य से {time} तेज़ हैं। इसे बनाए रखें!",
+  "underTarget": "आप लक्ष्य से {time} तेज़ हैं",
   "@underTarget": {
     "placeholders": {
       "time": {
@@ -389,7 +389,7 @@
     }
   },
   "estimated": "अनुमानित",
-  "estimateNote": "दूसरी दूरी के ट्रायल से {distance} का समय अनुमान से निकाला गया है।",
+  "estimateNote": "{distance} का समय दूसरी दूरी के ट्रायल से अनुमानित।",
   "@estimateNote": {
     "placeholders": {
       "distance": {
@@ -397,11 +397,11 @@
       }
     }
   },
-  "trialSaveFailed": "सेव नहीं हो सका। फिर कोशिश करें।",
+  "trialSaveFailed": "सेव नहीं हुआ। फिर कोशिश करें।",
   "runTitle": "दौड़",
   "mockPetTitle": "मॉक PET",
   "freeRunTitle": "खुली दौड़",
-  "mockPetIntro": "असली PET की तरह {distance} दौड़ें। ऐप GPS से समय नापेगा और बताएगा कि आप {time} के लक्ष्य में क्वालीफाई करते या नहीं।",
+  "mockPetIntro": "असली PET जैसी {distance} की दौड़। लक्ष्य {time}।",
   "@mockPetIntro": {
     "placeholders": {
       "distance": {
@@ -412,9 +412,9 @@
       }
     }
   },
-  "freeRunIntro": "अपनी किसी भी दौड़ को GPS से रिकॉर्ड करें।",
-  "runTips": "खुले मैदान में दौड़ें, फोन जेब या हाथ में रखें। Xiaomi/Redmi फोन में ऐप की बैटरी सेटिंग 'No restrictions' रखें ताकि स्क्रीन बंद होने पर भी GPS चलता रहे।",
-  "gpsSearching": "GPS सिग्नल ढूंढ रहे हैं…",
+  "freeRunIntro": "किसी भी दौड़ को GPS से रिकॉर्ड करें।",
+  "runTips": "खुली जगह दौड़ें, फोन साथ रखें। Xiaomi/Redmi में बैटरी सेटिंग 'No restrictions' करें, वरना GPS बंद हो सकता है।",
+  "gpsSearching": "GPS ढूंढ रहे हैं…",
   "gpsAccuracy": "GPS सटीकता: {metres} मीटर",
   "@gpsAccuracy": {
     "placeholders": {
@@ -424,8 +424,8 @@
     }
   },
   "gpsReady": "GPS तैयार है",
-  "gpsDenied": "दौड़ रिकॉर्ड करने के लिए लोकेशन की अनुमति चाहिए।",
-  "gpsOff": "फोन की लोकेशन (GPS) चालू करें।",
+  "gpsDenied": "दौड़ रिकॉर्ड करने के लिए लोकेशन की अनुमति दें।",
+  "gpsOff": "लोकेशन (GPS) चालू करें।",
   "openSettings": "सेटिंग खोलें",
   "startRun": "शुरू करें",
   "startAnyway": "फिर भी शुरू करें",
@@ -464,7 +464,7 @@
   "outcomeBorderline": "सीमा पर – थोड़ा और तेज़ दौड़ें",
   "outcomeNotQualified": "अभी क्वालीफाई नहीं",
   "outcomeIncomplete": "दूरी पूरी नहीं हुई",
-  "borderlineNote": "GPS में 2-3% तक का फर्क हो सकता है। पक्का क्वालीफाई के लिए लक्ष्य से कम से कम 3% तेज़ दौड़ें।",
+  "borderlineNote": "GPS में 2-3% फर्क हो सकता है। पक्का होने के लिए 3% तेज़ दौड़ें।",
   "finishTime": "{distance} का समय: {time}",
   "@finishTime": {
     "placeholders": {
@@ -529,14 +529,14 @@
   "flagGap": "बीच में GPS सिग्नल टूट गया।",
   "flagSparse": "GPS से बहुत कम जानकारी मिली।",
   "flagTooShort": "दौड़ बहुत छोटी थी।",
-  "uploading": "सर्वर पर जांच हो रही है…",
-  "savedOffline": "इंटरनेट नहीं है। दौड़ फोन में सेव है और इंटरनेट मिलने पर भेज दी जाएगी।",
-  "uploadRefused": "सर्वर ने यह दौड़ नहीं ली (आज की सीमा पूरी या गलत डेटा)।",
+  "uploading": "जांच हो रही है…",
+  "savedOffline": "इंटरनेट नहीं है। दौड़ फोन में सेव है, नेट मिलते ही चली जाएगी।",
+  "uploadRefused": "सर्वर ने दौड़ नहीं ली (आज की सीमा या गलत डेटा)।",
   "serverChecked": "सर्वर जांच पूरी",
   "done": "ठीक है",
   "mockPetCta": "मॉक PET दौड़ें",
   "recordRun": "दौड़ रिकॉर्ड करें",
-  "recentRuns": "हाल की GPS दौड़ें",
+  "recentRuns": "हाल की दौड़ें",
   "pendingRuns": "{n} दौड़ भेजनी बाकी",
   "@pendingRuns": {
     "placeholders": {
@@ -554,22 +554,22 @@
     }
   },
   "tabRanking": "रैंकिंग",
-  "areaVisible": "दूसरों की रैंकिंग में मेरा नाम दिखाएं",
-  "areaVisibleNote": "केवल पहला नाम और उपनाम का पहला अक्षर दिखता है।",
+  "areaVisible": "रैंकिंग में मेरा नाम दिखाएं",
+  "areaVisibleNote": "सिर्फ पहला नाम और उपनाम का पहला अक्षर।",
   "metricPet": "PET समय",
   "metricDistance": "इस हफ्ते की दूरी",
   "thisWeek": "इस हफ्ते",
   "lastWeek": "पिछला हफ्ता",
-  "rankingRules": "केवल GPS से जाँची गई दौड़ें गिनी जाती हैं। PET समय के लिए असली दूरी पर मॉक PET दौड़ें। रैंकिंग हर सोमवार नई शुरू होती है।",
-  "rankingEmpty": "इस हफ्ते यहाँ अभी कोई नहीं है। मॉक PET दौड़कर पहले नंबर पर आएं!",
+  "rankingRules": "सिर्फ GPS से जाँची दौड़ें गिनी जाती हैं। हर सोमवार नई रैंकिंग।",
+  "rankingEmpty": "इस हफ्ते अभी कोई नहीं। पहला नाम आपका हो सकता है।",
   "youLabel": "आप",
-  "errAiBusy": "AI कोच अभी बहुत लोगों का प्लान बना रहा है। 1 मिनट बाद फिर कोशिश करें।",
+  "errAiBusy": "अभी बहुत भीड़ है। 1 मिनट बाद कोशिश करें।",
   "boardEveryone": "सभी",
   "communitiesTitle": "मेरे इलाके और ग्रुप",
-  "communitiesIntro": "अपने गाँव, मैदान या दोस्तों के ग्रुप से जुड़ें और उन्हीं से मुकाबला करें। न मिले तो खुद बना लें!",
+  "communitiesIntro": "अपने गाँव, मैदान या दोस्तों के ग्रुप से जुड़ें।",
   "manageCommunities": "इलाके / ग्रुप",
   "searchCommunities": "गाँव, मैदान या ग्रुप ढूंढें",
-  "noCommunitiesFound": "कुछ नहीं मिला। नीचे से नया बना लें।",
+  "noCommunitiesFound": "कुछ नहीं मिला। नया बनाएं।",
   "joinLabel": "जुड़ें",
   "leaveLabel": "छोड़ें",
   "joinedLabel": "जुड़े हुए",
@@ -601,12 +601,12 @@
     }
   },
   "codeCopied": "कोड कॉपी हो गया",
-  "errNameTaken": "इस नाम का इलाका/ग्रुप पहले से है। ऊपर ढूंढकर उसमें जुड़ जाएं।",
-  "errCreateLimit": "आज के लिए आप 3 बना चुके हैं। कल फिर बनाएं।",
-  "errMemberLimit": "आप 15 इलाकों/ग्रुप में हैं। नया जोड़ने के लिए कोई एक छोड़ें।",
+  "errNameTaken": "यह नाम पहले से है। ऊपर ढूंढकर जुड़ें।",
+  "errCreateLimit": "आज 3 बन चुके हैं। कल फिर बनाएं।",
+  "errMemberLimit": "15 इलाके/ग्रुप पूरे। नया जोड़ने के लिए एक छोड़ें।",
   "errCodeNotFound": "यह कोड नहीं मिला। दोबारा जांचें।",
   "errCommunity": "कुछ गड़बड़ हुई। फिर कोशिश करें।",
-  "noCommunitiesYet": "आप अभी किसी इलाके या ग्रुप में नहीं हैं। 'सभी' की रैंकिंग देखें या अपना इलाका जोड़ें।",
+  "noCommunitiesYet": "आप किसी इलाके या ग्रुप में नहीं हैं। 'सभी' देखें या इलाका जोड़ें।",
   "catScSt": "अनुसूचित जाति / जनजाति (SC/ST)",
   "catHillAreas": "पहाड़ी क्षेत्र (गढ़वाली, कुमाऊँनी, गोरखा आदि – प्रमाणपत्र के साथ)",
   "catPoliceWard": "दिल्ली पुलिस कर्मी के बेटे/बेटी",
@@ -632,7 +632,7 @@
       }
     }
   },
-  "examUnconfirmed": "इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।",
+  "examUnconfirmed": "इस परीक्षा के मानक अभी पुष्ट नहीं हुए हैं। पुष्टि के बाद प्लान, मॉक PET और रैंकिंग खुलेंगे।",
   "voiceStarted": "चलो शुरू! आराम से शुरुआत करो, पहला किलोमीटर रेस नहीं, वार्म-अप है।",
   "voiceKmDone": "{km} किलोमीटर पूरा। समय {time}।",
   "@voiceKmDone": {
@@ -689,28 +689,54 @@
   "voiceOn": "आवाज़ चालू",
   "voiceOff": "आवाज़ बंद",
   "shareButton": "WhatsApp पर शेयर करें",
-  "sharePetText": "मैंने मैदान ऐप में {distance} की मॉक दौड़ {time} में पूरी की ({margin})! {outcome} तुम भी अपनी भर्ती की तैयारी जाँचो।",
+  "sharePetText": "मैदान ऐप पर {distance} की मॉक दौड़: {time} ({margin}). {outcome}",
   "@sharePetText": {
     "placeholders": {
-      "distance": {"type": "String"},
-      "time": {"type": "String"},
-      "margin": {"type": "String"},
-      "outcome": {"type": "String"}
+      "distance": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "margin": {
+        "type": "String"
+      },
+      "outcome": {
+        "type": "String"
+      }
     }
   },
-  "shareRankText": "मैदान ऐप की इस हफ़्ते की लीडरबोर्ड ({board}) में मेरी रैंक #{rank} है, {value}! क्या तुम मुझे हरा सकते हो?",
+  "shareRankText": "मैदान पर इस हफ्ते मेरी रैंक #{rank} ({board}): {value}। हरा सकते हो?",
   "@shareRankText": {
     "placeholders": {
-      "board": {"type": "String"},
-      "rank": {"type": "int"},
-      "value": {"type": "String"}
+      "board": {
+        "type": "String"
+      },
+      "rank": {
+        "type": "int"
+      },
+      "value": {
+        "type": "String"
+      }
     }
   },
   "streakDays": "{n} दिन की लकीर",
-  "@streakDays": {"placeholders": {"n": {"type": "int"}}},
-  "streakStart": "आज दौड़ो और लकीर शुरू करो!",
+  "@streakDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "streakStart": "आज दौड़ो, लकीर शुरू करो",
   "streakBest": "सबसे लंबी लकीर: {n} दिन",
-  "@streakBest": {"placeholders": {"n": {"type": "int"}}},
+  "@streakBest": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "weekdayInitials": "सो,मं,बु,गु,शु,श,र",
   "badgesTitle": "बैज",
   "badgeEarlyBird": "सुबह का शेर",
@@ -730,8 +756,17 @@
   "settingsTitle": "सेटिंग्स",
   "languageLabel": "भाषा",
   "lowDataTitle": "कम डेटा मोड",
-  "lowDataNote": "रैंकिंग और ताज़ा आँकड़े तभी लोड होंगे जब आप माँगेंगे। नेट बचेगा।",
-  "lowDataRanking": "कम डेटा मोड चालू है। रैंकिंग देखने के लिए नीचे दबाएँ।",
+  "lowDataNote": "रैंकिंग और ताज़ा आँकड़े माँगने पर ही लोड होंगे।",
+  "lowDataRanking": "कम डेटा मोड चालू है।",
   "loadRanking": "रैंकिंग लोड करें",
-  "heatWarning": "अभी तेज़ गर्मी का समय है (सुबह 10 से शाम 6)। दौड़ सुबह 8 बजे से पहले या शाम 6 के बाद करें, और पानी साथ रखें।"
+  "heatWarning": "अभी गर्मी तेज़ है। सुबह 8 से पहले या शाम 6 के बाद दौड़ें। पानी साथ रखें।",
+  "readMore": "और पढ़ें",
+  "readLess": "कम दिखाएं",
+  "switchLanguage": "English",
+  "switchLanguageShort": "EN",
+  "featPlan": "प्लान",
+  "featTrack": "GPS दौड़",
+  "featRank": "रैंकिंग",
+  "signOutConfirmTitle": "साइन आउट करें?",
+  "signOutConfirmBody": "आपका सारा डेटा सुरक्षित रहता है। दोबारा साइन इन करने पर सब वापस मिल जाएगा।"
 }

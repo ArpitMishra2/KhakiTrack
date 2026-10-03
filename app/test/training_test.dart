@@ -159,10 +159,7 @@ void main() {
     await tapVisible(tester, find.text('12 हफ्ते'));
     await tapVisible(tester, find.text('आगे'));
     await tapVisible(tester, find.text('मेरा प्लान बनाएं'));
-    expect(
-      find.textContaining('आज के लिए प्लान बनाने की सीमा'),
-      findsOneWidget,
-    );
+    expect(find.textContaining('आज की सीमा'), findsOneWidget);
     expect(find.text('चरण 4 / 4'), findsOneWidget);
     expect(training.lastAnswers!.toJson()['longest_continuous_km'], 2.0);
   });

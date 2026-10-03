@@ -15,7 +15,9 @@ import '../gps/location_source.dart';
 import '../gps/run_repository.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
+import '../theme/motion.dart';
 import '../theme/widgets.dart';
+import 'language_button.dart';
 import 'load_error.dart';
 import 'run_screen.dart';
 import 'standard_labels.dart';
@@ -148,7 +150,10 @@ class _ProgressTabState extends State<ProgressTab> {
       builder: (context, snapshot) {
         final run = snapshot.data?.run;
         return Scaffold(
-          appBar: AppBar(title: Text(l10n.tabProgress)),
+          appBar: AppBar(
+            title: Text(l10n.tabProgress),
+            actions: const [LanguageButton()],
+          ),
           floatingActionButton: run == null
               ? null
               : FloatingActionButton.extended(
@@ -199,11 +204,13 @@ class _ProgressTabState extends State<ProgressTab> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
       children: [
-        _StreakCard(
-          days: activityDays(data.logs, data.gpsRuns),
-          runs: data.gpsRuns,
-          today: widget.today ?? DateTime.now(),
-          targetSeconds: target,
+        FadeSlideIn(
+          child: _StreakCard(
+            days: activityDays(data.logs, data.gpsRuns),
+            runs: data.gpsRuns,
+            today: widget.today ?? DateTime.now(),
+            targetSeconds: target,
+          ),
         ),
         const SizedBox(height: 8),
         Card(
@@ -506,6 +513,8 @@ class _Medal extends StatelessWidget {
   final String hint;
   final bool earned;
 
+  Widget _maybePop(Widget w) => earned ? PopIn(child: w) : w;
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
@@ -516,23 +525,25 @@ class _Medal extends StatelessWidget {
         width: 72,
         child: Column(
           children: [
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: earned
-                    ? const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [Color(0xFFFFB347), Brand.saffron],
-                      )
-                    : null,
-                color: earned ? null : colors.secondaryContainer,
-              ),
-              child: Icon(
-                earned ? Icons.emoji_events : Icons.lock_outline,
-                color: earned ? Brand.ink : colors.outline,
+            _maybePop(
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: earned
+                      ? const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xFFFFB347), Brand.saffron],
+                        )
+                      : null,
+                  color: earned ? null : colors.secondaryContainer,
+                ),
+                child: Icon(
+                  earned ? Icons.emoji_events : Icons.lock_outline,
+                  color: earned ? Brand.ink : colors.outline,
+                ),
               ),
             ),
             const SizedBox(height: 6),

@@ -7,6 +7,8 @@ import '../data/leaderboard_repository.dart';
 import '../data/training_logic.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
+import '../theme/motion.dart';
+import 'language_button.dart';
 import 'load_error.dart';
 
 /// Weekly leaderboards: everyone, or one of the user's areas and groups.
@@ -76,7 +78,10 @@ class _RankingTabState extends State<RankingTab> {
     final textTheme = Theme.of(context).textTheme;
     if (SettingsScope.lowDataOf(context) && !_loadRequested) {
       return Scaffold(
-        appBar: AppBar(title: Text(l10n.tabRanking)),
+        appBar: AppBar(
+          title: Text(l10n.tabRanking),
+          actions: const [LanguageButton()],
+        ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -98,17 +103,19 @@ class _RankingTabState extends State<RankingTab> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.tabRanking),
-        actions: [
-          TextButton.icon(
-            onPressed: _manage,
-            icon: const Icon(Icons.groups),
-            label: Text(l10n.manageCommunities),
-          ),
-        ],
+        actions: const [LanguageButton()],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: TextButton.icon(
+              onPressed: _manage,
+              icon: const Icon(Icons.groups),
+              label: Text(l10n.manageCommunities),
+            ),
+          ),
           FutureBuilder<List<Community>>(
             future: _mine,
             builder: (context, snap) {
@@ -222,13 +229,16 @@ class _RankingTabState extends State<RankingTab> {
               }
               return Column(
                 children: [
-                  for (final e in rows)
-                    _RankRow(
-                      entry: e,
-                      name: e.isMe ? '${e.name} (${l10n.youLabel})' : e.name,
-                      value: _valueText(l10n, e),
-                      shareTooltip: l10n.shareButton,
-                      onShare: e.isMe ? () => _share(l10n, e) : null,
+                  for (final (i, e) in rows.indexed)
+                    FadeSlideIn(
+                      index: i,
+                      child: _RankRow(
+                        entry: e,
+                        name: e.isMe ? '${e.name} (${l10n.youLabel})' : e.name,
+                        value: _valueText(l10n, e),
+                        shareTooltip: l10n.shareButton,
+                        onShare: e.isMe ? () => _share(l10n, e) : null,
+                      ),
                     ),
                   const SizedBox(height: 12),
                   Text(l10n.rankingRules, style: textTheme.bodySmall),

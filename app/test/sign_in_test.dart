@@ -46,7 +46,7 @@ void main() {
     auth.nextResult = SignInResult.cancelled;
     await tester.tap(find.text('Google से जारी रखें'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('साइन इन नहीं हो सका'), findsNothing);
+    expect(find.textContaining('साइन इन नहीं हुआ'), findsNothing);
     expect(find.text('Google से जारी रखें'), findsOneWidget);
   });
 
@@ -57,7 +57,7 @@ void main() {
     auth.nextResult = SignInResult.failed;
     await tester.tap(find.text('Google से जारी रखें'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('साइन इन नहीं हो सका'), findsOneWidget);
+    expect(find.textContaining('साइन इन नहीं हुआ'), findsOneWidget);
 
     auth.nextResult = SignInResult.signedIn;
     await tester.tap(find.text('Google से जारी रखें'));
@@ -80,6 +80,10 @@ void main() {
     await tester.pumpAndSettle();
     await openStandards(tester);
     await tester.tap(find.byIcon(Icons.logout));
+    await tester.pumpAndSettle();
+    // Asks first, and reassures that nothing is deleted.
+    expect(find.text('साइन आउट करें?'), findsOneWidget);
+    await tester.tap(find.widgetWithText(FilledButton, 'साइन आउट'));
     await tester.pumpAndSettle();
     expect(find.text('Google से जारी रखें'), findsOneWidget);
   });

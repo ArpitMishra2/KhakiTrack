@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../data/training_logic.dart';
@@ -57,3 +58,15 @@ String trainingErrorText(AppLocalizations l10n, TrainingException e) =>
       'network' => l10n.errNetwork,
       _ => l10n.errGeneration,
     };
+
+IconData sessionTypeIcon(String type) => switch (type) {
+  'easy_run' => Icons.directions_run,
+  'run_walk' => Icons.directions_walk,
+  'long_run' => Icons.route,
+  'tempo' => Icons.speed,
+  'intervals' => Icons.bolt,
+  'time_trial' => Icons.timer,
+  'strength' => Icons.fitness_center,
+  'mobility' => Icons.self_improvement,
+  _ => Icons.directions_run,
+};
