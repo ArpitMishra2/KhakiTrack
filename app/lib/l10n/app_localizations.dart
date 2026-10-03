@@ -2490,6 +2490,12 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'प्लान और मौसम की सलाह आम जानकारी है, डॉक्टर की सलाह नहीं। दर्द या बीमारी हो तो डॉक्टर से मिलें।'**
   String get aboutSafety;
+
+  /// No description provided for @errTooManyTries.
+  ///
+  /// In hi, this message translates to:
+  /// **'कई बार गलत कोड डाला। थोड़ी देर बाद कोशिश करें।'**
+  String get errTooManyTries;
 }
 
 class _AppLocalizationsDelegate

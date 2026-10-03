@@ -60,7 +60,7 @@ class LeaderboardEntry {
 }
 
 /// Why a community action failed: name_taken | create_limit | member_limit |
-/// not_found | unknown.
+/// not_found | rate_limited | unknown.
 class CommunityException implements Exception {
   const CommunityException(this.code);
   final String code;
@@ -107,7 +107,13 @@ class SupabaseLeaderboardRepository implements LeaderboardRepository {
     try {
       return await _client.rpc(fn, params: params) as T;
     } on PostgrestException catch (e) {
-      const known = {'name_taken', 'create_limit', 'member_limit', 'not_found'};
+      const known = {
+        'name_taken',
+        'create_limit',
+        'member_limit',
+        'not_found',
+        'rate_limited',
+      };
       throw CommunityException(
         known.contains(e.message) ? e.message : 'unknown',
       );
@@ -146,8 +152,13 @@ class SupabaseLeaderboardRepository implements LeaderboardRepository {
   Future<void> join(int id) => _rpc<Object?>('join_community', {'p_id': id});
 
   @override
-  Future<void> joinByCode(String code) =>
-      _rpc<Object?>('join_community', {'p_code': code.trim().toUpperCase()});
+  Future<void> joinByCode(String code) async {
+    final id = await _rpc<int>('join_community', {
+      'p_code': code.trim().toUpperCase(),
+    });
+    // The server answers -1 for a code that does not exist.
+    if (id < 0) throw const CommunityException('not_found');
+  }
 
   @override
   Future<void> leave(int id) async {

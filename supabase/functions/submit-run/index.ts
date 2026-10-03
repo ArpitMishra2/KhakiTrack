@@ -11,7 +11,15 @@ import { z } from "zod";
 
 import { analyseRun, RULES, type RunAnalysis, type TrackPoint } from "./analysis.ts";
 
-const MAX_RUNS_PER_DAY = 30;
+// Limits that keep one account from flooding the rankings or the database.
+const MAX_RUNS_PER_DAY = 12;
+/** A run may be uploaded late (offline queue), but not claim an old date. */
+const MAX_AGE_MS = 7 * 86_400_000;
+/** Phone clocks drift a little; a run cannot end in the future beyond this. */
+const CLOCK_SKEW_MS = 10 * 60_000;
+/** Real distance a person could cover in 24 hours; more is not believable. */
+const MAX_DAILY_M = 60_000;
+export const MAX_BODY_BYTES = 4_000_000;
 
 export const Submission = z.object({
   exam_id: z.string().min(1).max(64),
@@ -51,12 +59,23 @@ const reply = (status: number, body: Record<string, unknown>) =>
 
 export async function handle(
   body: unknown,
-  deps: { admin: SupabaseClient; userId: string },
+  deps: { admin: SupabaseClient; userId: string; now?: () => number },
 ): Promise<Response> {
   const parsed = Submission.safeParse(body);
   if (!parsed.success) return reply(400, { error: "invalid_run" });
   const s = parsed.data;
   const { admin, userId } = deps;
+  const now = (deps.now ?? Date.now)();
+
+  const result: RunAnalysis = analyseRun(s.points, s.target_m);
+
+  // The start time decides which week a run counts in, so it cannot be taken
+  // on trust: it must be recent and the run must not end in the future.
+  const startMs = Date.parse(s.started_at);
+  const endMs = startMs + result.durationS * 1000;
+  if (startMs < now - MAX_AGE_MS || endMs > now + CLOCK_SKEW_MS) {
+    return reply(400, { error: "invalid_start" });
+  }
 
   const { count } = await admin.from("gps_runs")
     .select("id", { count: "exact", head: true })
@@ -64,13 +83,39 @@ export async function handle(
     .gte("created_at", new Date(Date.now() - 86_400_000).toISOString());
   if ((count ?? 0) >= MAX_RUNS_PER_DAY) return reply(429, { error: "rate_limited" });
 
-  const result: RunAnalysis = analyseRun(s.points, s.target_m);
+  // The same run cannot be counted twice, and two runs cannot overlap in
+  // time (one person cannot run two routes at once). Resending a run whose
+  // answer got lost is answered with 409 and is harmless.
+  const { data: nearby } = await admin.from("gps_runs")
+    .select("started_at, duration_s, distance_m, verdict")
+    .eq("user_id", userId)
+    .gte("started_at", new Date(startMs - 86_400_000).toISOString())
+    .lte("started_at", new Date(endMs).toISOString())
+    .limit(200);
+  let lastDayM = 0;
+  for (const r of (nearby ?? []) as Array<{ started_at: string; duration_s: number; distance_m: number; verdict: string }>) {
+    const rs = Date.parse(r.started_at);
+    const re = rs + Number(r.duration_s) * 1000;
+    if (startMs <= re && endMs >= rs) return reply(409, { error: "duplicate_run" });
+    if (r.verdict !== "rejected" && rs >= endMs - 86_400_000) lastDayM += Number(r.distance_m);
+  }
+  if (result.verdict !== "rejected" && lastDayM + result.distanceM > MAX_DAILY_M) {
+    return reply(429, { error: "daily_limit" });
+  }
+
+  // A run can only point at the caller's own plan.
+  let planId = s.plan_id;
+  if (planId != null) {
+    const { data: plan } = await admin.from("training_plans").select("id")
+      .eq("id", planId).eq("user_id", userId).maybeSingle();
+    if (!plan) planId = null;
+  }
 
   const { data: run, error } = await admin.from("gps_runs").insert({
     user_id: userId,
     exam_id: s.exam_id,
     mode: s.mode,
-    plan_id: s.plan_id,
+    plan_id: planId,
     week_number: s.week_number,
     session_index: s.session_index,
     started_at: s.started_at,
@@ -129,9 +174,15 @@ if (import.meta.main) {
     const { data: { user } } = await asUser.auth.getUser(auth.replace(/^Bearer /, ""));
     if (!user) return reply(401, { error: "unauthorized" });
 
+    // Refuse oversized bodies before reading them (a real run is about 2 MB at most).
+    if (Number(req.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) {
+      return reply(413, { error: "too_large" });
+    }
     let body: unknown;
     try {
-      body = await req.json();
+      const raw = await req.text();
+      if (raw.length > MAX_BODY_BYTES) return reply(413, { error: "too_large" });
+      body = JSON.parse(raw);
     } catch {
       return reply(400, { error: "bad_json" });
     }

@@ -284,6 +284,7 @@ String communityError(AppLocalizations l10n, CommunityException e) =>
       'create_limit' => l10n.errCreateLimit,
       'member_limit' => l10n.errMemberLimit,
       'not_found' => l10n.errCodeNotFound,
+      'rate_limited' => l10n.errTooManyTries,
       _ => l10n.errCommunity,
     };
 
