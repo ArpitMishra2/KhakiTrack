@@ -1044,4 +1044,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get voiceOff => 'Voice off';
+
+  @override
+  String get shareButton => 'Share on WhatsApp';
+
+  @override
+  String sharePetText(
+    String distance,
+    String time,
+    String margin,
+    String outcome,
+  ) {
+    return 'I finished a $distance mock run in $time on Maidan ($margin)! $outcome Check your own recruitment prep too.';
+  }
+
+  @override
+  String shareRankText(String board, int rank, String value) {
+    return 'I am rank #$rank on this week\'s Maidan leaderboard ($board), $value! Can you beat me?';
+  }
 }

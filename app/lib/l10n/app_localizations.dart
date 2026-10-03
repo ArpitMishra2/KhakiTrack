@@ -1903,6 +1903,29 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'आवाज़ बंद'**
   String get voiceOff;
+
+  /// No description provided for @shareButton.
+  ///
+  /// In hi, this message translates to:
+  /// **'WhatsApp पर शेयर करें'**
+  String get shareButton;
+
+  /// No description provided for @sharePetText.
+  ///
+  /// In hi, this message translates to:
+  /// **'मैंने मैदान ऐप में {distance} की मॉक दौड़ {time} में पूरी की ({margin})! {outcome} तुम भी अपनी भर्ती की तैयारी जाँचो।'**
+  String sharePetText(
+    String distance,
+    String time,
+    String margin,
+    String outcome,
+  );
+
+  /// No description provided for @shareRankText.
+  ///
+  /// In hi, this message translates to:
+  /// **'मैदान ऐप की इस हफ़्ते की लीडरबोर्ड ({board}) में मेरी रैंक #{rank} है, {value}! क्या तुम मुझे हरा सकते हो?'**
+  String shareRankText(String board, int rank, String value);
 }
 
 class _AppLocalizationsDelegate

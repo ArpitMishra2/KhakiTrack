@@ -300,5 +300,8 @@
   "voiceFinished": "Run complete! Drink water and walk a little.",
   "voiceTime": "{minutes} minutes {seconds} seconds",
   "voiceOn": "Voice on",
-  "voiceOff": "Voice off"
+  "voiceOff": "Voice off",
+  "shareButton": "Share on WhatsApp",
+  "sharePetText": "I finished a {distance} mock run in {time} on Maidan ({margin})! {outcome} Check your own recruitment prep too.",
+  "shareRankText": "I am rank #{rank} on this week's Maidan leaderboard ({board}), {value}! Can you beat me?"
 }

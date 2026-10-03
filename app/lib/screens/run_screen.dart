@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show FunctionException;
 
 import '../data/training_logic.dart';
@@ -509,6 +510,33 @@ class _RunScreenState extends State<RunScreen> {
         else if (_server != null)
           Text(l10n.serverChecked, style: textTheme.bodySmall),
         const SizedBox(height: 24),
+        if (widget.mockPet && finish != null && verdict == 'verified') ...[
+          OutlinedButton.icon(
+            onPressed: () => SharePlus.instance.share(
+              ShareParams(
+                text: l10n.sharePetText(
+                  distance,
+                  formatDuration(finish),
+                  finish <= widget.targetSeconds
+                      ? l10n.marginAhead(
+                          formatDuration(widget.targetSeconds - finish),
+                        )
+                      : l10n.marginBehind(
+                          formatDuration(finish - widget.targetSeconds),
+                        ),
+                  switch (outcome) {
+                    PetOutcome.qualified => l10n.outcomeQualified,
+                    PetOutcome.borderline => l10n.outcomeBorderline,
+                    _ => '',
+                  },
+                ),
+              ),
+            ),
+            icon: const Icon(Icons.share),
+            label: Text(l10n.shareButton),
+          ),
+          const SizedBox(height: 8),
+        ],
         FilledButton(
           onPressed: _uploading ? null : () => Navigator.pop(context, true),
           child: Text(l10n.done),
