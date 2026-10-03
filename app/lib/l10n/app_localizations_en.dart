@@ -1159,4 +1159,146 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get signOutConfirmBody =>
       'Your data stays saved. Sign in again and everything is back.';
+
+  @override
+  String weatherFeels(String t) {
+    return 'Feels $t°';
+  }
+
+  @override
+  String weatherHumidity(int n) {
+    return 'Humidity $n%';
+  }
+
+  @override
+  String weatherAqi(int n) {
+    return 'AQI $n';
+  }
+
+  @override
+  String get condClear => 'Clear';
+
+  @override
+  String get condClearNight => 'Clear night';
+
+  @override
+  String get condCloudy => 'Cloudy';
+
+  @override
+  String get condFog => 'Fog';
+
+  @override
+  String get condRain => 'Rain';
+
+  @override
+  String get condStorm => 'Thunderstorm';
+
+  @override
+  String get condOther => 'Weather';
+
+  @override
+  String get verdictGood => 'Good conditions to run';
+
+  @override
+  String get verdictCaution => 'Run with care';
+
+  @override
+  String get verdictAvoid => 'Skip the outdoor run now';
+
+  @override
+  String get reasonFine => 'Air and temperature are fine';
+
+  @override
+  String get reasonHeat => 'Hot and humid';
+
+  @override
+  String get reasonStorm => 'Lightning risk';
+
+  @override
+  String get reasonRain => 'Rain, slippery ground';
+
+  @override
+  String reasonSmog(int n) {
+    return 'Poor air (AQI $n)';
+  }
+
+  @override
+  String get reasonCold => 'It is cold';
+
+  @override
+  String get reasonFog => 'Low visibility in fog';
+
+  @override
+  String get reasonSun => 'Strong sun (high UV)';
+
+  @override
+  String get tipWater => 'Carry water';
+
+  @override
+  String get tipOrs => 'ORS or lemon water';
+
+  @override
+  String get tipCap => 'Wear a cap';
+
+  @override
+  String get tipLight => 'Light cotton clothes';
+
+  @override
+  String get tipWarm => 'Warm layer on top';
+
+  @override
+  String get tipWarmup => 'Warm up longer';
+
+  @override
+  String get tipGrip => 'Shoes with grip';
+
+  @override
+  String get tipBright => 'Wear bright clothes';
+
+  @override
+  String get tipEasy => 'Keep it easy';
+
+  @override
+  String get tipIndoors => 'Train indoors instead';
+
+  @override
+  String get bestNow => 'Now is about the best time';
+
+  @override
+  String bestAt(String day, String time) {
+    return 'Best time: $day $time';
+  }
+
+  @override
+  String get dayToday => 'today';
+
+  @override
+  String get dayTomorrow => 'tomorrow';
+
+  @override
+  String hourMorning(int h) {
+    return '$h am';
+  }
+
+  @override
+  String hourDay(int h) {
+    return '$h pm';
+  }
+
+  @override
+  String hourEvening(int h) {
+    return '$h pm';
+  }
+
+  @override
+  String get weatherAsk => 'See the weather where you are';
+
+  @override
+  String get weatherAllow => 'Show weather';
+
+  @override
+  String get weatherFailed => 'Couldn\'t get the weather';
+
+  @override
+  String get weatherLoad => 'Load weather';
 }

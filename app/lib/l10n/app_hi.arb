@@ -768,5 +768,106 @@
   "featTrack": "GPS दौड़",
   "featRank": "रैंकिंग",
   "signOutConfirmTitle": "साइन आउट करें?",
-  "signOutConfirmBody": "आपका सारा डेटा सुरक्षित रहता है। दोबारा साइन इन करने पर सब वापस मिल जाएगा।"
+  "signOutConfirmBody": "आपका सारा डेटा सुरक्षित रहता है। दोबारा साइन इन करने पर सब वापस मिल जाएगा।",
+  "weatherFeels": "महसूस {t}°",
+  "@weatherFeels": {
+    "placeholders": {
+      "t": {
+        "type": "String"
+      }
+    }
+  },
+  "weatherHumidity": "नमी {n}%",
+  "@weatherHumidity": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "weatherAqi": "AQI {n}",
+  "@weatherAqi": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "condClear": "साफ़ आसमान",
+  "condClearNight": "साफ़ रात",
+  "condCloudy": "बादल",
+  "condFog": "कोहरा",
+  "condRain": "बारिश",
+  "condStorm": "आँधी-तूफ़ान",
+  "condOther": "मौसम",
+  "verdictGood": "दौड़ने के लिए अच्छा मौसम",
+  "verdictCaution": "संभलकर दौड़ें",
+  "verdictAvoid": "अभी बाहर न दौड़ें",
+  "reasonFine": "हवा और तापमान ठीक हैं",
+  "reasonHeat": "गर्मी और उमस ज़्यादा है",
+  "reasonStorm": "बिजली गिरने का खतरा",
+  "reasonRain": "बारिश है, ज़मीन फिसलन भरी",
+  "reasonSmog": "हवा खराब है (AQI {n})",
+  "@reasonSmog": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "reasonCold": "ठंड ज़्यादा है",
+  "reasonFog": "कोहरे में कम दिखता है",
+  "reasonSun": "तेज़ धूप (UV ज़्यादा)",
+  "tipWater": "पानी साथ रखें",
+  "tipOrs": "ORS या नींबू-पानी",
+  "tipCap": "टोपी पहनें",
+  "tipLight": "हल्के सूती कपड़े",
+  "tipWarm": "ऊपर गर्म कपड़ा",
+  "tipWarmup": "वार्म-अप लंबा करें",
+  "tipGrip": "पकड़ वाले जूते",
+  "tipBright": "चमकीले कपड़े पहनें",
+  "tipEasy": "हल्की दौड़ रखें",
+  "tipIndoors": "घर में कसरत करें",
+  "bestNow": "अभी का समय सबसे ठीक है",
+  "bestAt": "सबसे अच्छा समय: {day} {time}",
+  "@bestAt": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "dayToday": "आज",
+  "dayTomorrow": "कल",
+  "hourMorning": "सुबह {h} बजे",
+  "@hourMorning": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      }
+    }
+  },
+  "hourDay": "दोपहर {h} बजे",
+  "@hourDay": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      }
+    }
+  },
+  "hourEvening": "शाम {h} बजे",
+  "@hourEvening": {
+    "placeholders": {
+      "h": {
+        "type": "int"
+      }
+    }
+  },
+  "weatherAsk": "अपने इलाके का मौसम देखें",
+  "weatherAllow": "मौसम देखें",
+  "weatherFailed": "मौसम नहीं मिला",
+  "weatherLoad": "मौसम लोड करें"
 }

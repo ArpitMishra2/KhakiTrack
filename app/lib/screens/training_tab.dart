@@ -11,7 +11,7 @@ import '../data/training_repository.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/illustrations.dart';
 import '../theme/motion.dart';
-import 'heat_banner.dart';
+import '../weather/weather_card.dart';
 import '../theme/app_theme.dart';
 import '../theme/widgets.dart';
 import 'language_button.dart';
@@ -164,6 +164,7 @@ class _Intro extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              WeatherCard(now: DateTime.now()),
               HeroCard(
                 padding: const EdgeInsets.all(24),
                 child: Column(
@@ -301,222 +302,228 @@ class _PlanViewState extends State<_PlanView> {
     final progress = weekProgress(plan, _week);
     final today = currentWeek(plan, widget.today);
 
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        HeatBanner(now: widget.today),
-        if (plan.seeDoctorFirst)
-          Card(
-            color: colors.errorContainer,
-            child: ListTile(
-              leading: const Icon(Icons.medical_services),
-              title: Text(l10n.seeDoctor),
+    return RefreshIndicator(
+      onRefresh: () async => widget.onChanged(),
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(16),
+        children: [
+          WeatherCard(now: widget.today),
+          if (plan.seeDoctorFirst)
+            Card(
+              color: colors.errorContainer,
+              child: ListTile(
+                leading: const Icon(Icons.medical_services),
+                title: Text(l10n.seeDoctor),
+              ),
             ),
-          ),
-        HeroCard(
-          padding: const EdgeInsets.fromLTRB(8, 12, 8, 16),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    color: Colors.white,
-                    disabledColor: Colors.white24,
-                    icon: const Icon(Icons.chevron_left),
-                    onPressed: _week > 1 ? () => setState(() => _week--) : null,
-                  ),
-                  Expanded(
-                    child: Column(
+          HeroCard(
+            padding: const EdgeInsets.fromLTRB(8, 12, 8, 16),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      color: Colors.white,
+                      disabledColor: Colors.white24,
+                      icon: const Icon(Icons.chevron_left),
+                      onPressed: _week > 1
+                          ? () => setState(() => _week--)
+                          : null,
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            l10n.weekOf(_week, plan.weeksTotal),
+                            style: textTheme.headlineSmall?.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          if (phase != null)
+                            Text(
+                              phase.name,
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: Brand.khaki,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      color: Colors.white,
+                      disabledColor: Colors.white24,
+                      icon: const Icon(Icons.chevron_right),
+                      onPressed: _week < plan.weeksTotal
+                          ? () => setState(() => _week++)
+                          : null,
+                    ),
+                  ],
+                ),
+                if (outline != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 6,
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Text(
-                          l10n.weekOf(_week, plan.weeksTotal),
-                          style: textTheme.headlineSmall?.copyWith(
+                          outline.focus,
+                          textAlign: TextAlign.center,
+                          style: textTheme.bodyMedium?.copyWith(
                             color: Colors.white,
                           ),
                         ),
-                        if (phase != null)
-                          Text(
-                            phase.name,
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: Brand.khaki,
-                            ),
+                        if (outline.isRecoveryWeek)
+                          Pill(
+                            l10n.recoveryWeek,
+                            background: Brand.saffron,
+                            foreground: Brand.ink,
                           ),
                       ],
                     ),
                   ),
-                  IconButton(
-                    color: Colors.white,
-                    disabledColor: Colors.white24,
-                    icon: const Icon(Icons.chevron_right),
-                    onPressed: _week < plan.weeksTotal
-                        ? () => setState(() => _week++)
-                        : null,
-                  ),
-                ],
-              ),
-              if (outline != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 6,
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Text(
-                        outline.focus,
-                        textAlign: TextAlign.center,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
-                      if (outline.isRecoveryWeek)
-                        Pill(
-                          l10n.recoveryWeek,
-                          background: Brand.saffron,
-                          foreground: Brand.ink,
-                        ),
-                    ],
-                  ),
-                ),
-              if (detail != null)
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 14, 12, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(99),
-                        child: TweenAnimationBuilder<double>(
-                          tween: Tween<double>(
-                            end: progress.total == 0
-                                ? 0
-                                : progress.done / progress.total,
-                          ),
-                          duration: const Duration(milliseconds: 600),
-                          curve: Curves.easeOut,
-                          builder: (_, v, _) => LinearProgressIndicator(
-                            value: v,
-                            minHeight: 10,
-                            color: Brand.saffron,
-                            backgroundColor: Colors.white24,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        l10n.weekDone(progress.done, progress.total),
-                        style: textTheme.labelMedium?.copyWith(
-                          color: Brand.khaki,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ),
-        Card(
-          clipBehavior: Clip.antiAlias,
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(width: 6, color: Brand.saffron),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
+                if (detail != null)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 14, 12, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Pill(readinessLabel(l10n, plan.readiness)),
-                        const SizedBox(height: 10),
-                        Text(plan.assessment),
-                        const SizedBox(height: 8),
-                        Text(plan.goalNote, style: textTheme.titleSmall),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(99),
+                          child: TweenAnimationBuilder<double>(
+                            tween: Tween<double>(
+                              end: progress.total == 0
+                                  ? 0
+                                  : progress.done / progress.total,
+                            ),
+                            duration: const Duration(milliseconds: 600),
+                            curve: Curves.easeOut,
+                            builder: (_, v, _) => LinearProgressIndicator(
+                              value: v,
+                              minHeight: 10,
+                              color: Brand.saffron,
+                              backgroundColor: Colors.white24,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          l10n.weekDone(progress.done, progress.total),
+                          style: textTheme.labelMedium?.copyWith(
+                            color: Brand.khaki,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ),
               ],
             ),
           ),
-        ),
-        const SizedBox(height: 4),
-        if (detail != null) ...[
-          if (detail.coachNote.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: IntrinsicHeight(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Icon(Icons.format_quote, color: colors.primary),
-                  const SizedBox(width: 8),
+                  Container(width: 6, color: Brand.saffron),
                   Expanded(
-                    child: Text(
-                      detail.coachNote,
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontStyle: FontStyle.italic,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Pill(readinessLabel(l10n, plan.readiness)),
+                          const SizedBox(height: 10),
+                          Text(plan.assessment),
+                          const SizedBox(height: 8),
+                          Text(plan.goalNote, style: textTheme.titleSmall),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          for (var i = 0; i < detail.sessions.length; i++)
-            FadeSlideIn(
-              key: ValueKey('$_week-$i'),
-              index: i,
-              child: _SessionTile(
-                session: detail.sessions[i],
-                date: sessionDate(plan, _week, detail.sessions[i].day),
-                isToday:
-                    _week == today &&
-                    sessionDate(plan, _week, detail.sessions[i].day) ==
-                        DateTime(
-                          widget.today.year,
-                          widget.today.month,
-                          widget.today.day,
+          ),
+          const SizedBox(height: 4),
+          if (detail != null) ...[
+            if (detail.coachNote.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.format_quote, color: colors.primary),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        detail.coachNote,
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontStyle: FontStyle.italic,
                         ),
-                log: plan.logFor(_week, i),
-                onTap: () => _openSession(i, detail.sessions[i]),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+            for (var i = 0; i < detail.sessions.length; i++)
+              FadeSlideIn(
+                key: ValueKey('$_week-$i'),
+                index: i,
+                child: _SessionTile(
+                  session: detail.sessions[i],
+                  date: sessionDate(plan, _week, detail.sessions[i].day),
+                  isToday:
+                      _week == today &&
+                      sessionDate(plan, _week, detail.sessions[i].day) ==
+                          DateTime(
+                            widget.today.year,
+                            widget.today.month,
+                            widget.today.day,
+                          ),
+                  log: plan.logFor(_week, i),
+                  onTap: () => _openSession(i, detail.sessions[i]),
+                ),
+              ),
+          ] else
+            _WeekNotReady(
+              week: _week,
+              plan: plan,
+              today: widget.today,
+              generating: _generating,
+              onGenerate: _generateWeek,
             ),
-        ] else
-          _WeekNotReady(
-            week: _week,
-            plan: plan,
-            today: widget.today,
-            generating: _generating,
-            onGenerate: _generateWeek,
-          ),
-        if (_error != null)
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Text(_error!, style: TextStyle(color: colors.error)),
-          ),
-        if (plan.safetyNotes.isNotEmpty)
+          if (_error != null)
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(_error!, style: TextStyle(color: colors.error)),
+            ),
+          if (plan.safetyNotes.isNotEmpty)
+            ExpansionTile(
+              title: Text(l10n.safetyNotes),
+              children: [
+                for (final n in plan.safetyNotes)
+                  ListTile(dense: true, title: Text(n)),
+              ],
+            ),
           ExpansionTile(
-            title: Text(l10n.safetyNotes),
+            title: Text(l10n.fullPlan),
             children: [
-              for (final n in plan.safetyNotes)
-                ListTile(dense: true, title: Text(n)),
+              for (final w in plan.outline)
+                ListTile(
+                  dense: true,
+                  leading: Text('${w.week}'),
+                  title: Text(w.focus),
+                  trailing: Text(l10n.km(w.weeklyKm.toStringAsFixed(0))),
+                  onTap: () => setState(() => _week = w.week),
+                ),
             ],
           ),
-        ExpansionTile(
-          title: Text(l10n.fullPlan),
-          children: [
-            for (final w in plan.outline)
-              ListTile(
-                dense: true,
-                leading: Text('${w.week}'),
-                title: Text(w.focus),
-                trailing: Text(l10n.km(w.weeklyKm.toStringAsFixed(0))),
-                onTap: () => setState(() => _week = w.week),
-              ),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

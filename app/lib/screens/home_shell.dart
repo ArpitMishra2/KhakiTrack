@@ -80,19 +80,23 @@ class _HomeShellState extends State<HomeShell> {
         onDestinationSelected: (i) => setState(() => _tab = i),
         destinations: [
           NavigationDestination(
-            icon: const Icon(Icons.directions_run),
+            icon: const Icon(Icons.directions_run_outlined),
+            selectedIcon: const Icon(Icons.directions_run),
             label: l10n.tabTraining,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.rule),
+            icon: const Icon(Icons.rule_outlined),
+            selectedIcon: const Icon(Icons.rule),
             label: l10n.tabStandards,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.show_chart),
+            icon: const Icon(Icons.insights_outlined),
+            selectedIcon: const Icon(Icons.insights),
             label: l10n.tabProgress,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.leaderboard),
+            icon: const Icon(Icons.leaderboard_outlined),
+            selectedIcon: const Icon(Icons.leaderboard),
             label: l10n.tabRanking,
           ),
         ],
