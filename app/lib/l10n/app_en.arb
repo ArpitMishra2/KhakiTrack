@@ -382,6 +382,20 @@
   "weatherFailed": "Couldn't get the weather",
   "weatherLoad": "Load weather",
   "demoTitle": "Demo data (for pitch)",
-  "demoNote": "Rankings show made-up students. Your real data is untouched.",
-  "demoBadge": "Demo data"
+  "demoNote": "Shows sample rankings, plan, progress and runs. Your real data is untouched.",
+  "demoBadge": "Demo data",
+  "deleteAccount": "Delete account",
+  "deleteTitle": "Delete your account for good?",
+  "deleteBody": "Your profile, plans, runs and rankings are erased. This cannot be undone.",
+  "deleteConfirm": "Delete for good",
+  "deleteFailed": "Couldn't delete the account. Check your internet and try again.",
+  "aboutTitle": "About",
+  "aboutIndependentTitle": "Independent app",
+  "aboutIndependent": "Maidan is not connected to any government department or recruitment board. Always check the official notice before you apply.",
+  "aboutSourcesTitle": "Where the standards come from",
+  "aboutSources": "Every standard is read from the official recruitment notice, with page and paragraph. Anything unconfirmed shows as 'Not yet confirmed'.",
+  "aboutDataTitle": "Your data",
+  "aboutData": "Name, date of birth, gender, category, your runs (GPS routes), plans and logs. Weather uses a rough location that is not saved. Deleting your account erases it all.",
+  "aboutSafetyTitle": "Health",
+  "aboutSafety": "Plans and weather tips are general guidance, not medical advice. See a doctor if you have pain or a health condition."
 }

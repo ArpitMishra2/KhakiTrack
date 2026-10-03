@@ -2398,7 +2398,7 @@ abstract class AppLocalizations {
   /// No description provided for @demoNote.
   ///
   /// In hi, this message translates to:
-  /// **'रैंकिंग में नकली छात्र दिखेंगे। असली डेटा नहीं बदलता।'**
+  /// **'रैंकिंग, प्लान, प्रगति और दौड़ का नमूना डेटा दिखेगा। असली डेटा नहीं बदलता।'**
   String get demoNote;
 
   /// No description provided for @demoBadge.
@@ -2406,6 +2406,90 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'डेमो डेटा'**
   String get demoBadge;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In hi, this message translates to:
+  /// **'खाता हटाएं'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'खाता हमेशा के लिए हटाएं?'**
+  String get deleteTitle;
+
+  /// No description provided for @deleteBody.
+  ///
+  /// In hi, this message translates to:
+  /// **'आपकी प्रोफ़ाइल, प्लान, दौड़ें और रैंकिंग हमेशा के लिए हट जाएंगी। यह वापस नहीं हो सकता।'**
+  String get deleteBody;
+
+  /// No description provided for @deleteConfirm.
+  ///
+  /// In hi, this message translates to:
+  /// **'हमेशा के लिए हटाएं'**
+  String get deleteConfirm;
+
+  /// No description provided for @deleteFailed.
+  ///
+  /// In hi, this message translates to:
+  /// **'खाता नहीं हटा। इंटरनेट जांचकर फिर कोशिश करें।'**
+  String get deleteFailed;
+
+  /// No description provided for @aboutTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'ऐप के बारे में'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutIndependentTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'स्वतंत्र ऐप'**
+  String get aboutIndependentTitle;
+
+  /// No description provided for @aboutIndependent.
+  ///
+  /// In hi, this message translates to:
+  /// **'मैदान किसी सरकारी विभाग या भर्ती बोर्ड से जुड़ा नहीं है। भर्ती से पहले हमेशा आधिकारिक सूचना देखें।'**
+  String get aboutIndependent;
+
+  /// No description provided for @aboutSourcesTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'मानक कहाँ से'**
+  String get aboutSourcesTitle;
+
+  /// No description provided for @aboutSources.
+  ///
+  /// In hi, this message translates to:
+  /// **'हर मानक आधिकारिक भर्ती सूचना से पढ़ा गया है, पेज और पैराग्राफ के साथ। जो पुष्ट नहीं है, वह \'पुष्टि बाकी\' दिखता है।'**
+  String get aboutSources;
+
+  /// No description provided for @aboutDataTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'आपका डेटा'**
+  String get aboutDataTitle;
+
+  /// No description provided for @aboutData.
+  ///
+  /// In hi, this message translates to:
+  /// **'नाम, जन्मतिथि, लिंग, श्रेणी, आपकी दौड़ें (GPS रास्ते), प्लान और लॉग। मौसम के लिए मोटा लोकेशन लिया जाता है, सेव नहीं होता। खाता हटाने पर सब मिट जाता है।'**
+  String get aboutData;
+
+  /// No description provided for @aboutSafetyTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'सेहत'**
+  String get aboutSafetyTitle;
+
+  /// No description provided for @aboutSafety.
+  ///
+  /// In hi, this message translates to:
+  /// **'प्लान और मौसम की सलाह आम जानकारी है, डॉक्टर की सलाह नहीं। दर्द या बीमारी हो तो डॉक्टर से मिलें।'**
+  String get aboutSafety;
 }
 
 class _AppLocalizationsDelegate

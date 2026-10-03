@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../data/app_settings.dart';
 import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
@@ -14,6 +15,7 @@ import '../theme/motion.dart';
 import '../weather/weather_card.dart';
 import '../theme/app_theme.dart';
 import '../theme/widgets.dart';
+import 'demo_badge.dart';
 import 'language_button.dart';
 import 'load_error.dart';
 import 'questionnaire_screen.dart';
@@ -62,6 +64,17 @@ class _TrainingTabState extends State<TrainingTab> {
             : ageOn(widget.profile.dateOfBirth!, DateTime.now()),
       ),
     );
+  }
+
+  bool? _demoSeen;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final demo = SettingsScope.demoOf(context);
+    // Demo mode swaps the data underneath: load it again.
+    if (_demoSeen != null && _demoSeen != demo) _data = _load();
+    _demoSeen = demo;
   }
 
   void _reload() => setState(() {
@@ -164,6 +177,7 @@ class _Intro extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              const DemoBadge(),
               WeatherCard(now: DateTime.now()),
               HeroCard(
                 padding: const EdgeInsets.all(24),
@@ -308,6 +322,7 @@ class _PlanViewState extends State<_PlanView> {
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16),
         children: [
+          const DemoBadge(),
           WeatherCard(now: widget.today),
           if (plan.seeDoctorFirst)
             Card(

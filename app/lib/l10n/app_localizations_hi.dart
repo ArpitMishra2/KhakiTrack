@@ -1307,8 +1307,55 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get demoNote =>
-      'रैंकिंग में नकली छात्र दिखेंगे। असली डेटा नहीं बदलता।';
+      'रैंकिंग, प्लान, प्रगति और दौड़ का नमूना डेटा दिखेगा। असली डेटा नहीं बदलता।';
 
   @override
   String get demoBadge => 'डेमो डेटा';
+
+  @override
+  String get deleteAccount => 'खाता हटाएं';
+
+  @override
+  String get deleteTitle => 'खाता हमेशा के लिए हटाएं?';
+
+  @override
+  String get deleteBody =>
+      'आपकी प्रोफ़ाइल, प्लान, दौड़ें और रैंकिंग हमेशा के लिए हट जाएंगी। यह वापस नहीं हो सकता।';
+
+  @override
+  String get deleteConfirm => 'हमेशा के लिए हटाएं';
+
+  @override
+  String get deleteFailed => 'खाता नहीं हटा। इंटरनेट जांचकर फिर कोशिश करें।';
+
+  @override
+  String get aboutTitle => 'ऐप के बारे में';
+
+  @override
+  String get aboutIndependentTitle => 'स्वतंत्र ऐप';
+
+  @override
+  String get aboutIndependent =>
+      'मैदान किसी सरकारी विभाग या भर्ती बोर्ड से जुड़ा नहीं है। भर्ती से पहले हमेशा आधिकारिक सूचना देखें।';
+
+  @override
+  String get aboutSourcesTitle => 'मानक कहाँ से';
+
+  @override
+  String get aboutSources =>
+      'हर मानक आधिकारिक भर्ती सूचना से पढ़ा गया है, पेज और पैराग्राफ के साथ। जो पुष्ट नहीं है, वह \'पुष्टि बाकी\' दिखता है।';
+
+  @override
+  String get aboutDataTitle => 'आपका डेटा';
+
+  @override
+  String get aboutData =>
+      'नाम, जन्मतिथि, लिंग, श्रेणी, आपकी दौड़ें (GPS रास्ते), प्लान और लॉग। मौसम के लिए मोटा लोकेशन लिया जाता है, सेव नहीं होता। खाता हटाने पर सब मिट जाता है।';
+
+  @override
+  String get aboutSafetyTitle => 'सेहत';
+
+  @override
+  String get aboutSafety =>
+      'प्लान और मौसम की सलाह आम जानकारी है, डॉक्टर की सलाह नहीं। दर्द या बीमारी हो तो डॉक्टर से मिलें।';
 }

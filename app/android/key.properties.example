@@ -1,0 +1,10 @@
+# Copy to android/key.properties and fill in. Never commit the real file or
+# the keystore (both are in .gitignore).
+#
+# Create a keystore once, keep a backup somewhere safe, and remember the
+# passwords: lose it and you cannot update the app on the store.
+#   keytool -genkey -v -keystore ~/maidan-release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias maidan
+storePassword=CHANGE_ME
+keyPassword=CHANGE_ME
+keyAlias=maidan
+storeFile=C:/path/to/maidan-release.jks
