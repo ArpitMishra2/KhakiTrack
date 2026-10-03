@@ -6,6 +6,7 @@ import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../l10n/app_localizations.dart';
 import 'load_error.dart';
+import 'settings_screen.dart';
 import 'standards_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,6 +36,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(l10n.appName),
         actions: [
+          IconButton(
+            tooltip: l10n.settingsTitle,
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.of(context).push<void>(
+              MaterialPageRoute(
+                builder: (_) => SettingsScreen(auth: widget.auth),
+              ),
+            ),
+          ),
           IconButton(
             tooltip: l10n.signOut,
             icon: const Icon(Icons.logout),

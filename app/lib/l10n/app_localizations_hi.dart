@@ -1121,4 +1121,28 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get badgeKm50Hint => 'कुल 50 किमी जाँची गई GPS दौड़ पूरी करो';
+
+  @override
+  String get settingsTitle => 'सेटिंग्स';
+
+  @override
+  String get languageLabel => 'भाषा';
+
+  @override
+  String get lowDataTitle => 'कम डेटा मोड';
+
+  @override
+  String get lowDataNote =>
+      'रैंकिंग और ताज़ा आँकड़े तभी लोड होंगे जब आप माँगेंगे। नेट बचेगा।';
+
+  @override
+  String get lowDataRanking =>
+      'कम डेटा मोड चालू है। रैंकिंग देखने के लिए नीचे दबाएँ।';
+
+  @override
+  String get loadRanking => 'रैंकिंग लोड करें';
+
+  @override
+  String get heatWarning =>
+      'अभी तेज़ गर्मी का समय है (सुबह 10 से शाम 6)। दौड़ सुबह 8 बजे से पहले या शाम 6 के बाद करें, और पानी साथ रखें।';
 }

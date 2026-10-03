@@ -6,11 +6,13 @@ import 'package:supabase_flutter/supabase_flutter.dart' show FunctionException;
 
 import '../data/training_logic.dart';
 import '../gps/location_source.dart';
+import '../gps/pacer.dart';
 import '../gps/run_analysis.dart';
 import '../gps/run_recorder.dart';
 import '../gps/run_repository.dart';
 import '../gps/voice_coach.dart';
 import '../l10n/app_localizations.dart';
+import 'heat_banner.dart';
 import 'standard_labels.dart';
 
 /// Records a GPS run: waits for a GPS fix, shows live numbers, then the
@@ -26,6 +28,8 @@ class RunScreen extends StatefulWidget {
     required this.source,
     required this.runs,
     this.voice,
+    this.buzzer,
+    this.now,
   });
 
   final String examId;
@@ -39,6 +43,12 @@ class RunScreen extends StatefulWidget {
 
   /// Spoken updates; defaults to the phone's text-to-speech.
   final VoiceCoach? voice;
+
+  /// Vibrates when a mock PET falls behind pace; defaults to the phone motor.
+  final Buzzer? buzzer;
+
+  /// Clock for the heat warning; defaults to now.
+  final DateTime? now;
 
   @override
   State<RunScreen> createState() => _RunScreenState();
@@ -59,7 +69,9 @@ class _RunScreenState extends State<RunScreen> {
   bool _refused = false;
   VoiceCoach? _voice;
   Announcer? _announcer;
+  Pacer? _pacer;
   bool _voiceOn = true;
+  final Buzzer _buzzer = PhoneBuzzer();
 
   @override
   void initState() {
@@ -115,6 +127,9 @@ class _RunScreenState extends State<RunScreen> {
       targetM: widget.mockPet ? widget.runMetres : null,
       targetSeconds: widget.mockPet ? widget.targetSeconds : null,
     );
+    _pacer = widget.mockPet
+        ? Pacer(targetM: widget.runMetres, targetSeconds: widget.targetSeconds)
+        : null;
     String spoken(double s) =>
         Announcer.spokenTime(s, (m, sec) => l10n.voiceTime(m, sec));
     _warmup?.cancel();
@@ -130,6 +145,9 @@ class _RunScreenState extends State<RunScreen> {
         final live = r.live;
         if (live != null) {
           _speak(_announcer!.update(live.distanceM, live.durationS, spoken));
+          if (_pacer?.shouldBuzz(live.distanceM, live.durationS) ?? false) {
+            (widget.buzzer ?? _buzzer).buzz();
+          }
         }
         setState(() {});
       }
@@ -255,6 +273,7 @@ class _RunScreenState extends State<RunScreen> {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
+              HeatBanner(now: widget.now ?? DateTime.now()),
               Text(
                 widget.mockPet
                     ? l10n.mockPetIntro(

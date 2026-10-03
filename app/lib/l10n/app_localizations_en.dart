@@ -1123,4 +1123,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get badgeKm50Hint => 'Run 50 km of verified GPS distance in total';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get languageLabel => 'Language';
+
+  @override
+  String get lowDataTitle => 'Low-data mode';
+
+  @override
+  String get lowDataNote =>
+      'Rankings and fresh stats load only when you ask. Saves your data.';
+
+  @override
+  String get lowDataRanking =>
+      'Low-data mode is on. Tap below to see the rankings.';
+
+  @override
+  String get loadRanking => 'Load rankings';
+
+  @override
+  String get heatWarning =>
+      'It is the hot part of the day (10 am to 6 pm). Run before 8 am or after 6 pm, and carry water.';
 }

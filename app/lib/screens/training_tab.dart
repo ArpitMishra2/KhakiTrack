@@ -8,6 +8,7 @@ import '../data/training_logic.dart';
 import '../data/training_models.dart';
 import '../data/training_repository.dart';
 import '../l10n/app_localizations.dart';
+import 'heat_banner.dart';
 import 'load_error.dart';
 import 'questionnaire_screen.dart';
 import 'session_sheet.dart';
@@ -278,6 +279,7 @@ class _PlanViewState extends State<_PlanView> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        HeatBanner(now: widget.today),
         if (plan.seeDoctorFirst)
           Card(
             color: colors.errorContainer,
