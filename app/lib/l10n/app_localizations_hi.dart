@@ -987,4 +987,58 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get examUnconfirmed =>
       'इस परीक्षा के मानक अभी आधिकारिक सूचना से पुष्ट नहीं हुए हैं। पुष्टि होते ही यहाँ दिखेंगे, और तभी AI प्लान, मॉक PET और रैंकिंग चालू होंगी।';
+
+  @override
+  String get voiceStarted =>
+      'चलो शुरू! आराम से शुरुआत करो, पहला किलोमीटर रेस नहीं, वार्म-अप है।';
+
+  @override
+  String voiceKmDone(int km, String time) {
+    return '$km किलोमीटर पूरा। समय $time।';
+  }
+
+  @override
+  String get voiceHalfway => 'आधा रास्ता पूरा!';
+
+  @override
+  String voiceLastStretch(int metres) {
+    return 'बस $metres मीटर बाकी! अब पूरी ताकत लगाओ!';
+  }
+
+  @override
+  String voiceAhead(int seconds) {
+    return 'लक्ष्य से $seconds सेकंड आगे।';
+  }
+
+  @override
+  String voiceBehind(int seconds) {
+    return 'लक्ष्य से $seconds सेकंड पीछे, थोड़ा तेज़!';
+  }
+
+  @override
+  String get voiceCheer1 => 'शाबाश शेर!';
+
+  @override
+  String get voiceCheer2 =>
+      'टांगें बोल रही हैं थक गए, दिल बोल रहा है चलते रहो!';
+
+  @override
+  String get voiceCheer3 => 'वर्दी इंतज़ार कर रही है!';
+
+  @override
+  String get voiceCheer4 => 'साँस पर ध्यान, कदम छोटे और तेज़।';
+
+  @override
+  String get voiceFinished => 'दौड़ पूरी! पानी पियो और थोड़ा टहल लो।';
+
+  @override
+  String voiceTime(int minutes, int seconds) {
+    return '$minutes मिनट $seconds सेकंड';
+  }
+
+  @override
+  String get voiceOn => 'आवाज़ चालू';
+
+  @override
+  String get voiceOff => 'आवाज़ बंद';
 }

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:maidan/gps/location_source.dart';
 import 'package:maidan/gps/run_analysis.dart';
 import 'package:maidan/gps/run_repository.dart';
+import 'package:maidan/gps/voice_coach.dart';
 
 List<TrackPoint> tracePoints(String name) {
   final t =
@@ -93,4 +94,16 @@ class FakeRunRepository implements RunRepository {
 
   @override
   Future<List<GpsRunSummary>> recentRuns() async => [...runs];
+}
+
+/// Records what would have been spoken.
+class FakeVoiceCoach implements VoiceCoach {
+  final List<String> said = [];
+  int stops = 0;
+
+  @override
+  Future<void> say(String text) async => said.add(text);
+
+  @override
+  Future<void> stop() async => stops++;
 }
