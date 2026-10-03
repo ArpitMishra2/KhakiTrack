@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../data/app_settings.dart';
 import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
@@ -112,7 +113,7 @@ class _ProgressTabState extends State<ProgressTab> {
   @override
   void didUpdateWidget(ProgressTab old) {
     super.didUpdateWidget(old);
-    if (widget.visible && !old.visible) {
+    if (widget.visible && !old.visible && !SettingsScope.lowDataOf(context)) {
       _data = _load();
     }
   }

@@ -2040,6 +2040,48 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'कुल 50 किमी जाँची गई GPS दौड़ पूरी करो'**
   String get badgeKm50Hint;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'सेटिंग्स'**
+  String get settingsTitle;
+
+  /// No description provided for @languageLabel.
+  ///
+  /// In hi, this message translates to:
+  /// **'भाषा'**
+  String get languageLabel;
+
+  /// No description provided for @lowDataTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'कम डेटा मोड'**
+  String get lowDataTitle;
+
+  /// No description provided for @lowDataNote.
+  ///
+  /// In hi, this message translates to:
+  /// **'रैंकिंग और ताज़ा आँकड़े तभी लोड होंगे जब आप माँगेंगे। नेट बचेगा।'**
+  String get lowDataNote;
+
+  /// No description provided for @lowDataRanking.
+  ///
+  /// In hi, this message translates to:
+  /// **'कम डेटा मोड चालू है। रैंकिंग देखने के लिए नीचे दबाएँ।'**
+  String get lowDataRanking;
+
+  /// No description provided for @loadRanking.
+  ///
+  /// In hi, this message translates to:
+  /// **'रैंकिंग लोड करें'**
+  String get loadRanking;
+
+  /// No description provided for @heatWarning.
+  ///
+  /// In hi, this message translates to:
+  /// **'अभी तेज़ गर्मी का समय है (सुबह 10 से शाम 6)। दौड़ सुबह 8 बजे से पहले या शाम 6 के बाद करें, और पानी साथ रखें।'**
+  String get heatWarning;
 }
 
 class _AppLocalizationsDelegate

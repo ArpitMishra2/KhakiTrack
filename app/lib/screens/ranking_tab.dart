@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../data/app_settings.dart';
 import '../data/leaderboard_repository.dart';
 import '../data/training_logic.dart';
 import '../l10n/app_localizations.dart';
@@ -23,6 +24,7 @@ class _RankingTabState extends State<RankingTab> {
   List<Community> _mineLoaded = const [];
   String _metric = 'pet';
   int _week = 0;
+  bool _loadRequested = false;
   late Future<List<LeaderboardEntry>> _entries = _fetch();
 
   Future<List<LeaderboardEntry>> _fetch() =>
@@ -71,6 +73,27 @@ class _RankingTabState extends State<RankingTab> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
+    if (SettingsScope.lowDataOf(context) && !_loadRequested) {
+      return Scaffold(
+        appBar: AppBar(title: Text(l10n.tabRanking)),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(l10n.lowDataRanking, textAlign: TextAlign.center),
+                const SizedBox(height: 16),
+                FilledButton(
+                  onPressed: () => setState(() => _loadRequested = true),
+                  child: Text(l10n.loadRanking),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.tabRanking),

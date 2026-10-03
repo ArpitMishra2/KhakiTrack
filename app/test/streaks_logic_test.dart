@@ -19,12 +19,8 @@ GpsRunSummary run(
   verdict: verdict,
 );
 
-SessionLog log(DateTime at, {String status = 'done'}) => SessionLog(
-  week: 1,
-  sessionIndex: 0,
-  status: status,
-  loggedAt: at,
-);
+SessionLog log(DateTime at, {String status = 'done'}) =>
+    SessionLog(week: 1, sessionIndex: 0, status: status, loggedAt: at);
 
 void main() {
   final today = DateTime(2026, 10, 7, 9); // a Wednesday
@@ -81,17 +77,17 @@ void main() {
       run(DateTime(2026, 10, 6, 5, 30), mode: 'mock_pet', finish: 1400),
       run(DateTime(2026, 9, 1, 17), metres: 48000),
     ];
-    final days = {
-      ...activityDays(const [], runs),
-      DateTime(2026, 10, 7),
-    };
+    final days = {...activityDays(const [], runs), DateTime(2026, 10, 7)};
     final b = computeBadges(days, runs, today, targetSeconds: 1440);
-    expect(b.earned, containsAll([
-      BadgeKind.earlyBird,
-      BadgeKind.comeback,
-      BadgeKind.qualified,
-      BadgeKind.km50,
-    ]));
+    expect(
+      b.earned,
+      containsAll([
+        BadgeKind.earlyBird,
+        BadgeKind.comeback,
+        BadgeKind.qualified,
+        BadgeKind.km50,
+      ]),
+    );
     expect(b.earned, isNot(contains(BadgeKind.streak3)));
     expect(
       computeBadges(days, runs, today, targetSeconds: 1000).earned,
