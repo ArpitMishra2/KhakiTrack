@@ -6,6 +6,7 @@ import '../data/exam_models.dart';
 import '../data/exam_repository.dart';
 import '../data/profile.dart';
 import '../data/standards_logic.dart';
+import '../data/streaks_logic.dart';
 import '../data/training_logic.dart';
 import '../data/training_models.dart';
 import '../data/training_repository.dart';
@@ -48,6 +49,7 @@ typedef _Data = ({
   List<TimeTrial> trials,
   Standard? run,
   List<GpsRunSummary> gpsRuns,
+  List<SessionLog> logs,
   int pending,
 });
 
@@ -66,9 +68,10 @@ class _ProgressTabState extends State<ProgressTab> {
       widget.runs.recentRuns(),
       widget.runs.pendingCount(),
     ]);
-    final results = await Future.wait<Object>([
+    final results = await Future.wait<Object?>([
       widget.training.fetchTimeTrials(examId),
       widget.exams.fetchStandards(examId),
+      widget.training.fetchActivePlan(),
     ]);
     return (
       trials: results[0] as List<TimeTrial>,
@@ -81,6 +84,7 @@ class _ProgressTabState extends State<ProgressTab> {
             : ageOn(widget.profile.dateOfBirth!, DateTime.now()),
       ),
       gpsRuns: gps[0] as List<GpsRunSummary>,
+      logs: (results[2] as TrainingPlan?)?.logs ?? const [],
       pending: gps[1] as int,
     );
   }
@@ -189,6 +193,13 @@ class _ProgressTabState extends State<ProgressTab> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
       children: [
+        _StreakCard(
+          days: activityDays(data.logs, data.gpsRuns),
+          runs: data.gpsRuns,
+          today: widget.today ?? DateTime.now(),
+          targetSeconds: target,
+        ),
+        const SizedBox(height: 8),
         Card(
           child: Padding(
             padding: const EdgeInsets.all(12),
@@ -274,7 +285,7 @@ class _ProgressTabState extends State<ProgressTab> {
         if (data.gpsRuns.isNotEmpty) ...[
           const SizedBox(height: 16),
           Text(l10n.recentRuns, style: textTheme.titleMedium),
-          for (final g in data.gpsRuns)
+          for (final g in data.gpsRuns.take(10))
             ListTile(
               dense: true,
               leading: Icon(switch (g.verdict) {
@@ -296,6 +307,144 @@ class _ProgressTabState extends State<ProgressTab> {
     );
   }
 }
+
+class _StreakCard extends StatelessWidget {
+  const _StreakCard({
+    required this.days,
+    required this.runs,
+    required this.today,
+    required this.targetSeconds,
+  });
+
+  final Set<DateTime> days;
+  final List<GpsRunSummary> runs;
+  final DateTime today;
+  final double targetSeconds;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
+    final streak = computeStreak(days, today);
+    final dots = weekDots(days, today);
+    final badges = computeBadges(
+      days,
+      runs,
+      today,
+      targetSeconds: targetSeconds,
+    );
+    final initials = l10n.weekdayInitials.split(',');
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.local_fire_department,
+                  size: 40,
+                  color: streak.current > 0
+                      ? Colors.deepOrange
+                      : colors.outline,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.streakDays(streak.current),
+                        style: textTheme.titleLarge,
+                      ),
+                      Text(
+                        streak.current == 0
+                            ? l10n.streakStart
+                            : l10n.streakBest(streak.best),
+                        style: textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                for (var i = 0; i < 7; i++)
+                  Column(
+                    children: [
+                      Text(initials[i], style: textTheme.bodySmall),
+                      Icon(
+                        dots[i] ? Icons.check_circle : Icons.circle_outlined,
+                        color: dots[i] ? colors.primary : colors.outline,
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+            const Divider(height: 24),
+            Text(l10n.badgesTitle, style: textTheme.titleSmall),
+            const SizedBox(height: 4),
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              children: [
+                for (final b in BadgeKind.values)
+                  Tooltip(
+                    message: badgeHint(l10n, b),
+                    triggerMode: TooltipTriggerMode.tap,
+                    child: Chip(
+                      avatar: Icon(
+                        badges.earned.contains(b)
+                            ? Icons.emoji_events
+                            : Icons.lock,
+                        size: 18,
+                        color: badges.earned.contains(b)
+                            ? Colors.amber.shade800
+                            : colors.outline,
+                      ),
+                      label: Text(
+                        badgeName(l10n, b),
+                        style: TextStyle(
+                          color: badges.earned.contains(b)
+                              ? null
+                              : colors.outline,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+String badgeName(AppLocalizations l10n, BadgeKind b) => switch (b) {
+  BadgeKind.earlyBird => l10n.badgeEarlyBird,
+  BadgeKind.comeback => l10n.badgeComeback,
+  BadgeKind.streak3 => l10n.badgeStreak3,
+  BadgeKind.streak7 => l10n.badgeStreak7,
+  BadgeKind.streak30 => l10n.badgeStreak30,
+  BadgeKind.qualified => l10n.badgeQualified,
+  BadgeKind.km50 => l10n.badgeKm50,
+};
+
+String badgeHint(AppLocalizations l10n, BadgeKind b) => switch (b) {
+  BadgeKind.earlyBird => l10n.badgeEarlyBirdHint,
+  BadgeKind.comeback => l10n.badgeComebackHint,
+  BadgeKind.streak3 => l10n.badgeStreak3Hint,
+  BadgeKind.streak7 => l10n.badgeStreak7Hint,
+  BadgeKind.streak30 => l10n.badgeStreak30Hint,
+  BadgeKind.qualified => l10n.badgeQualifiedHint,
+  BadgeKind.km50 => l10n.badgeKm50Hint,
+};
 
 class _TrialChart extends CustomPainter {
   _TrialChart({

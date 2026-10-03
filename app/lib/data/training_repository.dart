@@ -57,7 +57,7 @@ class SupabaseTrainingRepository implements TrainingRepository {
       _client
           .from('session_logs')
           .select(
-            'week_number, session_index, status, distance_km, duration_seconds, effort, pain, note',
+            'week_number, session_index, status, distance_km, duration_seconds, effort, pain, note, logged_at',
           )
           .eq('plan_id', id),
     ]);

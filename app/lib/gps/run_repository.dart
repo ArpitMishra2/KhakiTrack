@@ -195,7 +195,7 @@ class SupabaseRunRepository implements RunRepository {
         )
         .eq('user_id', _client.auth.currentUser!.id)
         .order('started_at', ascending: false)
-        .limit(20);
+        .limit(60);
     return rows.map(GpsRunSummary.fromRow).toList();
   }
 }

@@ -1926,6 +1926,120 @@ abstract class AppLocalizations {
   /// In hi, this message translates to:
   /// **'मैदान ऐप की इस हफ़्ते की लीडरबोर्ड ({board}) में मेरी रैंक #{rank} है, {value}! क्या तुम मुझे हरा सकते हो?'**
   String shareRankText(String board, int rank, String value);
+
+  /// No description provided for @streakDays.
+  ///
+  /// In hi, this message translates to:
+  /// **'{n} दिन की लकीर'**
+  String streakDays(int n);
+
+  /// No description provided for @streakStart.
+  ///
+  /// In hi, this message translates to:
+  /// **'आज दौड़ो और लकीर शुरू करो!'**
+  String get streakStart;
+
+  /// No description provided for @streakBest.
+  ///
+  /// In hi, this message translates to:
+  /// **'सबसे लंबी लकीर: {n} दिन'**
+  String streakBest(int n);
+
+  /// No description provided for @weekdayInitials.
+  ///
+  /// In hi, this message translates to:
+  /// **'सो,मं,बु,गु,शु,श,र'**
+  String get weekdayInitials;
+
+  /// No description provided for @badgesTitle.
+  ///
+  /// In hi, this message translates to:
+  /// **'बैज'**
+  String get badgesTitle;
+
+  /// No description provided for @badgeEarlyBird.
+  ///
+  /// In hi, this message translates to:
+  /// **'सुबह का शेर'**
+  String get badgeEarlyBird;
+
+  /// No description provided for @badgeEarlyBirdHint.
+  ///
+  /// In hi, this message translates to:
+  /// **'सुबह 4 से 7 बजे के बीच GPS दौड़ पूरी करो'**
+  String get badgeEarlyBirdHint;
+
+  /// No description provided for @badgeComeback.
+  ///
+  /// In hi, this message translates to:
+  /// **'आलस-विजेता'**
+  String get badgeComeback;
+
+  /// No description provided for @badgeComebackHint.
+  ///
+  /// In hi, this message translates to:
+  /// **'4+ दिन की छुट्टी के बाद फिर से मैदान में लौटो'**
+  String get badgeComebackHint;
+
+  /// No description provided for @badgeStreak3.
+  ///
+  /// In hi, this message translates to:
+  /// **'तीन दिन का तूफ़ान'**
+  String get badgeStreak3;
+
+  /// No description provided for @badgeStreak3Hint.
+  ///
+  /// In hi, this message translates to:
+  /// **'लगातार 3 दिन ट्रेनिंग करो'**
+  String get badgeStreak3Hint;
+
+  /// No description provided for @badgeStreak7.
+  ///
+  /// In hi, this message translates to:
+  /// **'हफ़्ते का हीरो'**
+  String get badgeStreak7;
+
+  /// No description provided for @badgeStreak7Hint.
+  ///
+  /// In hi, this message translates to:
+  /// **'लगातार 7 दिन ट्रेनिंग करो'**
+  String get badgeStreak7Hint;
+
+  /// No description provided for @badgeStreak30.
+  ///
+  /// In hi, this message translates to:
+  /// **'महीने का महारथी'**
+  String get badgeStreak30;
+
+  /// No description provided for @badgeStreak30Hint.
+  ///
+  /// In hi, this message translates to:
+  /// **'लगातार 30 दिन ट्रेनिंग करो'**
+  String get badgeStreak30Hint;
+
+  /// No description provided for @badgeQualified.
+  ///
+  /// In hi, this message translates to:
+  /// **'वर्दी के क़रीब'**
+  String get badgeQualified;
+
+  /// No description provided for @badgeQualifiedHint.
+  ///
+  /// In hi, this message translates to:
+  /// **'मॉक PET लक्ष्य समय के अंदर पूरी करो'**
+  String get badgeQualifiedHint;
+
+  /// No description provided for @badgeKm50.
+  ///
+  /// In hi, this message translates to:
+  /// **'50 किमी क्लब'**
+  String get badgeKm50;
+
+  /// No description provided for @badgeKm50Hint.
+  ///
+  /// In hi, this message translates to:
+  /// **'कुल 50 किमी जाँची गई GPS दौड़ पूरी करो'**
+  String get badgeKm50Hint;
 }
 
 class _AppLocalizationsDelegate

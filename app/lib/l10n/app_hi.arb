@@ -705,5 +705,26 @@
       "rank": {"type": "int"},
       "value": {"type": "String"}
     }
-  }
+  },
+  "streakDays": "{n} दिन की लकीर",
+  "@streakDays": {"placeholders": {"n": {"type": "int"}}},
+  "streakStart": "आज दौड़ो और लकीर शुरू करो!",
+  "streakBest": "सबसे लंबी लकीर: {n} दिन",
+  "@streakBest": {"placeholders": {"n": {"type": "int"}}},
+  "weekdayInitials": "सो,मं,बु,गु,शु,श,र",
+  "badgesTitle": "बैज",
+  "badgeEarlyBird": "सुबह का शेर",
+  "badgeEarlyBirdHint": "सुबह 4 से 7 बजे के बीच GPS दौड़ पूरी करो",
+  "badgeComeback": "आलस-विजेता",
+  "badgeComebackHint": "4+ दिन की छुट्टी के बाद फिर से मैदान में लौटो",
+  "badgeStreak3": "तीन दिन का तूफ़ान",
+  "badgeStreak3Hint": "लगातार 3 दिन ट्रेनिंग करो",
+  "badgeStreak7": "हफ़्ते का हीरो",
+  "badgeStreak7Hint": "लगातार 7 दिन ट्रेनिंग करो",
+  "badgeStreak30": "महीने का महारथी",
+  "badgeStreak30Hint": "लगातार 30 दिन ट्रेनिंग करो",
+  "badgeQualified": "वर्दी के क़रीब",
+  "badgeQualifiedHint": "मॉक PET लक्ष्य समय के अंदर पूरी करो",
+  "badgeKm50": "50 किमी क्लब",
+  "badgeKm50Hint": "कुल 50 किमी जाँची गई GPS दौड़ पूरी करो"
 }
