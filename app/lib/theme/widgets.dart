@@ -129,6 +129,7 @@ class BigStat extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
             color: labelColor ?? colors.onSurfaceVariant,
           ),

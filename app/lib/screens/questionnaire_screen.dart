@@ -109,10 +109,29 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
       appBar: AppBar(
         title: Text(l10n.qTitle),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(24),
+          preferredSize: const Size.fromHeight(44),
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Text(l10n.qStep(_step + 1, _steps)),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(99),
+                  child: LinearProgressIndicator(
+                    value: (_step + 1) / _steps,
+                    minHeight: 8,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.outlineVariant,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  l10n.qStep(_step + 1, _steps),
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -149,6 +168,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                 ),
               const Spacer(),
               FilledButton(
+                style: FilledButton.styleFrom(minimumSize: const Size(140, 54)),
                 onPressed: !_stepValid
                     ? null
                     : last

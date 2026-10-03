@@ -202,6 +202,7 @@ void main() {
     await _shot(tester, key, '7_run_result');
   }, skip: _out == null);
   _onboardingTests();
+  _secondaryTests();
 }
 
 Future<void> _pumpShell(
@@ -271,6 +272,71 @@ void _onboardingTests() {
       profiles: FakeProfileRepository(),
     );
     await _shot(tester, key, '9_training_intro');
+  }, skip: _out == null);
+}
+
+void _secondaryTests() {
+  testWidgets('preview secondary screens', (tester) async {
+    await _loadFonts();
+    _phone(tester);
+    final key = GlobalKey();
+    final now = DateTime.now();
+    final boards = FakeLeaderboardRepository()
+      ..addCommunity('Sajeti Gaon', join: true)
+      ..addCommunity('Subah Ki Daud', group: true, join: true);
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: key,
+        child: MaidanApp(
+          boards: boards,
+          runs: FakeRunRepository(),
+          location: (_) => FakeLocationSource(),
+          repository: FakeExamRepository(),
+          auth: FakeAuthService(),
+          profiles: FakeProfileRepository(),
+          training: FakeTrainingRepository(start: now)..plan = samplePlan(now),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    // Session sheet.
+    await tester.tap(find.text('4.8 किमी टाइम ट्रायल'));
+    await tester.pumpAndSettle();
+    await _shot(tester, key, '10_session_sheet');
+    await tester.tapAt(const Offset(200, 40));
+    await tester.pumpAndSettle();
+    // Settings.
+    await tester.tap(find.byType(NavigationDestination).at(1));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.settings));
+    await tester.pumpAndSettle();
+    await _shot(tester, key, '11_settings');
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    // Communities.
+    await tester.tap(find.byType(NavigationDestination).at(3));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('इलाके / ग्रुप'));
+    await tester.pumpAndSettle();
+    await _shot(tester, key, '12_communities');
+  }, skip: _out == null);
+
+  testWidgets('preview questionnaire', (tester) async {
+    await _loadFonts();
+    _phone(tester);
+    final key = GlobalKey();
+    await _pumpShell(
+      tester,
+      key,
+      auth: FakeAuthService(),
+      profiles: FakeProfileRepository(),
+    );
+    await tester.tap(find.text('प्लान बनाना शुरू करें'));
+    await tester.pumpAndSettle();
+    await _shot(tester, key, '13_questionnaire');
+    await tester.tap(find.text('हाँ'));
+    await tester.pumpAndSettle();
+    await _shot(tester, key, '14_questionnaire_yes');
   }, skip: _out == null);
 }
 

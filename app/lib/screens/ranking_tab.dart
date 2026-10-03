@@ -570,7 +570,21 @@ class _RankRow extends StatelessWidget {
             Flexible(
               child: FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Text(value, style: numerals(30)),
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: value.split(' ').first,
+                        style: numerals(30),
+                      ),
+                      if (value.contains(' '))
+                        TextSpan(
+                          text: ' ${value.substring(value.indexOf(' ') + 1)}',
+                          style: textTheme.titleSmall,
+                        ),
+                    ],
+                  ),
+                ),
               ),
             ),
             if (onShare != null)
