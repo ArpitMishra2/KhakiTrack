@@ -72,6 +72,8 @@ class AppTheme {
       onSecondary: Brand.ink,
       secondaryContainer: const Color(0xFF3A3F28),
       onSecondaryContainer: Colors.white,
+      tertiaryContainer: const Color(0xFF5C4A12),
+      onTertiaryContainer: Colors.white,
       surface: Brand.oliveDeep,
       onSurface: const Color(0xFFF3F0E4),
       onSurfaceVariant: const Color(0xFFB9B5A0),

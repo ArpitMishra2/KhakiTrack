@@ -265,6 +265,14 @@ class _RunScreenState extends State<RunScreen> {
     ),
   );
 
+  /// 5000 -> "5", 4800 -> "4.8": digits only, for the numeral font.
+  static String _kmNumber(int metres) {
+    final km = metres / 1000;
+    return km == km.roundToDouble()
+        ? km.toStringAsFixed(0)
+        : km.toStringAsFixed(1);
+  }
+
   Widget _warmupView(AppLocalizations l10n) {
     final textTheme = Theme.of(context).textTheme;
     final acc = _warmupAccuracy;
@@ -277,6 +285,40 @@ class _RunScreenState extends State<RunScreen> {
             padding: const EdgeInsets.all(24),
             children: [
               HeatBanner(now: widget.now ?? DateTime.now()),
+              if (widget.mockPet)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: BigStat(
+                            value: _kmNumber(widget.runMetres),
+                            label:
+                                '${l10n.distanceLabel} (${l10n.km('').trim()})',
+                            size: 52,
+                            color: Brand.saffron,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                          ),
+                        ),
+                        Expanded(
+                          child: BigStat(
+                            value: formatDuration(widget.targetSeconds),
+                            label: l10n
+                                .targetLine('')
+                                .replaceAll(':', '')
+                                .trim(),
+                            size: 52,
+                            color: Colors.white,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 8),
               Text(
                 widget.mockPet
                     ? l10n.mockPetIntro(
@@ -289,23 +331,39 @@ class _RunScreenState extends State<RunScreen> {
               const SizedBox(height: 16),
               Text(l10n.runTips),
               const SizedBox(height: 24),
-              Row(
-                children: [
-                  Icon(
-                    ready ? Icons.gps_fixed : Icons.gps_not_fixed,
-                    color: ready ? Theme.of(context).colorScheme.primary : null,
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ready
+                              ? Brand.saffron
+                              : Theme.of(context).colorScheme.outlineVariant,
+                        ),
+                        child: Icon(
+                          ready ? Icons.gps_fixed : Icons.gps_not_fixed,
+                          color: ready ? Brand.ink : null,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          acc == null
+                              ? l10n.gpsSearching
+                              : ready
+                              ? '${l10n.gpsReady} · ${l10n.gpsAccuracy(acc.round())}'
+                              : l10n.gpsAccuracy(acc.round()),
+                          style: textTheme.titleSmall,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      acc == null
-                          ? l10n.gpsSearching
-                          : ready
-                          ? '${l10n.gpsReady} · ${l10n.gpsAccuracy(acc.round())}'
-                          : l10n.gpsAccuracy(acc.round()),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
